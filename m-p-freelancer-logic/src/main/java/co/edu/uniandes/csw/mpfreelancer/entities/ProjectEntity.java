@@ -57,6 +57,9 @@ public class ProjectEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<ProjectSprintEntity> projectSprints = new ArrayList<>();
     
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AgreementEntity> agreements = new ArrayList<>();
+     
     /**
      * @generated
      */
@@ -195,5 +198,19 @@ public class ProjectEntity extends BaseEntity implements Serializable {
      */
     public void setProjectSprints(List<ProjectSprintEntity> projectSprints) {
         this.projectSprints = projectSprints;
+    }
+    
+    /**
+     * @generated
+     */
+    public List<AgreementEntity> getAgreements() {
+        return agreements;
+    }
+
+    /**
+     * @generated
+     */
+    public void setAgreements(List<AgreementEntity> agreements) {
+        this.agreements = agreements;
     }
 }
