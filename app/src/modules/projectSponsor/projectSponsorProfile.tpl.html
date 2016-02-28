@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<div class="list">
+    <div id="profile" >
+        <div class="row">
+            <div style="box-shadow: 2px 2px 5px gray; border-radius: 5px" class="col-md-12">
+                <div class="row">
+                    <div class="col-md-3">
+                        <img src="{{projectSponsor.picture}}" class="img-responsive">    
+                    </div>
+                    <div class="col-md-9">
+                        <h1 >{{user.givenName+" "+user.middleName+" "+user.surName}}</h1>
+                        <label>Company: {{projectSponsor.company}}</label>
+                    </div>
+                </div>                
+                
+            </div>
+        </div>
+        <div class="row">
+            <div style="box-shadow: 2px 2px 5px gray; border-radius: 5px" class="col-md-12">
+                <h1>Projects <span class="glyphicon glyphicon-briefcase"></span></h1>
+                <div ng-repeat="project in projectSponsor.projects" class="row" style="margin: 5px">                    
+                    <h3 style="color: black">{{project.name}}</h3>                                       
+                    {{project.description}}<br>
+                    {{project.price | currency}}<br> 
+                    <label>Dead line </label> {{project.deadLine | date:'mediumDate'}}<br>
+                    <label>Publication Date </label> {{project.publicationDate | date:'mediumDate'}}<br>
+                    <label>Start Date </label> {{project.startDate | date:'mediumDate'}}<br>
+                    <label>{{project.status.name}}</label><br><br>
+                    
+                </div>
+            </div>
+        </div>
+    </div>
+    <div id="editProfile" >
+        
+    </div>
+</div>

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<div class="list">            
+        <div ng-repeat="project in projects">
+            <div style="box-shadow: 2px 2px 5px gray; border-radius: 5px" class="col-md-4 col-sm-6 col-lg-3 well">
+            <div class="col-md-12">
+                <div class="img-thumbnail" >
+                    <a ng-href="{{project.sponsor.picture}}" target="_blank"><img style="width: 250px;height: 200px" class="img-responsive" ng-src="{{project.sponsor.picture}}"></a>
+                </div>
+            </div>
+            <div class="caption" >
+                <p><strong>Name: </strong> {{project.name}}</p>
+                <p><strong>Price: </strong> {{project.price| currency}}</p>
+                <p><strong>Dead Line: </strong> {{project.deadLine| date:'mediumDate'}}</p>
+                <p><strong>Status: </strong> {{project.status.name}}</p>               
+            </div>
+            </div>
+        </div>
+</div>
