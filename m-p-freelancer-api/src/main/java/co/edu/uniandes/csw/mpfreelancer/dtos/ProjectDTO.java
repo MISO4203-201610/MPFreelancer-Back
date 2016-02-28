@@ -34,7 +34,9 @@ public class ProjectDTO {
     private StatusDTO status;    
     @PodamExclude
     private AgreementDTO agreement;
-
+    @PodamExclude
+    private AgreementDTO agreement;
+    
     /**
      * @generated
      */

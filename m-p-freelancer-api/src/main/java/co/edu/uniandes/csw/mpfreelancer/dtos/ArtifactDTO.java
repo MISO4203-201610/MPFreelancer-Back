@@ -1,4 +1,4 @@
-package co.edu.uniandes.csw.mpfreelancer.entities;
+package co.edu.uniandes.csw.mpfreelancer.dtos;
 
 import java.io.Serializable;
 import javax.persistence.Entity;
@@ -10,7 +10,7 @@ import javax.persistence.ManyToOne;
  * @generated
  */
 @Entity
-public class ArtifactEntity extends BaseEntity implements Serializable {
+public class ArtifactDTO extends BaseEntity implements Serializable {
 
     private String description;
     
@@ -18,7 +18,7 @@ public class ArtifactEntity extends BaseEntity implements Serializable {
     
     @PodamExclude
     @ManyToOne
-    private ProjectSprintEntity projectSprint;
+    private ProjectSprintDTO projectSprint;
 
     /**
      * @generated
@@ -51,14 +51,14 @@ public class ArtifactEntity extends BaseEntity implements Serializable {
     /**
      * @generated
      */
-    public ProjectSprintEntity getProjectSprint(){
+    public ProjectSprintDTO getProjectSprint(){
         return projectSprint;
     }
 
     /**
      * @generated
      */
-    public void setProjectSprint(ProjectSprintEntity projectSprint){
+    public void setProjectSprint(ProjectSprintDTO name){
         this.projectSprint = projectSprint;
     }
 }
