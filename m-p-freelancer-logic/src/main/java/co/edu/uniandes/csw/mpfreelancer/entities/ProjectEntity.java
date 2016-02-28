@@ -50,7 +50,7 @@ public class ProjectEntity extends BaseEntity implements Serializable {
 
     @PodamExclude
     @ManyToMany
-    private List<SkillEntity> expectedskills = new ArrayList<>();
+    private List<SkillEntity> expectedskills = new ArrayList<>();   
 
     /**
      * @generated

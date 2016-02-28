@@ -31,7 +31,9 @@ public class ProjectDTO {
     @PodamExclude
     private ProjectSponsorDTO sponsor;
     @PodamExclude
-    private StatusDTO status;
+    private StatusDTO status;    
+    @PodamExclude
+    private AgreementDTO agreement;
 
     /**
      * @generated
@@ -187,4 +189,11 @@ public class ProjectDTO {
         this.expectedskills = expectedskills;
     }
 
+    public AgreementDTO getAgreement() {
+        return agreement;
+    }
+
+    public void setAgreement(AgreementDTO agreement) {
+        this.agreement = agreement;
+    }    
 }

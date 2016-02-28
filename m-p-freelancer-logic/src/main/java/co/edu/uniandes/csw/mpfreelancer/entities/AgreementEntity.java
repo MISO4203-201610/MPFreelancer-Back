@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 
 /**
  * @generated
@@ -12,7 +13,7 @@ import javax.persistence.ManyToOne;
 @Entity
 public class AgreementEntity extends BaseEntity implements Serializable {
 
-    private Double price;
+    private Integer price;
     
     private Double rate;
     
@@ -23,10 +24,9 @@ public class AgreementEntity extends BaseEntity implements Serializable {
     private FreelancerEntity freelancer;
 
     @PodamExclude
-    @ManyToOne
+    @OneToOne
     private ProjectEntity project;
-
-    
+        
     /**
      * @generated
      */
@@ -87,14 +87,14 @@ public class AgreementEntity extends BaseEntity implements Serializable {
     /**
      * @generated
      */
-    public Double getPrice(){
+    public Integer getPrice(){
         return price;
     }
 
     /**
      * @generated
      */
-    public void setPrice(Double price){
+    public void setPrice(Integer price){
         this.price = price;
     }
 }
