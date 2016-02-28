@@ -2,7 +2,9 @@ package co.edu.uniandes.csw.mpfreelancer.ejbs;
 
 import co.edu.uniandes.csw.mp.ann.MPLoCAnn;
 import co.edu.uniandes.csw.mpfreelancer.api.IProjectLogic;
+import co.edu.uniandes.csw.mpfreelancer.api.IProjectSprintLogic;
 import co.edu.uniandes.csw.mpfreelancer.entities.ProjectEntity;
+import co.edu.uniandes.csw.mpfreelancer.entities.ProjectSprintEntity;
 import co.edu.uniandes.csw.mpfreelancer.persistence.ProjectPersistence;
 import co.edu.uniandes.csw.mpfreelancer.entities.SkillEntity;
 import java.util.List;
@@ -17,6 +19,8 @@ public class ProjectLogic implements IProjectLogic {
 
     @Inject private ProjectPersistence persistence;
 
+    @Inject private IProjectSprintLogic projectSprintLogic;
+    
     /**
      * @generated
      */
@@ -133,5 +137,35 @@ public class ProjectLogic implements IProjectLogic {
         SkillEntity expectedskillsEntity = new SkillEntity();
         expectedskillsEntity.setId(expectedskillsId);
         entity.getExpectedskills().remove(expectedskillsEntity);
+    }
+    
+    @Override
+    public List<ProjectSprintEntity> listProjectSprints(Long projectId) {
+        return persistence.find(projectId).getProjectSprints();
+    }
+
+    @Override
+    public ProjectSprintEntity getProjectSprints(Long projectId, Long projectSprintId) {
+        return persistence.find(projectId).getProjectSprints()
+                .stream()
+                .filter(a -> a.getId().equals(projectSprintId))
+                .findFirst()
+                .get();
+    }
+
+    @Override
+    public ProjectSprintEntity addProjectSprints(Long projectId, Long projectSprintId) {
+        ProjectEntity projectEntity = persistence.find(projectId);
+        ProjectSprintEntity projectSprintEntity = projectSprintLogic.getProjectSprint(projectSprintId);
+        projectSprintEntity.setProject(projectEntity);
+        return projectSprintEntity;
+    }
+
+    @Override
+    public void removeProjectSprints(Long projectId, Long projectSprintId) {
+        ProjectEntity entity = persistence.find(projectId);
+        ProjectSprintEntity projectSprintEntity = new ProjectSprintEntity();
+        projectSprintEntity.setId(projectSprintId);
+        entity.getProjectSprints().remove(projectSprintEntity);
     }
 }

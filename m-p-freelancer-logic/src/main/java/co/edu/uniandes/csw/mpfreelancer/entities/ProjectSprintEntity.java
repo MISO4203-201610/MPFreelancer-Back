@@ -11,6 +11,7 @@ import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import uk.co.jemos.podam.common.PodamExclude;
 import java.util.List;
 import java.util.ArrayList;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
 /**
@@ -35,18 +36,36 @@ public class ProjectSprintEntity extends BaseEntity implements Serializable {
     @OneToMany
     private List<ArtifactEntity> artifacts = new ArrayList<>();
 
+    @PodamExclude
+    @ManyToOne
+    private ProjectEntity project;
+
     /**
      * @generated
      */
-    public List<ArtifactEntity> getArtifact() {
+    public List<ArtifactEntity> getArtifacts() {
         return artifacts;
     }
 
     /**
      * @generated
      */
-    public void setArtifact(List<ArtifactEntity> artifacts) {
+    public void setArtifacts(List<ArtifactEntity> artifacts) {
         this.artifacts = artifacts;
+    }
+    
+    /**
+     * @generated
+     */
+    public ProjectEntity getProject(){
+        return project;
+    }
+
+    /**
+     * @generated
+     */
+    public void setProject(ProjectEntity project){
+        this.project = project;
     }
     
     /**
