@@ -72,11 +72,7 @@ public abstract class AgreementConverter {
             entity.setSelected(dto.getSelected());
             entity.setFreelancer(FreelancerConverter.refDTO2Entity(dto.getFreelancer()));
             entity.setProject(ProjectConverter.refDTO2Entity(dto.getProject()));
-<<<<<<< OURS
-            
-=======
 
->>>>>>> THEIRS
             return entity;
         } else {
             return null;
