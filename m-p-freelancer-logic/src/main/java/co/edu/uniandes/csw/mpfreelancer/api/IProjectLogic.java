@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.mpfreelancer.api;
 
 import co.edu.uniandes.csw.mpfreelancer.entities.ProjectEntity;
+import co.edu.uniandes.csw.mpfreelancer.entities.ProjectSprintEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.SkillEntity;
 import java.util.List;
 
@@ -17,4 +18,9 @@ public interface IProjectLogic {
     public SkillEntity addExpectedskills(Long projectId, Long expectedskillsId);
     public List<SkillEntity> replaceExpectedskills(Long projectId, List<SkillEntity> list);
     public void removeExpectedskills(Long projectId, Long expectedskillsId);
+    
+    public List<ProjectSprintEntity> listProjectSprints(Long projectId);
+    public ProjectSprintEntity getProjectSprints(Long projectId, Long projectSprintId);
+    public ProjectSprintEntity addProjectSprints(Long projectId, Long projectSprintId);
+    public void removeProjectSprints(Long projectId, Long projectSprintId);
 }
