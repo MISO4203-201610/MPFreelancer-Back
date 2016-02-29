@@ -34,8 +34,8 @@ import javax.servlet.http.HttpServletRequest;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class FreelancerService {
-    private static final String FREELANCER_HREF = "https://api.stormpath.com/v1/groups/3CjtuIMsdhm8TZoJV6AJXU";
-    private static final String ADMIN_HREF = "https://api.stormpath.com/v1/groups/3p6UM8157vb7qeHNip085I";    
+    private static final String FREELANCER_HREF = "https://api.stormpath.com/v1/groups/mNePGgZXIo2wW01EvWRzl";
+    private static final String ADMIN_HREF = "https://api.stormpath.com/v1/groups/aDD8ajP65mhgxRNvASTfl";    
 
     @Inject private IFreelancerLogic freelancerLogic;
     @Context private HttpServletRequest req;

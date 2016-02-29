@@ -5,7 +5,6 @@ import javax.persistence.Entity;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToOne;
 
 /**
  * @generated
@@ -24,7 +23,7 @@ public class AgreementEntity extends BaseEntity implements Serializable {
     private FreelancerEntity freelancer;
 
     @PodamExclude
-    @OneToOne
+    @ManyToOne
     private ProjectEntity project;
         
     /**

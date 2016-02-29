@@ -1,25 +1,51 @@
-package co.edu.uniandes.csw.mpfreelancer.entities;
+package co.edu.uniandes.csw.mpfreelancer.dtos;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import uk.co.jemos.podam.common.PodamExclude;
-import javax.persistence.ManyToOne;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @generated
  */
-@Entity
-public class ArtifactEntity extends BaseEntity implements Serializable {
+@XmlRootElement
+public class ArtifactDTO {
 
+    private Long id;
+    private String name;
+    
     private String description;
     
     private String path;
     
     @PodamExclude
-    @ManyToOne
-    private ProjectSprintEntity projectSprint;
+    private ProjectSprintDTO projectSprint;
 
+    /**
+     * @generated
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @generated
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @generated
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @generated
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
     /**
      * @generated
      */
@@ -51,14 +77,14 @@ public class ArtifactEntity extends BaseEntity implements Serializable {
     /**
      * @generated
      */
-    public ProjectSprintEntity getProjectSprint(){
+    public ProjectSprintDTO getProjectSprint(){
         return projectSprint;
     }
 
     /**
      * @generated
      */
-    public void setProjectSprint(ProjectSprintEntity projectSprint){
+    public void setProjectSprint(ProjectSprintDTO projectSprint){
         this.projectSprint = projectSprint;
     }
 }

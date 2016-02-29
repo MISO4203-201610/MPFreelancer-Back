@@ -35,8 +35,8 @@ import javax.servlet.http.HttpServletRequest;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProjectSponsorService {
     
-    private static final String PROYECT_SPONSOR_HREF = "https://api.stormpath.com/v1/groups/3irXbNcx6lMl2vCEONqH7I";    
-    private static final String ADMIN_HREF = "https://api.stormpath.com/v1/groups/3p6UM8157vb7qeHNip085I";    
+    private static final String PROYECT_SPONSOR_HREF = "https://api.stormpath.com/v1/groups/w94UQuPl5386Zk91Numiv";    
+    private static final String ADMIN_HREF = "https://api.stormpath.com/v1/groups/aDD8ajP65mhgxRNvASTfl";    
 
     @Inject private IProjectSponsorLogic projectSponsorLogic;
     @Context private HttpServletRequest req;

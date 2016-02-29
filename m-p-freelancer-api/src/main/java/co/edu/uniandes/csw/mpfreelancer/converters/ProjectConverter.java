@@ -132,6 +132,8 @@ public abstract class ProjectConverter {
         if (entity != null) {
             ProjectDTO dto = basicEntity2DTO(entity);
             dto.setExpectedskills(SkillConverter.listEntity2DTO(entity.getExpectedskills()));
+            dto.setAgreements(AgreementConverter.listEntity2DTO(entity.getAgreements()));
+            dto.setProjectSprints(ProjectSprintConverter.listEntity2DTO(entity.getProjectSprints()));
             return dto;
         } else {
             return null;
@@ -150,6 +152,8 @@ public abstract class ProjectConverter {
         if (dto != null) {
             ProjectEntity entity = basicDTO2Entity(dto);
             entity.setExpectedskills(SkillConverter.listDTO2Entity(dto.getExpectedskills()));
+            entity.setAgreements(AgreementConverter.listDTO2Entity(dto.getAgreements()));
+            entity.setProjectSprints(ProjectSprintConverter.listDTO2Entity(dto.getProjectSprints()));
             return entity;
         } else {
             return null;

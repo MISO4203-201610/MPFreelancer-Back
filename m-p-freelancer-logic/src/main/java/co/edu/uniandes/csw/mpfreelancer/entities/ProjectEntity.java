@@ -13,6 +13,8 @@ import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import java.util.List;
 import java.util.ArrayList;
+import javax.persistence.CascadeType;
+import javax.persistence.OneToMany;
 
 /**
  * @generated
@@ -52,6 +54,12 @@ public class ProjectEntity extends BaseEntity implements Serializable {
     @ManyToMany
     private List<SkillEntity> expectedskills = new ArrayList<>();   
 
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<ProjectSprintEntity> projectSprints = new ArrayList<>();
+    
+    @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<AgreementEntity> agreements = new ArrayList<>();
+     
     /**
      * @generated
      */
@@ -176,5 +184,33 @@ public class ProjectEntity extends BaseEntity implements Serializable {
      */
     public void setExpectedskills(List<SkillEntity> expectedskills) {
         this.expectedskills = expectedskills;
+    }
+    
+    /**
+     * @generated
+     */
+    public List<ProjectSprintEntity> getProjectSprints() {
+        return projectSprints;
+    }
+
+    /**
+     * @generated
+     */
+    public void setProjectSprints(List<ProjectSprintEntity> projectSprints) {
+        this.projectSprints = projectSprints;
+    }
+    
+    /**
+     * @generated
+     */
+    public List<AgreementEntity> getAgreements() {
+        return agreements;
+    }
+
+    /**
+     * @generated
+     */
+    public void setAgreements(List<AgreementEntity> agreements) {
+        this.agreements = agreements;
     }
 }

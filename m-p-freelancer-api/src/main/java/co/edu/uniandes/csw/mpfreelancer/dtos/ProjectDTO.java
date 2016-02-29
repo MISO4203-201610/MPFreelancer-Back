@@ -33,8 +33,10 @@ public class ProjectDTO {
     @PodamExclude
     private StatusDTO status;    
     @PodamExclude
-    private AgreementDTO agreement;
-
+    private List<AgreementDTO> agreements;
+    @PodamExclude
+    private List<ProjectSprintDTO> projectSprints = new ArrayList<>();
+    
     /**
      * @generated
      */
@@ -189,11 +191,25 @@ public class ProjectDTO {
         this.expectedskills = expectedskills;
     }
 
-    public AgreementDTO getAgreement() {
-        return agreement;
+    public List<AgreementDTO> getAgreements() {
+        return agreements;
     }
 
-    public void setAgreement(AgreementDTO agreement) {
-        this.agreement = agreement;
+    public void setAgreements(List<AgreementDTO> agreements) {
+        this.agreements = agreements;
+    }
+
+    /**
+     * @generated
+     */
+    public List<ProjectSprintDTO> getProjectSprints() {
+        return projectSprints;
+    }
+
+    /**
+     * @generated
+     */
+    public void setProjectSprints(List<ProjectSprintDTO> projectSprints) {
+        this.projectSprints = projectSprints;
     }    
 }

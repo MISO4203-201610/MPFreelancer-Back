@@ -1,70 +1,92 @@
-package co.edu.uniandes.csw.mpfreelancer.entities;
+package co.edu.uniandes.csw.mpfreelancer.dtos;
 
-import java.io.Serializable;
-import javax.persistence.Entity;
-import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.util.Date;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import uk.co.jemos.podam.common.PodamExclude;
 import java.util.List;
 import java.util.ArrayList;
-import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
+import javax.xml.bind.annotation.XmlRootElement;
 
 /**
  * @generated
  */
-@Entity
-public class ProjectSprintEntity extends BaseEntity implements Serializable {
+@XmlRootElement
+public class ProjectSprintDTO {
 
+    private Long id;
+    
+    private String name;
+    
     private String description;
 
     private Integer price;
-
-    @Temporal(TemporalType.DATE)
+    
     @PodamStrategyValue(DateStrategy.class)
     private Date deadLine;
 
-    @Temporal(TemporalType.DATE)
     @PodamStrategyValue(DateStrategy.class)
     private Date startDate;
 
     @PodamExclude
-    @OneToMany
-    private List<ArtifactEntity> artifacts = new ArrayList<>();
+    private List<ArtifactDTO> artifacts = new ArrayList<>();
 
     @PodamExclude
-    @ManyToOne
-    private ProjectEntity project;
+    private ProjectDTO project;
 
     /**
      * @generated
      */
-    public List<ArtifactEntity> getArtifacts() {
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @generated
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @generated
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @generated
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    
+    /**
+     * @generated
+     */
+    public List<ArtifactDTO> getArtifacts() {
         return artifacts;
     }
 
     /**
      * @generated
      */
-    public void setArtifacts(List<ArtifactEntity> artifacts) {
+    public void setArtifacts(List<ArtifactDTO> artifacts) {
         this.artifacts = artifacts;
     }
     
     /**
      * @generated
      */
-    public ProjectEntity getProject(){
+    public ProjectDTO getProject(){
         return project;
     }
 
     /**
      * @generated
      */
-    public void setProject(ProjectEntity project){
+    public void setProject(ProjectDTO project){
         this.project = project;
     }
     
