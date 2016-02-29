@@ -39,7 +39,7 @@ public class WorkExperienceEntity extends BaseEntity implements Serializable{
 
     @PodamExclude
     @OneToOne (mappedBy = "experiences")
-    private FreelancerEntity workExperience;
+    private FreelancerEntity freelancerExperience;
     
     
     public String getProjectName(){
@@ -82,12 +82,12 @@ public class WorkExperienceEntity extends BaseEntity implements Serializable{
         this.sponsorCompany=sponsorCompany;
     }
     
-    public FreelancerEntity getWorkExperience(){
-        return workExperience;
+    public FreelancerEntity getFreelancerExperience(){
+        return freelancerExperience;
     }
     
-    public void setWorkExperience(FreelancerEntity workExperience){
-        this.workExperience=workExperience;
+    public void setWorkExperience(FreelancerEntity freelancerExperience){
+        this.freelancerExperience=freelancerExperience;
     }
     
     

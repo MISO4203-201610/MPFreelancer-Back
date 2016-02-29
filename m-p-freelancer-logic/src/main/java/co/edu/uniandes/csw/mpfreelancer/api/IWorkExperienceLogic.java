@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mpfreelancer.api;
 
 
+import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.WorkExperienceEntity;
 import java.util.List;
 
@@ -22,5 +23,6 @@ public interface IWorkExperienceLogic {
     public WorkExperienceEntity createWorkExperiences(WorkExperienceEntity entity);
     public WorkExperienceEntity updateWorkExperiences(WorkExperienceEntity entity);
     public void deleteWorkExperiences(Long id);
+    
     
 }

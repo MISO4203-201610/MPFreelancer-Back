@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.mpfreelancer.persistence;
 
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
-import co.edu.uniandes.csw.mpfreelancer.entities.ProjectEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.WorkExperienceEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

@@ -48,8 +48,8 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FreelancerTeamEntity> myTeams = new ArrayList<>();
     
-    @OneToMany(mappedBy = "freelancer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<WorkExperienceEntity> workExperiences = new ArrayList<>();
+    @OneToMany(mappedBy = "freelancerExperience", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<WorkExperienceEntity> experiences = new ArrayList<>();
     
     @OneToMany(mappedBy = "freelancer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AgreementEntity> agreements = new ArrayList<>();
@@ -57,18 +57,19 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
     @OneToOne(mappedBy = "freelancer")
     private CurriculumEntity curriculum;
     
+       
     /**
      * @generated
      */
     public List<WorkExperienceEntity> getWorkExperiences() {
-        return workExperiences;
+        return experiences;
     }
 
     /**
      * @generated
      */
-    public void setWorkExperiences(List<WorkExperienceEntity> workExperiences) {
-        this.workExperiences = workExperiences;
+    public void setWorkExperiences(List<WorkExperienceEntity> experiences) {
+        this.experiences = experiences;
     }
     
     /**

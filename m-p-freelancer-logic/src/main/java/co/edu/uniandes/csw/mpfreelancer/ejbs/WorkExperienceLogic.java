@@ -6,6 +6,7 @@
 package co.edu.uniandes.csw.mpfreelancer.ejbs;
 
 import co.edu.uniandes.csw.mpfreelancer.api.IWorkExperienceLogic;
+import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.WorkExperienceEntity;
 import co.edu.uniandes.csw.mpfreelancer.persistence.WorkExperiencePersistence;
 import java.util.List;
@@ -60,5 +61,8 @@ public class WorkExperienceLogic implements IWorkExperienceLogic {
     public void deleteWorkExperiences(Long id) {
         persistence.delete(id);
     }
+    
+        
+    
     
 }

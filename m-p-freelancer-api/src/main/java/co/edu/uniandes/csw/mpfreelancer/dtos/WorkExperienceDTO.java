@@ -20,104 +20,72 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
 @XmlRootElement
 public class WorkExperienceDTO {
     private Long id;
-    private String projectNamer;
+    private String projectName;
     private String projectDescription;
     @PodamStrategyValue(DateStrategy.class)
     private Date startDate;
     @PodamStrategyValue(DateStrategy.class)
     private Date endDate;
+    private String sponsorCompany;
     @PodamExclude
-    private List<SkillDTO> expectedskills = new ArrayList<>();
-    @PodamExclude
-    private CategoryDTO category;
-    @PodamExclude
-    private ProjectSponsorDTO sponsor;
-    @PodamExclude
-    private StatusDTO status;
+    private FreelancerDTO freelancerExperience;
+   
 
-    /**
-     * @generated
-     */
+    
     public Long getId() {
         return id;
     }
 
-    /**
-     * @generated
-     */
     public void setId(Long id) {
         this.id = id;
     }
-
+    
+    public String getProjectName(){
+        return projectName;
+    }
+    
+    public void setProjectName(String projectName){
+        this.projectName= projectName;
+    }
+    
+    public String getProjectDescription(){
+        return projectDescription;
+    }
+    
+    public void setProjectDescription(String projetDescription){
+        this.projectDescription=projetDescription;
+    }
    
-    /**
-     * @generated
-     */
     public Date getStartDate() {
         return startDate;
     }
 
-    /**
-     * @generated
-     */
     public void setStartDate(Date startdate) {
         this.startDate = startdate;
     }
-
-    /**
-     * @generated
-     */
-    public CategoryDTO getCategory() {
-        return category;
+    
+    public Date getEndDate() {
+        return endDate;
     }
 
-    /**
-     * @generated
-     */
-    public void setCategory(CategoryDTO category) {
-        this.category = category;
+    public void setEndDate(Date endDate) {
+        this.endDate = endDate;
     }
 
-    /**
-     * @generated
-     */
-    public ProjectSponsorDTO getSponsor() {
-        return sponsor;
+    public String getSponsorCompany() {
+        return sponsorCompany;
     }
 
-    /**
-     * @generated
-     */
-    public void setSponsor(ProjectSponsorDTO sponsor) {
-        this.sponsor = sponsor;
+    public void setSponsorCompany(String sponsorCompany) {
+        this.sponsorCompany = sponsorCompany;
     }
 
-    /**
-     * @generated
-     */
-    public StatusDTO getStatus() {
-        return status;
+    public FreelancerDTO getFreelancerExperience(){
+        return freelancerExperience;
     }
-
-    /**
-     * @generated
-     */
-    public void setStatus(StatusDTO status) {
-        this.status = status;
-    }
-
-    /**
-     * @generated
-     */
-    public List<SkillDTO> getExpectedskills() {
-        return expectedskills;
-    }
-
-    /**
-     * @generated
-     */
-    public void setExpectedskills(List<SkillDTO> expectedskills) {
-        this.expectedskills = expectedskills;
+    
+    public void setFreelancerExperience(FreelancerDTO freelancerExperience){
+        this.freelancerExperience= freelancerExperience;
     }
     
 }
