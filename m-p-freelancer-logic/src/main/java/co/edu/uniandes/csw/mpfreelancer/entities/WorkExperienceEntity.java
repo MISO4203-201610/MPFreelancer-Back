@@ -13,7 +13,7 @@ import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
-import javax.persistence.OneToOne;
+import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
 
 /**
@@ -38,8 +38,8 @@ public class WorkExperienceEntity extends BaseEntity implements Serializable{
     private String sponsorCompany;
 
     @PodamExclude
-    @OneToOne (mappedBy = "experiences")
-    private FreelancerEntity workExperience;
+    @ManyToOne
+    private FreelancerEntity freelancer;
     
     
     public String getProjectName(){
@@ -82,14 +82,12 @@ public class WorkExperienceEntity extends BaseEntity implements Serializable{
         this.sponsorCompany=sponsorCompany;
     }
     
-    public FreelancerEntity getWorkExperience(){
-        return workExperience;
+    public FreelancerEntity getFreelancer(){
+        return freelancer;
     }
     
-    public void setWorkExperience(FreelancerEntity workExperience){
-        this.workExperience=workExperience;
+    public void setFreelancer(FreelancerEntity freelancer){
+        this.freelancer=freelancer;
     }
-    
-    
     
 }
