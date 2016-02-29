@@ -48,7 +48,7 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FreelancerTeamEntity> myTeams = new ArrayList<>();
     
-    @OneToMany(mappedBy = "freelancerExperience", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "freelancer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkExperienceEntity> experiences = new ArrayList<>();
     
     @OneToMany(mappedBy = "freelancer", cascade = CascadeType.ALL, orphanRemoval = true)
