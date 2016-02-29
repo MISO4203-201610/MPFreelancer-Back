@@ -1,7 +1,5 @@
 package co.edu.uniandes.csw.mpfreelancer.dtos;
 
-import java.io.Serializable;
-import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import java.util.Date;
 import uk.co.jemos.podam.common.PodamStrategyValue;
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
@@ -14,8 +12,12 @@ import javax.xml.bind.annotation.XmlRootElement;
  * @generated
  */
 @XmlRootElement
-public class ProjectSprintDTO extends BaseEntity implements Serializable {
+public class ProjectSprintDTO {
 
+    private Long id;
+    
+    private String name;
+    
     private String description;
 
     private Integer price;
@@ -32,6 +34,34 @@ public class ProjectSprintDTO extends BaseEntity implements Serializable {
     @PodamExclude
     private ProjectDTO project;
 
+    /**
+     * @generated
+     */
+    public Long getId() {
+        return id;
+    }
+
+    /**
+     * @generated
+     */
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    /**
+     * @generated
+     */
+    public String getName() {
+        return name;
+    }
+
+    /**
+     * @generated
+     */
+    public void setName(String name) {
+        this.name = name;
+    }
+    
     /**
      * @generated
      */
