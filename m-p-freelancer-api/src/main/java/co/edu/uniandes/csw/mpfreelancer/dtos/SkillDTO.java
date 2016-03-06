@@ -14,7 +14,7 @@ public class SkillDTO {
     private Long id;
     private String name;
     private String description;
-    private String level;
+    private String skillLevel;
 
     @PodamExclude
     private List<ProjectDTO> projects = new ArrayList<>();
@@ -63,12 +63,12 @@ public class SkillDTO {
         this.description = description;
     }
     
-    public String getLevel() {
-        return level;
+    public String getSkillLevel() {
+        return skillLevel;
     }
 
-    public void setLevel(String level) {
-        this.level = level;
+    public void setSkillLevel(String skillLevel) {
+        this.skillLevel = skillLevel;
     }
     
     /**

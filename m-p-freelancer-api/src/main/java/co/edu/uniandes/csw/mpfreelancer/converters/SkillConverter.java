@@ -32,7 +32,7 @@ public abstract class SkillConverter {
             dto.setId(entity.getId());
             dto.setName(entity.getName());
             dto.setDescription(entity.getDescription());
-            dto.setLevel(entity.getLevel());
+            dto.setSkillLevel(entity.getSkillLevel());
 
             return dto;
         } else {
@@ -74,7 +74,7 @@ public abstract class SkillConverter {
             dto.setId(entity.getId());
             dto.setName(entity.getName());
             dto.setDescription(entity.getDescription());
-            dto.setLevel(entity.getLevel());
+            dto.setSkillLevel(entity.getSkillLevel());
 
             return dto;
         } else {
@@ -97,7 +97,7 @@ public abstract class SkillConverter {
             entity.setId(dto.getId());
             entity.setName(dto.getName());
             entity.setDescription(dto.getDescription());
-            entity.setLevel(dto.getLevel());
+            entity.setSkillLevel(dto.getSkillLevel());
 
             return entity;
         } else {
