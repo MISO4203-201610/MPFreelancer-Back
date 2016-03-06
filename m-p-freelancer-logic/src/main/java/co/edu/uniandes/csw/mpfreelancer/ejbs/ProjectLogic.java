@@ -115,6 +115,7 @@ public class ProjectLogic implements IProjectLogic {
         SkillEntity expectedskillsEntity = new SkillEntity();
         expectedskillsEntity.setId(expectedskillsId);
         projectEntity.getExpectedskills().add(expectedskillsEntity);
+        persistence.update(projectEntity);////cambio se debe persistir el cambio
         return getExpectedskills(projectId, expectedskillsId);
     }
 
