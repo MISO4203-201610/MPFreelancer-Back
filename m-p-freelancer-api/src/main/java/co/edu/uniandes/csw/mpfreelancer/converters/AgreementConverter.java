@@ -16,7 +16,7 @@ import java.util.List;
  */
 public abstract class AgreementConverter {
     
-    public AgreementConverter(){        
+    private AgreementConverter(){        
     }
     
     public static AgreementDTO refEntity2DTO(AgreementEntity entity) {

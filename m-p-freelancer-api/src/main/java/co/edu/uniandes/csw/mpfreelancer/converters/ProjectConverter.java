@@ -28,16 +28,16 @@ public abstract class ProjectConverter {
      */
     public static ProjectDTO refEntity2DTO(ProjectEntity entity) {
         if (entity != null) {
-            ProjectDTO dto = new ProjectDTO();
-            dto.setId(entity.getId());
-            dto.setName(entity.getName());
-            dto.setDescription(entity.getDescription());
-            dto.setPrice(entity.getPrice());
-            dto.setDeadLine(entity.getDeadLine());
-            dto.setPublicationDate(entity.getPublicationDate());
-            dto.setStartDate(entity.getStartDate());
+            ProjectDTO dtoRef = new ProjectDTO();
+            dtoRef.setId(entity.getId());
+            dtoRef.setName(entity.getName());
+            dtoRef.setDescription(entity.getDescription());
+            dtoRef.setPrice(entity.getPrice());
+            dtoRef.setDeadLine(entity.getDeadLine());
+            dtoRef.setPublicationDate(entity.getPublicationDate());
+            dtoRef.setStartDate(entity.getStartDate());
 
-            return dto;
+            return dtoRef;
         } else {
             return null;
         }
@@ -73,19 +73,19 @@ public abstract class ProjectConverter {
      */
     private static ProjectDTO basicEntity2DTO(ProjectEntity entity) {
         if (entity != null) {
-            ProjectDTO dto = new ProjectDTO();
-            dto.setId(entity.getId());
-            dto.setName(entity.getName());
-            dto.setDescription(entity.getDescription());
-            dto.setPrice(entity.getPrice());
-            dto.setDeadLine(entity.getDeadLine());
-            dto.setPublicationDate(entity.getPublicationDate());
-            dto.setStartDate(entity.getStartDate());
-            dto.setCategory(CategoryConverter.refEntity2DTO(entity.getCategory()));
-            dto.setSponsor(ProjectSponsorConverter.refEntity2DTO(entity.getSponsor()));
-            dto.setStatus(StatusConverter.refEntity2DTO(entity.getStatus()));
+            ProjectDTO dtoBas = new ProjectDTO();
+            dtoBas.setId(entity.getId());
+            dtoBas.setName(entity.getName());
+            dtoBas.setDescription(entity.getDescription());
+            dtoBas.setPrice(entity.getPrice());
+            dtoBas.setDeadLine(entity.getDeadLine());
+            dtoBas.setPublicationDate(entity.getPublicationDate());
+            dtoBas.setStartDate(entity.getStartDate());
+            dtoBas.setCategory(CategoryConverter.refEntity2DTO(entity.getCategory()));
+            dtoBas.setSponsor(ProjectSponsorConverter.refEntity2DTO(entity.getSponsor()));
+            dtoBas.setStatus(StatusConverter.refEntity2DTO(entity.getStatus()));
 
-            return dto;
+            return dtoBas;
         } else {
             return null;
         }

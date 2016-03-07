@@ -12,6 +12,8 @@ import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.UserTransaction;
+import static org.glassfish.resourcebase.resources.util.ResourceUtil.LOGGER;
+
 import org.junit.Assert;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -87,12 +89,16 @@ public class CategoryLogicTest {
             insertData();
             utx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            
+    //        e.printStackTrace();
+            
             try {
                 utx.rollback();
             } catch (Exception e1) {
-                e1.printStackTrace();
+                  throw new RuntimeException(e1);
+    //            e1.printStackTrace();
             }
+            throw new RuntimeException(e);
         }
     }
 
