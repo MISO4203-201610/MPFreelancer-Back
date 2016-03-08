@@ -49,16 +49,17 @@ public class ArtifactDTO {
     /**
      * @generated
      */
+    public void setDescription(String description){
+        this.description = description;
+    }
+    /**
+     * @generated
+     */
     public String getDescription(){
         return description;
     }
 
-    /**
-     * @generated
-     */
-    public void setDescription(String description){
-        this.description = description;
-    }
+
     
     /**
      * @generated

@@ -30,13 +30,12 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
 
     private String picture;
 
-    
     @OneToMany(mappedBy = "freelancer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EducationEntity> titles = new ArrayList<>();
 
     @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BlogEntryEntity> blogEntries = new ArrayList<>();
-     
+
     @PodamExclude
     @ManyToMany(mappedBy = "freelancers")
     private List<SkillEntity> skills = new ArrayList<>();
@@ -44,20 +43,20 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
     @PodamExclude
     @ManyToMany
     private List<FreelancerTeamEntity> freelancerTeams = new ArrayList<>();
-    
+
     @OneToMany(mappedBy = "owner", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<FreelancerTeamEntity> myTeams = new ArrayList<>();
-    
+
     @OneToMany(mappedBy = "freelancer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<WorkExperienceEntity> experiences = new ArrayList<>();
-    
+
     @OneToMany(mappedBy = "freelancer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AgreementEntity> agreements = new ArrayList<>();
     
-    @OneToOne(mappedBy = "freelancer")
+//    @PodamExclude
+    @OneToOne(mappedBy = "freelancer", cascade = CascadeType.ALL, orphanRemoval = true)
     private CurriculumEntity curriculum;
-    
-       
+
     /**
      * @generated
      */
@@ -71,7 +70,7 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
     public void setWorkExperiences(List<WorkExperienceEntity> experiences) {
         this.experiences = experiences;
     }
-    
+
     /**
      * @generated
      */
@@ -85,7 +84,7 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
     public void setAgreements(List<AgreementEntity> agreements) {
         this.agreements = agreements;
     }
-    
+
     /**
      * @generated
      */
@@ -99,8 +98,7 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
     public void setCurriculum(CurriculumEntity curriculum) {
         this.curriculum = curriculum;
     }
-    
-    
+
     /**
      * @generated
      */
@@ -114,7 +112,7 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
     public void setBlogEntries(List<BlogEntryEntity> blogEntries) {
         this.blogEntries = blogEntries;
     }
-    
+
     /**
      * @generated
      */
@@ -128,46 +126,46 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
     public void setMyTeams(List<FreelancerTeamEntity> myTeams) {
         this.myTeams = myTeams;
     }
-    
+
     /**
      * @generated
      */
-    public Integer getRate(){
+    public Integer getRate() {
         return rate;
     }
 
     /**
      * @generated
      */
-    public void setRate(Integer rate){
+    public void setRate(Integer rate) {
         this.rate = rate;
     }
 
     /**
      * @generated
      */
-    public Date getBithday(){
+    public Date getBithday() {
         return bithday;
     }
 
     /**
      * @generated
      */
-    public void setBithday(Date bithday){
+    public void setBithday(Date bithday) {
         this.bithday = bithday;
     }
 
     /**
      * @generated
      */
-    public String getPicture(){
+    public String getPicture() {
         return picture;
     }
 
     /**
      * @generated
      */
-    public void setPicture(String picture){
+    public void setPicture(String picture) {
         this.picture = picture;
     }
 
@@ -198,7 +196,7 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
     public void setSkills(List<SkillEntity> skills) {
         this.skills = skills;
     }
-    
+
     /**
      * @generated
      */

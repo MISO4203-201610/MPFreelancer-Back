@@ -29,16 +29,16 @@ public abstract class EducationConverter {
      */
     public static EducationDTO refEntity2DTO(EducationEntity entity) {
         if (entity != null) {
-            EducationDTO dto = new EducationDTO();
-            dto.setId(entity.getId());
-            dto.setName(entity.getName());
-            dto.setStartDate(entity.getStartDate());
-            dto.setEndDate(entity.getEndDate());
-            dto.setInstitution(entity.getInstitution());
-            dto.setTitle(entity.getTitle());
-            dto.setDescription(entity.getDescription());
+            EducationDTO dtoRef = new EducationDTO();
+            dtoRef.setId(entity.getId());
+            dtoRef.setName(entity.getName());
+            dtoRef.setStartDate(entity.getStartDate());
+            dtoRef.setEndDate(entity.getEndDate());
+            dtoRef.setInstitution(entity.getInstitution());
+            dtoRef.setTitle(entity.getTitle());
+            dtoRef.setDescription(entity.getDescription());
 
-            return dto;
+            return dtoRef;
         } else {
             return null;
         }
@@ -74,17 +74,17 @@ public abstract class EducationConverter {
      */
     private static EducationDTO basicEntity2DTO(EducationEntity entity) {
         if (entity != null) {
-            EducationDTO dto = new EducationDTO();
-            dto.setId(entity.getId());
-            dto.setName(entity.getName());
-            dto.setStartDate(entity.getStartDate());
-            dto.setEndDate(entity.getEndDate());
-            dto.setInstitution(entity.getInstitution());
-            dto.setTitle(entity.getTitle());
-            dto.setDescription(entity.getDescription());
-            dto.setFreelancer(FreelancerConverter.refEntity2DTO(entity.getFreelancer()));
+            EducationDTO dtoBas = new EducationDTO();
+            dtoBas.setId(entity.getId());
+            dtoBas.setName(entity.getName());
+            dtoBas.setStartDate(entity.getStartDate());
+            dtoBas.setEndDate(entity.getEndDate());
+            dtoBas.setInstitution(entity.getInstitution());
+            dtoBas.setTitle(entity.getTitle());
+            dtoBas.setDescription(entity.getDescription());
+            dtoBas.setFreelancer(FreelancerConverter.refEntity2DTO(entity.getFreelancer()));
 
-            return dto;
+            return dtoBas;
         } else {
             return null;
         }
