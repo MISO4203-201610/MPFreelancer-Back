@@ -124,4 +124,9 @@ public class ProjectSprintEntity extends BaseEntity implements Serializable {
     public void setStartDate(Date startDate){
         this.startDate = startDate;
     }
+    
+    @Override
+    public boolean equals(Object obj){
+        return obj == this;
+    }
 }
