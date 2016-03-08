@@ -9,9 +9,12 @@ import java.util.List;
  */
 public interface IProjectSprintLogic {
     public int countProjectSprints(Long projectId);
+    public int countProjectSprints();
     
     public List<ProjectSprintEntity> getProjectSprints(Long projectId);
     public List<ProjectSprintEntity> getProjectSprints(Long projectId, Integer page, Integer maxRecords);
+    public List<ProjectSprintEntity> getProjectSprints(Integer page, Integer maxRecords);
+    public List<ProjectSprintEntity> getProjectSprints();
     
     public ProjectSprintEntity getProjectSprint(Long id);
     public ProjectSprintEntity createProjectSprint(ProjectSprintEntity entity);
