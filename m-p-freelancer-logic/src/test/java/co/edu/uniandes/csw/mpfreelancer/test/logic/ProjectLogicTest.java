@@ -105,12 +105,14 @@ public class ProjectLogicTest {
             insertData();
             utx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+    //        e.printStackTrace();
             try {
                 utx.rollback();
             } catch (Exception e1) {
-                e1.printStackTrace();
+                   throw new RuntimeException(e1);
+    //            e1.printStackTrace();
             }
+            throw new RuntimeException(e);
         }
     }
 

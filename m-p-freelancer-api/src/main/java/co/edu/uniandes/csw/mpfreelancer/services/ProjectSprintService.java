@@ -36,6 +36,21 @@ public class ProjectSprintService {
     @QueryParam("page") private Integer page;
     @QueryParam("maxRecords") private Integer maxRecords;
     
+     /**
+     * Obtiene la lista de los registros de Book.
+     *
+     * @return Colección de objetos de SkillDTO cada uno con sus respectivos Review
+     * @generated
+     */
+    @GET
+    public List<ProjectSprintDTO> getProjectSprints() {
+        if (page != null && maxRecords != null) {
+            this.response.setIntHeader("X-Total-Count", projectSprintLogic.countProjectSprints());
+            return ProjectSprintConverter.listEntity2DTO(projectSprintLogic.getProjectSprints(page, maxRecords));
+        }
+        return ProjectSprintConverter.listEntity2DTO(projectSprintLogic.getProjectSprints());
+    }
+    
     @GET
     @Path("/projects/{id: \\d+}")
     public List<ProjectSprintDTO> getAllSprintsFromProject(@PathParam("id") Long id) {        

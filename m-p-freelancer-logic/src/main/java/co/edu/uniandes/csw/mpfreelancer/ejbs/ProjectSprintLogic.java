@@ -24,10 +24,23 @@ public class ProjectSprintLogic implements IProjectSprintLogic {
     @Inject private IArtifactLogic artifactLogic;
     
     @Override
+    public int countProjectSprints() {
+        return persistence.count();
+    }
+    
+    @Override
     public int countProjectSprints(Long projectId) {
         return persistence.count(projectId);
     }
 
+    /**
+     * @generated
+     */
+    @Override
+    public List<ProjectSprintEntity> getProjectSprints() {
+        return persistence.findAll();
+    }
+    
     @Override
     public List<ProjectSprintEntity> getProjectSprints(Long projectId) {
         return persistence.findAll(projectId);
@@ -36,6 +49,11 @@ public class ProjectSprintLogic implements IProjectSprintLogic {
     @Override
     public List<ProjectSprintEntity> getProjectSprints(Long projectId, Integer page, Integer maxRecords) {
         return persistence.findAll(projectId, page, maxRecords);
+    }
+    
+     @Override
+    public List<ProjectSprintEntity> getProjectSprints(Integer page, Integer maxRecords) {
+        return persistence.findAll(page, maxRecords);
     }
 
     @Override
