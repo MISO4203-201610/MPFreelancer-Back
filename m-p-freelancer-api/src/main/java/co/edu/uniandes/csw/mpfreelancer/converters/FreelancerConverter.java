@@ -34,6 +34,7 @@ public abstract class FreelancerConverter {
             dto.setRate(entity.getRate());
             dto.setBithday(entity.getBithday());
             dto.setPicture(entity.getPicture());
+        
 
             return dto;
         } else {
@@ -78,7 +79,8 @@ public abstract class FreelancerConverter {
             dto.setBithday(entity.getBithday());
             dto.setPicture(entity.getPicture());
             dto.setCurriculum(CurriculumConverter.refEntity2DTO(entity.getCurriculum()));
-
+            
+            
             return dto;
         } else {
             return null;
@@ -104,6 +106,7 @@ public abstract class FreelancerConverter {
             entity.setPicture(dto.getPicture());
             entity.setCurriculum(CurriculumConverter.refDTO2Entity(dto.getCurriculum()));
             
+            
             return entity;
         } else {
             return null;
@@ -125,6 +128,7 @@ public abstract class FreelancerConverter {
             dto.setTitles(EducationConverter.listEntity2DTO(entity.getTitles()));
             dto.setAgreements(AgreementConverter.listEntity2DTO(entity.getAgreements()));
             dto.setCurriculum(CurriculumConverter.refEntity2DTO(entity.getCurriculum()));
+            dto.setExperience(WorkExperienceConverter.listEntity2DTO(entity.getWorkExperiences()));
             return dto;
         } else {
             return null;
@@ -146,6 +150,7 @@ public abstract class FreelancerConverter {
             entity.setTitles(EducationConverter.childListDTO2Entity(dto.getTitles(), entity));
             entity.setAgreements(AgreementConverter.listDTO2Entity(dto.getAgreements()));
             entity.setCurriculum(CurriculumConverter.refDTO2Entity(dto.getCurriculum()));
+            entity.setWorkExperiences(WorkExperienceConverter.childListDTO2Entity(dto.getExperiences(), entity));
             return entity;
         } else {
             return null;
