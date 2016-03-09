@@ -6,8 +6,6 @@ import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
 import co.edu.uniandes.csw.mpfreelancer.persistence.FreelancerPersistence;
 import co.edu.uniandes.csw.mpfreelancer.entities.SkillEntity;
 import co.edu.uniandes.csw.mpfreelancer.api.ISkillLogic;
-import co.edu.uniandes.csw.mpfreelancer.api.IWorkExperienceLogic;
-import co.edu.uniandes.csw.mpfreelancer.entities.WorkExperienceEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -22,8 +20,6 @@ public class FreelancerLogic implements IFreelancerLogic {
 
     @Inject private ISkillLogic skillLogic;
     
-    @Inject private IWorkExperienceLogic workExperienceLogic;
-
     /**
      * @generated
      */
@@ -143,22 +139,5 @@ public class FreelancerLogic implements IFreelancerLogic {
         skillLogic.removeFreelancers(skillsId, freelancerId);
     }
     
-    @Override
-    public List<WorkExperienceEntity> listWorkExperiences(Long freelancerId){
-        return persistence.find(freelancerId).getWorkExperiences();
-    }
-       
-    @Override
-    public WorkExperienceEntity getWorkExperiences(Long freelancerId, Long experiencesId) {
-        List<WorkExperienceEntity> list = persistence.find(freelancerId).getWorkExperiences();
-        WorkExperienceEntity workExperienceEntity = new WorkExperienceEntity();
-        workExperienceEntity.setId(experiencesId);
-        int index = list.indexOf(workExperienceEntity);
-        if (index >= 0) {
-            return list.get(index);
-        }
-        return null;
-    }
-
  
 }
