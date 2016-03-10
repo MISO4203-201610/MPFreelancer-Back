@@ -26,23 +26,23 @@ public class BlogEntryEntity extends BaseEntity implements Serializable {
     @PodamStrategyValue(DateStrategy.class)
     private Date publicationDate;
 
-    @PodamExclude
-    @ManyToOne
-    private FreelancerEntity author;
+//    @PodamExclude
+//    @ManyToOne
+//    private FreelancerEntity author;
 
-    /**
-     * @generated
-     */
-    public FreelancerEntity getAuthor(){
-        return author;
-    }
-    
-     /**
-     * @generated
-     */
-    public void setAuthor(FreelancerEntity author){
-        this.author = author;
-    }
+//    /**
+//     * @generated
+//     */
+//    public FreelancerEntity getAuthor(){
+//        return author;
+//    }
+//    
+//     /**
+//     * @generated
+//     */
+//    public void setAuthor(FreelancerEntity author){
+//        this.author = author;
+//    }
     
     /**
      * @generated

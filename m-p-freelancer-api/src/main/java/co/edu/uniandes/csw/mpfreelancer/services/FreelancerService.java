@@ -17,14 +17,19 @@ import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 import co.edu.uniandes.csw.mpfreelancer.api.IFreelancerLogic;
+import co.edu.uniandes.csw.mpfreelancer.api.IBlogEntryLogic;
+import co.edu.uniandes.csw.mpfreelancer.converters.BlogEntryConverter;
 import co.edu.uniandes.csw.mpfreelancer.dtos.FreelancerDTO;
 import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
 import co.edu.uniandes.csw.mpfreelancer.converters.FreelancerConverter;
 import co.edu.uniandes.csw.mpfreelancer.dtos.SkillDTO;
 import co.edu.uniandes.csw.mpfreelancer.converters.SkillConverter;
+import co.edu.uniandes.csw.mpfreelancer.dtos.BlogEntryDTO;
+import co.edu.uniandes.csw.mpfreelancer.entities.BlogEntryEntity;
 import com.stormpath.sdk.account.Account;
 import com.stormpath.sdk.group.Group;
 import java.util.ArrayList;
+import java.util.Date;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -38,6 +43,7 @@ public class FreelancerService {
     private static final String ADMIN_HREF = "https://api.stormpath.com/v1/groups/aDD8ajP65mhgxRNvASTfl";    
 
     @Inject private IFreelancerLogic freelancerLogic;
+    @Inject private IBlogEntryLogic blogEntryLogic;
     @Context private HttpServletRequest req;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
@@ -99,6 +105,16 @@ public class FreelancerService {
         } else {
             return null;
         }
+    }
+    
+//    @GET
+//    @Path("{freelancerId: \\d+}/blogEntries")
+    @POST
+    @StatusCreated
+    @Path("/blogEntries")
+    public BlogEntryDTO crearBlogEntry(BlogEntryDTO dtoOriginal) {
+        BlogEntryEntity entity = BlogEntryConverter.fullDTO2Entity(dtoOriginal);
+        return BlogEntryConverter.fullEntity2DTO(blogEntryLogic.createBlogEntry(entity));
     }
 
     /**

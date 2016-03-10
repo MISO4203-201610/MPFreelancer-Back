@@ -33,8 +33,8 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "freelancer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EducationEntity> titles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<BlogEntryEntity> blogEntries = new ArrayList<>();
+//    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+//    private List<BlogEntryEntity> blogEntries = new ArrayList<>();
 
     @PodamExclude
     @ManyToMany(mappedBy = "freelancers")
@@ -99,19 +99,19 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
         this.curriculum = curriculum;
     }
 
-    /**
-     * @generated
-     */
-    public List<BlogEntryEntity> getBlogEntries() {
-        return blogEntries;
-    }
-
-    /**
-     * @generated
-     */
-    public void setBlogEntries(List<BlogEntryEntity> blogEntries) {
-        this.blogEntries = blogEntries;
-    }
+//    /**
+//     * @generated
+//     */
+//    public List<BlogEntryEntity> getBlogEntries() {
+//        return blogEntries;
+//    }
+//
+//    /**
+//     * @generated
+//     */
+//    public void setBlogEntries(List<BlogEntryEntity> blogEntries) {
+//        this.blogEntries = blogEntries;
+//    }
 
     /**
      * @generated

@@ -27,8 +27,8 @@ public class BlogEntryDTO {
     @PodamStrategyValue(DateStrategy.class)
     private Date publicationDate;
     
-    @PodamExclude
-    private FreelancerEntity author;
+//    @PodamExclude
+//    private FreelancerEntity author;
 
     public String getTitle() {
         return title;

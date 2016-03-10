@@ -44,6 +44,7 @@ public abstract class BlogEntryConverter {
         }
     }
     
+    
     /**
      * Realiza la conversión de BlogEntryDTO a BlogEntryEntity.
      *
@@ -80,4 +81,36 @@ public abstract class BlogEntryConverter {
         }
     }
     
+    public static BlogEntryEntity refDTO2Entity(BlogEntryDTO dto) {
+        if (dto != null) {
+            BlogEntryEntity entity = new BlogEntryEntity();
+            
+            entity.setTitle(dto.getTitle());
+            entity.setDescription(dto.getDescription());
+            entity.setPublicationDate(dto.getPublicationDate());
+            
+            return entity;
+        } else {
+            return null;
+        }
+    }
+    
+    public static BlogEntryEntity fullDTO2Entity(BlogEntryDTO dto) {
+        if (dto != null) {
+            BlogEntryEntity entity = basicDTO2Entity(dto);
+            return entity;
+        } else {
+            return null;
+        }
+    }
+    
+    public static BlogEntryDTO fullEntity2DTO(BlogEntryEntity entity) {
+        if (entity != null) {
+            BlogEntryDTO dto = basicEntity2DTO(entity);
+            return dto;
+        } else {
+            return null;
+        }
+    }
+       
 }
