@@ -22,8 +22,10 @@ import co.edu.uniandes.csw.mpfreelancer.api.IProjectSponsorLogic;
 import co.edu.uniandes.csw.mpfreelancer.dtos.ProjectDTO;
 import co.edu.uniandes.csw.mpfreelancer.entities.ProjectEntity;
 import co.edu.uniandes.csw.mpfreelancer.converters.ProjectConverter;
+import co.edu.uniandes.csw.mpfreelancer.converters.ProjectSprintConverter;
 import co.edu.uniandes.csw.mpfreelancer.dtos.SkillDTO;
 import co.edu.uniandes.csw.mpfreelancer.converters.SkillConverter;
+import co.edu.uniandes.csw.mpfreelancer.dtos.ProjectSprintDTO;
 import co.edu.uniandes.csw.mpfreelancer.entities.ProjectSponsorEntity;
 import com.stormpath.sdk.account.Account;
 import javax.servlet.http.HttpServletRequest;
@@ -155,6 +157,20 @@ public class ProjectService {
     }
 
     /**
+     * Obtiene una colección de instancias de ProjectSprintDTO asociadas a una
+     * instancia de Project
+     *
+     * @param projectId Identificador de la instancia de Project
+     * @return Colección de instancias de ProjectSprintDTO asociadas a la instancia de Project
+     * @generated
+     */
+    @GET
+    @Path("{projectId: \\d+}/sprints")
+    public List<ProjectSprintDTO> listSprints(@PathParam("projectId") Long projectId) {
+        return ProjectSprintConverter.listEntity2DTO(projectLogic.listSprints(projectId));
+    }
+    
+    /**
      * Obtiene una instancia de Skill asociada a una instancia de Project
      *
      * @param projectId Identificador de la instancia de Project
@@ -166,7 +182,7 @@ public class ProjectService {
     public SkillDTO getExpectedskills(@PathParam("projectId") Long projectId, @PathParam("skillId") Long skillId) {
         return SkillConverter.fullEntity2DTO(projectLogic.getExpectedskills(projectId, skillId));
     }
-
+    
     /**
      * Asocia un Skill existente a un Project
      *

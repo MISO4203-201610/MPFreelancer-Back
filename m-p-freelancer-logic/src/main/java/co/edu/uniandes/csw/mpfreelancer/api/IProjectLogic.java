@@ -14,6 +14,7 @@ public interface IProjectLogic {
     public ProjectEntity updateProject(ProjectEntity entity);
     public void deleteProject(Long id);
     public List<SkillEntity> listExpectedskills(Long projectId);
+    public List<ProjectSprintEntity> listSprints(Long projectId);
     public SkillEntity getExpectedskills(Long projectId, Long expectedskillsId);
     public SkillEntity addExpectedskills(Long projectId, Long expectedskillsId);
     public List<SkillEntity> replaceExpectedskills(Long projectId, List<SkillEntity> list);
