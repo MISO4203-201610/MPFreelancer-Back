@@ -107,16 +107,6 @@ public class FreelancerService {
         }
     }
     
-//    @GET
-//    @Path("{freelancerId: \\d+}/blogEntries")
-    @POST
-    @StatusCreated
-    @Path("/blogEntries")
-    public BlogEntryDTO crearBlogEntry(BlogEntryDTO dtoOriginal) {
-        BlogEntryEntity entity = BlogEntryConverter.fullDTO2Entity(dtoOriginal);
-        return BlogEntryConverter.fullEntity2DTO(blogEntryLogic.createBlogEntry(entity));
-    }
-
     /**
      * Se encarga de crear un book en la base de datos.
      *

@@ -125,6 +125,7 @@ public abstract class FreelancerConverter {
             dto.setTitles(EducationConverter.listEntity2DTO(entity.getTitles()));
             dto.setAgreements(AgreementConverter.listEntity2DTO(entity.getAgreements()));
             dto.setCurriculum(CurriculumConverter.refEntity2DTO(entity.getCurriculum()));
+            dto.setBlogEntries(BlogEntryConverter.listEntity2DTO(entity.getBlogEntries()));
             return dto;
         } else {
             return null;
@@ -146,6 +147,7 @@ public abstract class FreelancerConverter {
             entity.setTitles(EducationConverter.childListDTO2Entity(dto.getTitles(), entity));
             entity.setAgreements(AgreementConverter.listDTO2Entity(dto.getAgreements()));
             entity.setCurriculum(CurriculumConverter.refDTO2Entity(dto.getCurriculum()));
+            entity.setBlogEntries(BlogEntryConverter.childListDTO2Entity(dto.getBlogEntries(),entity));
             return entity;
         } else {
             return null;

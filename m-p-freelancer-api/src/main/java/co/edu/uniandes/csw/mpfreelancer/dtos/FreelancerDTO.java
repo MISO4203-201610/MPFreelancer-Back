@@ -27,7 +27,9 @@ public class FreelancerDTO {
     @PodamExclude
     private CurriculumDTO curriculum;
     
-    
+    @PodamExclude
+    private List<BlogEntryDTO> blogEntries = new ArrayList<>();
+
     @PodamExclude
     private List<AgreementDTO> agreements = new ArrayList<>();
 
@@ -156,5 +158,13 @@ public class FreelancerDTO {
      */
     public void setAgreements(List<AgreementDTO> agreements) {
         this.agreements = agreements;
+    }
+    
+    public List<BlogEntryDTO> getBlogEntries() {
+        return blogEntries;
+    }
+
+    public void setBlogEntries(List<BlogEntryDTO> blogEntries) {
+        this.blogEntries = blogEntries;
     }
 }
