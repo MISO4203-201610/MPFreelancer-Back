@@ -11,6 +11,7 @@ import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import uk.co.jemos.podam.common.PodamExclude;
 import java.util.List;
 import java.util.ArrayList;
+import java.util.Objects;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
@@ -129,4 +130,15 @@ public class ProjectSprintEntity extends BaseEntity implements Serializable {
     public boolean equals(Object obj){
         return obj == this;
     }
+
+    @Override
+    public int hashCode() {
+        int hash = 3;
+        hash = 61 * hash + Objects.hashCode(this.description);
+        hash = 61 * hash + Objects.hashCode(this.price);
+        hash = 61 * hash + Objects.hashCode(this.deadLine);
+        hash = 61 * hash + Objects.hashCode(this.startDate);
+        return hash;
+    }
+    
 }
