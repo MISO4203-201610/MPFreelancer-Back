@@ -126,6 +126,10 @@ public class FreelancerService {
     @PUT
     @Path("{id: \\d+}")
     public FreelancerDTO updateFreelancer(@PathParam("id") Long id, FreelancerDTO dto) {
+
+        System.out.println ("Voy Aqui");
+        //System.out.println (dto.getCurriculum().getEmail());
+        
         FreelancerEntity entity = FreelancerConverter.fullDTO2Entity(dto);
         entity.setId(id);
         return FreelancerConverter.fullEntity2DTO(freelancerLogic.updateFreelancer(entity));

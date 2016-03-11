@@ -14,7 +14,6 @@ import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.ArrayList;
 import javax.persistence.CascadeType;
-import javax.persistence.OneToOne;
 
 /**
  * @generated
@@ -54,8 +53,8 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
     private List<AgreementEntity> agreements = new ArrayList<>();
     
 //    @PodamExclude
-    @OneToOne(mappedBy = "freelancer", cascade = CascadeType.ALL, orphanRemoval = true)
-    private CurriculumEntity curriculum;
+    @OneToMany(mappedBy = "freelancer", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CurriculumEntity> curriculums;
 
     /**
      * @generated
@@ -88,15 +87,15 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
     /**
      * @generated
      */
-    public CurriculumEntity getCurriculum() {
-        return curriculum;
+    public List<CurriculumEntity> getCurriculums() {
+        return curriculums;
     }
 
     /**
      * @generated
      */
-    public void setCurriculum(CurriculumEntity curriculum) {
-        this.curriculum = curriculum;
+    public void setCurriculums(List<CurriculumEntity> curriculums) {
+        this.curriculums = curriculums;
     }
 
     /**

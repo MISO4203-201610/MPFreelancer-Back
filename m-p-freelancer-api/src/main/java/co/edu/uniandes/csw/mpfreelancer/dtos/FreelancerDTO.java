@@ -28,7 +28,7 @@ public class FreelancerDTO {
     
     private List<EducationDTO> titles = new ArrayList<>();
     @PodamExclude
-    private CurriculumDTO curriculum;
+    private List<CurriculumDTO> curriculums;
     
     
     @PodamExclude
@@ -146,15 +146,15 @@ public class FreelancerDTO {
         /**
      * @generated
      */
-    public CurriculumDTO getCurriculum() {
-        return curriculum;
+    public List<CurriculumDTO> getCurriculums() {
+        return curriculums;
     }
 
     /**
      * @generated
      */
-    public void setCurriculum(CurriculumDTO curriculum) {
-        this.curriculum = curriculum;
+    public void setCurriculums(List<CurriculumDTO> curriculums) {
+        this.curriculums = curriculums;
     }
     
     
