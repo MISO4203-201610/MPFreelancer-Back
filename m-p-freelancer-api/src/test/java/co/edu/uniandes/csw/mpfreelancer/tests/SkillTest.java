@@ -130,6 +130,7 @@ public class SkillTest {
     @InSequence(1)
     public void createSkillTest() throws IOException {
         SkillDTO skill = oraculo.get(0);
+        skill.setSkillLevel("80");
         Cookie cookieSessionId = login(username, password);
         
         PodamFactory factory = new PodamFactoryImpl();
@@ -147,6 +148,7 @@ public class SkillTest {
         Assert.assertEquals(skill.getId(), skillTest.getId());
         Assert.assertEquals(skill.getName(), skillTest.getName());
         Assert.assertEquals(skill.getDescription(), skillTest.getDescription());
+        Assert.assertEquals("80", skillTest.getSkillLevel());
         Assert.assertEquals(Created, response.getStatus());
     }
 
@@ -183,11 +185,13 @@ public class SkillTest {
         SkillDTO skillChanged = factory.manufacturePojo(SkillDTO.class);
         skill.setName(skillChanged.getName());
         skill.setDescription(skillChanged.getDescription());
+        skill.setSkillLevel(skillChanged.getSkillLevel());
         Response response = target.path(skillPath).path(skill.getId().toString())
                 .request().cookie(cookieSessionId).put(Entity.entity(skill, MediaType.APPLICATION_JSON));
         SkillDTO skillTest = (SkillDTO) response.readEntity(SkillDTO.class);
         Assert.assertEquals(Ok, response.getStatus());
         Assert.assertEquals(skill.getName(), skillTest.getName());
+        Assert.assertEquals(skill.getSkillLevel(), skillTest.getSkillLevel());
         Assert.assertEquals(skill.getDescription(), skillTest.getDescription());
     }
 
