@@ -2,6 +2,7 @@ package co.edu.uniandes.csw.mpfreelancer.tests;
 
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
+import co.edu.uniandes.csw.mpfreelancer.dtos.CurriculumDTO;
 import co.edu.uniandes.csw.mpfreelancer.dtos.FreelancerDTO;
 import co.edu.uniandes.csw.mpfreelancer.dtos.SkillDTO;
 import co.edu.uniandes.csw.mpfreelancer.dtos.EducationDTO;
@@ -46,6 +47,8 @@ public class FreelancerTest {
     private final static List<FreelancerDTO> oraculo = new ArrayList<>();
     private final String skillsPath = "skills";
     private final static List<SkillDTO> oraculoSkills = new ArrayList<>();
+    private final String curriculumPath = "curriculums";
+    private final static List<CurriculumDTO> oraculoCurriculum = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
     private final String username = System.getenv("USERNAME_USER");
@@ -107,6 +110,11 @@ public class FreelancerTest {
             SkillDTO skills = factory.manufacturePojo(SkillDTO.class);
             skills.setId(i + 1L);
             oraculoSkills.add(skills);
+            
+            CurriculumDTO curriculum = factory.manufacturePojo(CurriculumDTO.class);
+            curriculum.setId(i + 1L);
+            oraculoCurriculum.add(curriculum);
+            
         }
     }
 
@@ -208,7 +216,7 @@ public class FreelancerTest {
     }
 
     @Test
-    @InSequence(10)
+    @InSequence(11)
     public void deleteFreelancerTest() {
         Cookie cookieSessionId = login(username, password);
         FreelancerDTO freelancer = oraculo.get(0);
@@ -292,5 +300,35 @@ public class FreelancerTest {
                 .path(skillsPath).path(skills.getId().toString())
                 .request().cookie(cookieSessionId).delete();
         Assert.assertEquals(OkWithoutContent, response.getStatus());
+    }
+    @Test
+    @InSequence(10)
+    public void addCurriculumTest() {
+        Cookie cookieSessionId = login(username, password);
+
+        CurriculumDTO curriculum = oraculoCurriculum.get(0);
+        FreelancerDTO freelancer = oraculo.get(0);
+
+
+        Response response = target.path("curriculums")
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(curriculum, MediaType.APPLICATION_JSON));
+
+        CurriculumDTO curriculumTest = (CurriculumDTO) response.readEntity(CurriculumDTO.class);
+        Assert.assertEquals(curriculum.getId(), curriculumTest.getId());
+        Assert.assertEquals(curriculum.getProfile(), curriculumTest.getProfile());
+        Assert.assertEquals(curriculum.getIdentification(), curriculumTest.getIdentification());
+        Assert.assertEquals(curriculum.getEmail(), curriculumTest.getEmail());
+        Assert.assertEquals(curriculum.getMobile(), curriculumTest.getMobile());        
+        Assert.assertEquals(Created, response.getStatus());
+
+//        response = target.path(freelancerPath).path(freelancer.getId().toString())
+//                .path(skillsPath).path(skills.getId().toString())
+//                .request().cookie(cookieSessionId)
+//                .post(Entity.entity(skills, MediaType.APPLICATION_JSON));
+
+//        skillsTest = (SkillDTO) response.readEntity(SkillDTO.class);
+//        Assert.assertEquals(Ok, response.getStatus());
+//        Assert.assertEquals(skills.getId(), skillsTest.getId());
     }
 }
