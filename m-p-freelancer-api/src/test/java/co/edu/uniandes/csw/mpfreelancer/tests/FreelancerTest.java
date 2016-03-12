@@ -309,6 +309,8 @@ public class FreelancerTest {
         CurriculumDTO curriculum = oraculoCurriculum.get(0);
         FreelancerDTO freelancer = oraculo.get(0);
 
+//  Ciclo 1 Validación del servicio de creación de Curriculums sin asociación con Freelancer.
+//          De acuerdo con el alcance definido para el Ciclo 1, se crea Curriculum sin asociación a Freelancer.
 
         Response response = target.path("curriculums")
                 .request().cookie(cookieSessionId)
