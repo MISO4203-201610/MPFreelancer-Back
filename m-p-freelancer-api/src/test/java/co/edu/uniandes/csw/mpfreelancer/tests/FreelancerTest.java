@@ -50,7 +50,7 @@ public class FreelancerTest {
     private final String skillsPath = "skills";
     private final static List<SkillDTO> oraculoSkills = new ArrayList<>();
     private final String curriculumPath = "curriculums";
-    private final static List<CurriculumDTO> oraculoCurriculum = new ArrayList<>();
+    private final static List<CurriculumDTO> oraculoCurriculums = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
     private final String username = System.getenv("USERNAME_USER");
@@ -115,7 +115,7 @@ public class FreelancerTest {
             
             CurriculumDTO curriculum = factory.manufacturePojo(CurriculumDTO.class);
             curriculum.setId(i + 1L);
-            oraculoCurriculum.add(curriculum);
+            oraculoCurriculums.add(curriculum);
             
         }
     }
@@ -302,5 +302,37 @@ public class FreelancerTest {
                 .path(skillsPath).path(skills.getId().toString())
                 .request().cookie(cookieSessionId).delete();
         Assert.assertEquals(OkWithoutContent, response.getStatus());
+    }
+
+   /*
+    Este test prueba la creación de un curriculum en un freelancer.
+     */
+    @Test
+    @InSequence(10)
+    public void addCurriculumTest() {
+        Cookie cookieSessionId = login(username, password);
+
+        // Se preparan los datos de entrada creando un freelancer con un BlogEntry
+        
+        List<CurriculumDTO> tmpOraculoCurriculums = new ArrayList<>();
+        tmpOraculoCurriculums.add(oraculoCurriculums.get(0));
+        FreelancerDTO freelancer = oraculo.get(0);
+        freelancer.setCurriculums(tmpOraculoCurriculums);
+
+        // Se realiza llamado a freelancer enviando entidad de blogEntries
+        
+        Response response = target.path("freelancers").path(freelancer.getId().toString())
+                .request().cookie(cookieSessionId)
+                .put(Entity.entity(freelancer, MediaType.APPLICATION_JSON));
+        
+        // Se realiza comparación entre lo enviado y lo recibido del request
+
+        FreelancerDTO freelancerTest = (FreelancerDTO) response.readEntity(FreelancerDTO.class);
+        Assert.assertEquals(freelancer.getCurriculums().get(0).getId(), freelancerTest.getCurriculums().get(0).getId());
+        Assert.assertEquals(freelancer.getCurriculums().get(0).getProfile(), freelancerTest.getCurriculums().get(0).getProfile());
+        Assert.assertEquals(freelancer.getCurriculums().get(0).getIdentification(), freelancerTest.getCurriculums().get(0).getIdentification());
+        Assert.assertEquals(freelancer.getCurriculums().get(0).getEmail(), freelancerTest.getCurriculums().get(0).getEmail());
+        Assert.assertEquals(freelancer.getCurriculums().get(0).getMobile(), freelancerTest.getCurriculums().get(0).getMobile());
+        Assert.assertEquals(Ok, response.getStatus());
     }
 }
