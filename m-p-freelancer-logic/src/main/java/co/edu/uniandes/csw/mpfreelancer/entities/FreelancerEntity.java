@@ -33,7 +33,7 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
     @OneToMany(mappedBy = "freelancer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<EducationEntity> titles = new ArrayList<>();
 
-    @OneToMany(mappedBy = "author", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "freelancer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<BlogEntryEntity> blogEntries = new ArrayList<>();
 
     @PodamExclude

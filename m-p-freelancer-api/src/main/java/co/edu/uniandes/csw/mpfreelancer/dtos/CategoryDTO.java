@@ -18,27 +18,29 @@ public class CategoryDTO {
     private List<ProjectDTO> projects = new ArrayList<>();
 
     /**
-     * @generated
-     */
-    public Long getId() {
-        return id;
-    }
-
-    /**
+     * Establece el id de una categoría.
+     * 
+     * @param id
      * @generated
      */
     public void setId(Long id) {
         this.id = id;
     }
-
+    
     /**
+     * Obtiene el id de una categoría.
+     * 
+     * @return 
      * @generated
      */
-    public String getName() {
-        return name;
+    public Long getId() {
+        return id;
     }
-
+    
     /**
+     * Establece el nombre de una categoría.
+     * 
+     * @param name
      * @generated
      */
     public void setName(String name) {
@@ -46,13 +48,19 @@ public class CategoryDTO {
     }
 
     /**
+     * Obtiene el nombre de una categoría.
+     * 
+     * @return 
      * @generated
      */
-    public String getDescription() {
-        return description;
+    public String getName() {
+        return name;
     }
-
+    
     /**
+     * Establece la descripción de una categoría.
+     * 
+     * @param description
      * @generated
      */
     public void setDescription(String description) {
@@ -60,17 +68,32 @@ public class CategoryDTO {
     }
 
     /**
+     * Obtiene la descripción de una categoría.
+     * 
+     * @return 
      * @generated
      */
-    public List<ProjectDTO> getProjects() {
-        return projects;
+    public String getDescription() {
+        return description;
     }
-
+    
     /**
+     * Estalece la lista de proyectos de una categoría.
+     * 
+     * @param projects
      * @generated
      */
     public void setProjects(List<ProjectDTO> projects) {
         this.projects = projects;
     }
 
+    /**
+     * Obtiene la lista de proyectos de una categoría.
+     * 
+     * @return 
+     * @generated
+     */
+    public List<ProjectDTO> getProjects() {
+        return projects;
+    }
 }

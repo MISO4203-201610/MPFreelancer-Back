@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.mpfreelancer.dtos;
 
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
-import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
 import java.util.Date;
 import javax.xml.bind.annotation.XmlRootElement;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -19,6 +18,7 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
 @XmlRootElement
 public class BlogEntryDTO {
     
+    private Long id;
     private String title;
     private String subject;
     private String description;
@@ -28,7 +28,15 @@ public class BlogEntryDTO {
     private Date publicationDate;
     
     @PodamExclude
-    private FreelancerEntity author;
+    private FreelancerDTO freelancer;
+    
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
 
     public String getTitle() {
         return title;
@@ -68,5 +76,13 @@ public class BlogEntryDTO {
 
     public void setPublicationDate(Date publicationDate) {
         this.publicationDate = publicationDate;
+    }
+    
+    public FreelancerDTO getFreelancer() {
+        return freelancer;
+    }
+
+    public void setFreelancer(FreelancerDTO freelancer) {
+        this.freelancer = freelancer;
     }
 }
