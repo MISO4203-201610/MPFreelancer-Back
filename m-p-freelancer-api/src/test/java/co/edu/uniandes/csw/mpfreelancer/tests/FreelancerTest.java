@@ -293,15 +293,20 @@ public class FreelancerTest {
         Assert.assertEquals(OkWithoutContent, response.getStatus());
     }
     
+    /*
+    Este test prueba la creación de un blog en un freelancer.
+     */
     @Test
     @InSequence(10)
     public void addBlogEntryTest() {
         Cookie cookieSessionId = login(username, password);
 
-        // Se preparan los datos de entrada creados por el 'oraculo' xD
+        // Se preparan los datos de entrada creando un freelancer con un BlogEntry
         
+        List<BlogEntryDTO> tmpOraculoBlogEntry = new ArrayList<>();
+        tmpOraculoBlogEntry.add(oraculoBlogEntries.get(0));
         FreelancerDTO freelancer = oraculo.get(0);
-        freelancer.setBlogEntries(oraculoBlogEntries);
+        freelancer.setBlogEntries(tmpOraculoBlogEntry);
 
         // Se realiza llamado a freelancer enviando entidad de blogEntries
         
@@ -312,13 +317,79 @@ public class FreelancerTest {
         // Se realiza comparación entre lo enviado y lo recibido del request
 
         FreelancerDTO freelancerTest = (FreelancerDTO) response.readEntity(FreelancerDTO.class);
-        Assert.assertEquals(freelancer.getBlogEntries().size(), freelancerTest.getBlogEntries().size());
+        Assert.assertEquals(freelancer.getBlogEntries().get(0).getContent(), freelancerTest.getBlogEntries().get(0).getContent());
         Assert.assertEquals(Ok, response.getStatus());
 
     }
     
+    /*
+    Este test realiza prueba modificando un BlogEntry de un Freelancer.
+     */
     @Test
     @InSequence(11)
+    public void updateBlogEntryTest() {
+        //Se realiza el login de un usuario
+        Cookie cookieSessionId = login(username, password);
+        // Se obtiene el Freelancer
+        FreelancerDTO freelancer = oraculo.get(0);
+        //Se obtiene el FreelancerTest
+        FreelancerDTO freelancerTestResponse = target.path(freelancerPath)
+                .path(oraculo.get(0).getId().toString())
+                .request().cookie(cookieSessionId).get(FreelancerDTO.class);
+        // Se obtiene la entrada del blog que se creo para Freelancer
+        List<BlogEntryDTO> blogEntryFreelancer = freelancer.getBlogEntries();
+        // Se modifica la entrada
+        blogEntryFreelancer.get(0).setContent("Nuevo");
+        // Se agrega al freelancer
+        freelancer.setBlogEntries(blogEntryFreelancer);
+        // Se envía la modificación para su revisión
+        Response response = target.path("freelancers").path(freelancer.getId().toString())
+                .request().cookie(cookieSessionId)
+                .put(Entity.entity(freelancer, MediaType.APPLICATION_JSON));
+        // Se compara que la modificación se encuentre correcta
+        FreelancerDTO freelancerTest = (FreelancerDTO) response.readEntity(FreelancerDTO.class);
+        Assert.assertEquals("Nuevo", freelancerTest.getBlogEntries().get(0).getContent());
+        Assert.assertEquals(1, freelancerTest.getBlogEntries().size());
+        Assert.assertEquals(Ok, response.getStatus());
+    }
+    
+    /*
+    Este test realiza prueba eliminando un BlogEntry de un Freelancer.
+     */
+    @Test
+    @InSequence(12)
+    public void deleteBlogEntryTest() {
+        //Se realiza el login de un usuario
+        Cookie cookieSessionId = login(username, password);
+        // Se obtiene el Freelancer
+        FreelancerDTO freelancer = oraculo.get(0);
+        // Se le agregan dos elementos EntryBlog
+        List<BlogEntryDTO> tmpOraculoBlogEntry = new ArrayList<>();
+        tmpOraculoBlogEntry.add(oraculoBlogEntries.get(0));
+        tmpOraculoBlogEntry.add(oraculoBlogEntries.get(1));
+        freelancer.setBlogEntries(tmpOraculoBlogEntry);
+        // Crea el freelancer con dos objetos EntryBlog
+        Response response = target.path("freelancers").path(freelancer.getId().toString())
+                .request().cookie(cookieSessionId)
+                .put(Entity.entity(freelancer, MediaType.APPLICATION_JSON));
+        // Se verifica que el freelancer que se creó tenga dos entidades
+        FreelancerDTO freelancerTest = (FreelancerDTO) response.readEntity(FreelancerDTO.class);
+        Assert.assertEquals(2, freelancerTest.getBlogEntries().size());
+        // Se elimina una de las entidades
+        tmpOraculoBlogEntry.remove(0);
+        freelancer.setBlogEntries(tmpOraculoBlogEntry);
+        // Se envia nuevamente la petición 
+        response = target.path("freelancers").path(freelancer.getId().toString())
+                .request().cookie(cookieSessionId)
+                .put(Entity.entity(freelancer, MediaType.APPLICATION_JSON));
+        // Se compara que la modificación se encuentre correcta
+        freelancerTest = (FreelancerDTO) response.readEntity(FreelancerDTO.class);
+        Assert.assertEquals(1, freelancerTest.getBlogEntries().size());
+        Assert.assertEquals(Ok, response.getStatus());
+    }
+    
+    @Test
+    @InSequence(13)
     public void deleteFreelancerTest() {
         Cookie cookieSessionId = login(username, password);
         FreelancerDTO freelancer = oraculo.get(0);
