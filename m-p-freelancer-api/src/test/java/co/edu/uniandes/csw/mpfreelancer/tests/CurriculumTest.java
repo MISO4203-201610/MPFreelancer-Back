@@ -38,7 +38,7 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 @RunWith(Arquillian.class)
-public class FreelancerTest {
+public class CurriculumTest {
 
     private final int Ok = Status.OK.getStatusCode();
     private final int Created = Status.CREATED.getStatusCode();
@@ -109,10 +109,6 @@ public class FreelancerTest {
 
             oraculo.add(freelancer);
 
-            SkillDTO skills = factory.manufacturePojo(SkillDTO.class);
-            skills.setId(i + 1L);
-            oraculoSkills.add(skills);
-            
             CurriculumDTO curriculum = factory.manufacturePojo(CurriculumDTO.class);
             curriculum.setId(i + 1L);
             oraculoCurriculum.add(curriculum);
@@ -218,7 +214,7 @@ public class FreelancerTest {
     }
 
     @Test
-    @InSequence(13)
+    @InSequence(9)
     public void deleteFreelancerTest() {
         Cookie cookieSessionId = login(username, password);
         FreelancerDTO freelancer = oraculo.get(0);
@@ -229,78 +225,82 @@ public class FreelancerTest {
 
     @Test
     @InSequence(6)
-    public void addSkillsTest() {
+    public void addCurriculumTest() {
         Cookie cookieSessionId = login(username, password);
 
-        SkillDTO skills = oraculoSkills.get(0);
-        FreelancerDTO freelancer = oraculo.get(0);
+        CurriculumDTO curriculum = oraculoCurriculum.get(0);
 
+//  Ciclo 1 Validación del servicio de creación de Curriculums sin asociación con Freelancer.
+//          De acuerdo con el alcance definido para el Ciclo 1, se crea Curriculum sin asociación a Freelancer.
 
-        Response response = target.path("skills")
+//  Creación de Curriculum
+
+        Response response = target.path("curriculums")
                 .request().cookie(cookieSessionId)
-                .post(Entity.entity(skills, MediaType.APPLICATION_JSON));
+                .post(Entity.entity(curriculum, MediaType.APPLICATION_JSON));
 
-        SkillDTO skillsTest = (SkillDTO) response.readEntity(SkillDTO.class);
-        Assert.assertEquals(skills.getId(), skillsTest.getId());
-        Assert.assertEquals(skills.getName(), skillsTest.getName());
-        Assert.assertEquals(skills.getDescription(), skillsTest.getDescription());
+        CurriculumDTO curriculumTest = (CurriculumDTO) response.readEntity(CurriculumDTO.class);
+        Assert.assertEquals(curriculum.getId(), curriculumTest.getId());
+        Assert.assertEquals(curriculum.getProfile(), curriculumTest.getProfile());
+        Assert.assertEquals(curriculum.getIdentification(), curriculumTest.getIdentification());
+        Assert.assertEquals(curriculum.getEmail(), curriculumTest.getEmail());
+        Assert.assertEquals(curriculum.getMobile(), curriculumTest.getMobile());        
         Assert.assertEquals(Created, response.getStatus());
+        
+//        response = target.path(freelancerPath).path(freelancer.getId().toString())
+//                .path(skillsPath).path(skills.getId().toString())
+//                .request().cookie(cookieSessionId)
+//                .post(Entity.entity(skills, MediaType.APPLICATION_JSON));
 
-        response = target.path(freelancerPath).path(freelancer.getId().toString())
-                .path(skillsPath).path(skills.getId().toString())
-                .request().cookie(cookieSessionId)
-                .post(Entity.entity(skills, MediaType.APPLICATION_JSON));
-
-        skillsTest = (SkillDTO) response.readEntity(SkillDTO.class);
-        Assert.assertEquals(Ok, response.getStatus());
-        Assert.assertEquals(skills.getId(), skillsTest.getId());
+//        skillsTest = (SkillDTO) response.readEntity(SkillDTO.class);
+//        Assert.assertEquals(Ok, response.getStatus());
+//        Assert.assertEquals(skills.getId(), skillsTest.getId());
     }
-
     @Test
     @InSequence(7)
-    public void listSkillsTest() throws IOException {
+    public void updateCurriculumTest() {
         Cookie cookieSessionId = login(username, password);
-        FreelancerDTO freelancer = oraculo.get(0);
 
-        Response response = target.path(freelancerPath)
-                .path(freelancer.getId().toString())
-                .path(skillsPath)
-                .request().cookie(cookieSessionId).get();
+        CurriculumDTO curriculum = oraculoCurriculum.get(0);
 
-        String skillsList = response.readEntity(String.class);
-        List<SkillDTO> skillsListTest = new ObjectMapper().readValue(skillsList, List.class);
-        Assert.assertEquals(Ok, response.getStatus());
-        Assert.assertEquals(1, skillsListTest.size());
+//  Ciclo 1 Validación del servicio de actualización de Curriculums sin asociación con Freelancer.
+//          De acuerdo con el alcance definido para el Ciclo 1, se crea Curriculum sin asociación a Freelancer.
+        
+//  Actualización de Curriculum
+
+        curriculum.setProfile("Update_Profile");
+        curriculum.setIdentification("Update_Identification");
+        curriculum.setEmail("Update_Email");    
+        curriculum.setMobile("Update_Mobile");    
+        
+        Response response = target.path("curriculums").path(curriculum.getId().toString())
+                .request().cookie(cookieSessionId)
+                .put(Entity.entity(curriculum, MediaType.APPLICATION_JSON));
+
+        CurriculumDTO curriculumTest = (CurriculumDTO) response.readEntity(CurriculumDTO.class);
+        Assert.assertEquals(curriculum.getId(), curriculumTest.getId());
+        Assert.assertEquals(curriculum.getProfile(), curriculumTest.getProfile());
+        Assert.assertEquals(curriculum.getIdentification(), curriculumTest.getIdentification());
+        Assert.assertEquals(curriculum.getEmail(), curriculumTest.getEmail());
+        Assert.assertEquals(curriculum.getMobile(), curriculumTest.getMobile());        
+        Assert.assertEquals(Update, response.getStatus());    
     }
-
     @Test
     @InSequence(8)
-    public void getSkillsTest() throws IOException {
-        Cookie cookieSessionId = login(username, password);
-        SkillDTO skills = oraculoSkills.get(0);
-        FreelancerDTO freelancer = oraculo.get(0);
-
-        SkillDTO skillsTest = target.path(freelancerPath)
-                .path(freelancer.getId().toString()).path(skillsPath)
-                .path(skills.getId().toString())
-                .request().cookie(cookieSessionId).get(SkillDTO.class);
-
-        Assert.assertEquals(skills.getId(), skillsTest.getId());
-        Assert.assertEquals(skills.getName(), skillsTest.getName());
-        Assert.assertEquals(skills.getDescription(), skillsTest.getDescription());
-    }
-
-    @Test
-    @InSequence(9)
-    public void removeSkillsTest() {
+    public void deleteCurriculumTest() {
         Cookie cookieSessionId = login(username, password);
 
-        SkillDTO skills = oraculoSkills.get(0);
-        FreelancerDTO freelancer = oraculo.get(0);
+        CurriculumDTO curriculum = oraculoCurriculum.get(0);
 
-        Response response = target.path(freelancerPath).path(freelancer.getId().toString())
-                .path(skillsPath).path(skills.getId().toString())
-                .request().cookie(cookieSessionId).delete();
-        Assert.assertEquals(OkWithoutContent, response.getStatus());
+//  Ciclo 1 Validación del servicio de borrado de Curriculum sin asociación con Freelancer.
+//          De acuerdo con el alcance definido para el Ciclo 1, se crea Curriculum sin asociación a Freelancer.
+    
+//  Borrado de Curriculum
+        
+        Response response = target.path("curriculums").path(curriculum.getId().toString())
+                .request().cookie(cookieSessionId)
+                .delete();
+        Assert.assertEquals(Delete, response.getStatus());
+        
     }
 }
