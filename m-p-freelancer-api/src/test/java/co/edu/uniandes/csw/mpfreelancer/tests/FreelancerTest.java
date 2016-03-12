@@ -335,4 +335,43 @@ public class FreelancerTest {
         Assert.assertEquals(freelancer.getCurriculums().get(0).getMobile(), freelancerTest.getCurriculums().get(0).getMobile());
         Assert.assertEquals(Ok, response.getStatus());
     }
+ /*
+    Este test realiza prueba modificando un Curriculum de un Freelancer.
+     */
+    @Test
+    @InSequence(11)
+    public void updateCurriculum() {
+        //Se realiza el login de un usuario
+        Cookie cookieSessionId = login(username, password);
+        // Se obtiene el Freelancer
+        FreelancerDTO freelancer = oraculo.get(0);
+        //Se obtiene el FreelancerTest
+        FreelancerDTO freelancerTestResponse = target.path(freelancerPath)
+                .path(oraculo.get(0).getId().toString())
+                .request().cookie(cookieSessionId).get(FreelancerDTO.class);
+        // Se obtiene la entrada del blog que se creo para Freelancer
+        List<CurriculumDTO> curriculumFreelancer = freelancer.getCurriculums();
+        // Se modifica la entrada
+        curriculumFreelancer.get(0).setProfile("Update_Profile");
+        curriculumFreelancer.get(0).setIdentification("Update_Identification");
+        curriculumFreelancer.get(0).setEmail("Update_Email");    
+        curriculumFreelancer.get(0).setMobile("Update_Mobile");    
+        
+        // Se agrega al freelancer
+        freelancer.setCurriculums(curriculumFreelancer);
+        
+        // Se envía la modificación para su revisión
+        Response response = target.path("freelancers").path(freelancer.getId().toString())
+                .request().cookie(cookieSessionId)
+                .put(Entity.entity(freelancer, MediaType.APPLICATION_JSON));
+        
+        // Se compara que la modificación se encuentre correcta
+        FreelancerDTO freelancerTest = (FreelancerDTO) response.readEntity(FreelancerDTO.class);
+        Assert.assertEquals("Update_Profile", freelancerTest.getCurriculums().get(0).getProfile());
+        Assert.assertEquals("Update_Identification", freelancerTest.getCurriculums().get(0).getIdentification());
+        Assert.assertEquals("Update_Email", freelancerTest.getCurriculums().get(0).getEmail());
+        Assert.assertEquals("Update_Mobile", freelancerTest.getCurriculums().get(0).getMobile());        
+        Assert.assertEquals(1, freelancerTest.getCurriculums().size());
+        Assert.assertEquals(Ok, response.getStatus());
+    }
 }
