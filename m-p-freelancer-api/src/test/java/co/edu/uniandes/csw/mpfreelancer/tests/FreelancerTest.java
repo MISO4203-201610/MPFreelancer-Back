@@ -2,6 +2,7 @@ package co.edu.uniandes.csw.mpfreelancer.tests;
 
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
+import co.edu.uniandes.csw.mpfreelancer.dtos.BlogEntryDTO;
 import co.edu.uniandes.csw.mpfreelancer.dtos.FreelancerDTO;
 import co.edu.uniandes.csw.mpfreelancer.dtos.SkillDTO;
 import co.edu.uniandes.csw.mpfreelancer.dtos.EducationDTO;
@@ -46,6 +47,7 @@ public class FreelancerTest {
     private final static List<FreelancerDTO> oraculo = new ArrayList<>();
     private final String skillsPath = "skills";
     private final static List<SkillDTO> oraculoSkills = new ArrayList<>();
+    private final static List<BlogEntryDTO> oraculoBlogEntries = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
     private final String username = System.getenv("USERNAME_USER");
@@ -107,6 +109,13 @@ public class FreelancerTest {
             SkillDTO skills = factory.manufacturePojo(SkillDTO.class);
             skills.setId(i + 1L);
             oraculoSkills.add(skills);
+            
+            // Se crean datos aleatorios para oraculoBlogEntries
+            
+            BlogEntryDTO blogEntries = factory.manufacturePojo(BlogEntryDTO.class);
+            blogEntries.setId(i + 1L);
+            oraculoBlogEntries.add(blogEntries);
+            
         }
     }
 
@@ -208,16 +217,6 @@ public class FreelancerTest {
     }
 
     @Test
-    @InSequence(10)
-    public void deleteFreelancerTest() {
-        Cookie cookieSessionId = login(username, password);
-        FreelancerDTO freelancer = oraculo.get(0);
-        Response response = target.path(freelancerPath).path(freelancer.getId().toString())
-                .request().cookie(cookieSessionId).delete();
-        Assert.assertEquals(OkWithoutContent, response.getStatus());
-    }
-
-    @Test
     @InSequence(6)
     public void addSkillsTest() {
         Cookie cookieSessionId = login(username, password);
@@ -290,6 +289,40 @@ public class FreelancerTest {
 
         Response response = target.path(freelancerPath).path(freelancer.getId().toString())
                 .path(skillsPath).path(skills.getId().toString())
+                .request().cookie(cookieSessionId).delete();
+        Assert.assertEquals(OkWithoutContent, response.getStatus());
+    }
+    
+    @Test
+    @InSequence(10)
+    public void addBlogEntryTest() {
+        Cookie cookieSessionId = login(username, password);
+
+        // Se preparan los datos de entrada creados por el 'oraculo' xD
+        
+        FreelancerDTO freelancer = oraculo.get(0);
+        freelancer.setBlogEntries(oraculoBlogEntries);
+
+        // Se realiza llamado a freelancer enviando entidad de blogEntries
+        
+        Response response = target.path("freelancers").path(freelancer.getId().toString())
+                .request().cookie(cookieSessionId)
+                .put(Entity.entity(freelancer, MediaType.APPLICATION_JSON));
+        
+        // Se realiza comparación entre lo enviado y lo recibido del request
+
+        FreelancerDTO freelancerTest = (FreelancerDTO) response.readEntity(FreelancerDTO.class);
+        Assert.assertEquals(freelancer.getBlogEntries().size(), freelancerTest.getBlogEntries().size());
+        Assert.assertEquals(Ok, response.getStatus());
+
+    }
+    
+    @Test
+    @InSequence(11)
+    public void deleteFreelancerTest() {
+        Cookie cookieSessionId = login(username, password);
+        FreelancerDTO freelancer = oraculo.get(0);
+        Response response = target.path(freelancerPath).path(freelancer.getId().toString())
                 .request().cookie(cookieSessionId).delete();
         Assert.assertEquals(OkWithoutContent, response.getStatus());
     }
