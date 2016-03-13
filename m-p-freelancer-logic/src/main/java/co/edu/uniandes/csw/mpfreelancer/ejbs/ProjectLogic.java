@@ -95,6 +95,14 @@ public class ProjectLogic implements IProjectLogic {
      * @generated
      */
     @Override
+    public List<ProjectSprintEntity> listSprints(Long projectId) {
+        return persistence.find(projectId).getProjectSprints();
+    }
+    
+    /**
+     * @generated
+     */
+    @Override
     public SkillEntity getExpectedskills(Long projectId, Long expectedskillsId) {
         List<SkillEntity> list = persistence.find(projectId).getExpectedskills();
         SkillEntity expectedskillsEntity = new SkillEntity();

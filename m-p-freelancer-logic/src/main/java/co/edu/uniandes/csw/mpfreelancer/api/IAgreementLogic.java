@@ -6,8 +6,6 @@
 package co.edu.uniandes.csw.mpfreelancer.api;
 
 import co.edu.uniandes.csw.mpfreelancer.entities.AgreementEntity;
-import co.edu.uniandes.csw.mpfreelancer.entities.CategoryEntity;
-import co.edu.uniandes.csw.mpfreelancer.entities.ProjectEntity;
 import java.util.List;
 
 /**

@@ -81,8 +81,7 @@ public abstract class AgreementConverter {
 
     public static AgreementDTO fullEntity2DTO(AgreementEntity entity) {
         if (entity != null) {
-            AgreementDTO dto = basicEntity2DTO(entity);
-            return dto;
+            return basicEntity2DTO(entity);
         } else {
             return null;
         }
@@ -90,8 +89,7 @@ public abstract class AgreementConverter {
 
     public static AgreementEntity fullDTO2Entity(AgreementDTO dto) {
         if (dto != null) {
-            AgreementEntity entity = basicDTO2Entity(dto);
-            return entity;
+            return basicDTO2Entity(dto);
         } else {
             return null;
         }

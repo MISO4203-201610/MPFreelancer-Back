@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.mpfreelancer.converters;
 
 import co.edu.uniandes.csw.mpfreelancer.dtos.ProjectSprintDTO;
+import co.edu.uniandes.csw.mpfreelancer.entities.ProjectEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.ProjectSprintEntity;
 import java.util.ArrayList;
 import java.util.List;
@@ -79,7 +80,7 @@ public abstract class ProjectSprintConverter {
             dto.setPrice(entity.getPrice());
             dto.setStartDate(entity.getStartDate());
             dto.setDeadLine(entity.getDeadLine());
-            dto.setProject(ProjectConverter.fullEntity2DTO(entity.getProject()));
+            dto.setProject(ProjectConverter.refEntity2DTO(entity.getProject()));
             return dto;
         } else {
             return null;
@@ -105,8 +106,7 @@ public abstract class ProjectSprintConverter {
             entity.setPrice(dto.getPrice());
             entity.setStartDate(dto.getStartDate());
             entity.setDeadLine(dto.getDeadLine());
-            entity.setProject(ProjectConverter.refDTO2Entity(dto.getProject()));
-            
+            //entity.setProject(ProjectConverter.refDTO2Entity(dto.getProject()));
             return entity;
         } else {
             return null;
@@ -181,6 +181,40 @@ public abstract class ProjectSprintConverter {
         if (dtos != null) {
             for (ProjectSprintDTO dto : dtos) {
                 entities.add(basicDTO2Entity(dto));
+            }
+        }
+        return entities;
+    }
+    
+    /**
+     * Convierte una instancia de ProjectSprintDTO a ProjectEntity asignando un valor
+     * al atributo org.eclipse.uml2.uml.internal.impl.PropertyImpl@38317dcc (name: freelancer, visibility: <unset>) (isLeaf: false) (isStatic: false) (isOrdered: false, isUnique: true, isReadOnly: false) (aggregation: none, isDerived: false, isDerivedUnion: false, isID: false) de EducationEntity. Se usa cuando se necesita convertir
+     * un ProjectSprintDTO asignando el libro asociado
+     * @param dto Instancia de ProjectSprintDTO
+     * @param parent Instancia de ProjectEntity
+     * @return Instancia de EducationEntity con FreelancerEntity asociado
+     * @generated
+     */
+    public static ProjectSprintEntity childDTO2Entity(ProjectSprintDTO dto, ProjectEntity parent){
+        ProjectSprintEntity entity = basicDTO2Entity(dto);
+        entity.setProject(parent);
+        return entity;
+    }
+    
+    /**
+     * Convierte una colección de instancias de ProjectSprintDTO a ProjectSprintEntity
+     * asignando el mismo padre para todos. Se usa cuando se necesita crear o
+     * actualizar varios ProjectSprintEntity con el mismo org.eclipse.uml2.uml.internal.impl.PropertyImpl@38317dcc (name: freelancer, visibility: <unset>) (isLeaf: false) (isStatic: false) (isOrdered: false, isUnique: true, isReadOnly: false) (aggregation: none, isDerived: false, isDerivedUnion: false, isID: false)
+     * @param dtos Colección de instancias de EducationDTO
+     * @param parent Instancia de FreelancerEntity
+     * @return Colección de ProjectSprintEntity con el atributo org.eclipse.uml2.uml.internal.impl.PropertyImpl@38317dcc (name: freelancer, visibility: <unset>) (isLeaf: false) (isStatic: false) (isOrdered: false, isUnique: true, isReadOnly: false) (aggregation: none, isDerived: false, isDerivedUnion: false, isID: false) asignado
+     * @generated
+     */
+    public static List<ProjectSprintEntity> childListDTO2Entity(List<ProjectSprintDTO> dtos, ProjectEntity parent) {
+        List<ProjectSprintEntity> entities = new ArrayList<ProjectSprintEntity>();
+        if (dtos != null) {
+            for (ProjectSprintDTO dto : dtos) {
+                entities.add(childDTO2Entity(dto, parent));
             }
         }
         return entities;

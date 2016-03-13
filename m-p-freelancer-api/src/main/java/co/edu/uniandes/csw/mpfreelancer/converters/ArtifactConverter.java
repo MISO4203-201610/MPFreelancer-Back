@@ -117,8 +117,8 @@ public abstract class ArtifactConverter {
      */
     public static ArtifactDTO fullEntity2DTO(ArtifactEntity entity) {
         if (entity != null) {
-            ArtifactDTO dto = basicEntity2DTO(entity);
-            return dto;
+            
+            return basicEntity2DTO(entity);
         } else {
             return null;
         }
@@ -134,8 +134,8 @@ public abstract class ArtifactConverter {
      */
     public static ArtifactEntity fullDTO2Entity(ArtifactDTO dto) {
         if (dto != null) {
-            ArtifactEntity entity = basicDTO2Entity(dto);
-            return entity;
+            
+            return basicDTO2Entity(dto);
         } else {
             return null;
         }
