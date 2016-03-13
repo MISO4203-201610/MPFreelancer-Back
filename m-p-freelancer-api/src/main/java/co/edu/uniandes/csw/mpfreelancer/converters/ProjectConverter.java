@@ -153,7 +153,7 @@ public abstract class ProjectConverter {
             ProjectEntity entity = basicDTO2Entity(dto);
             entity.setExpectedskills(SkillConverter.listDTO2Entity(dto.getExpectedskills()));
             entity.setAgreements(AgreementConverter.listDTO2Entity(dto.getAgreements()));
-            entity.setProjectSprints(ProjectSprintConverter.listDTO2Entity(dto.getProjectSprints()));
+            entity.setProjectSprints(ProjectSprintConverter.childListDTO2Entity(dto.getProjectSprints(),entity));
             return entity;
         } else {
             return null;
