@@ -38,6 +38,9 @@ public class ProjectDTO {
     private List<ProjectSprintDTO> projectSprints = new ArrayList<>();
     
     /**
+     * Obtiene el id de un proyecto.
+     * 
+     * @return 
      * @generated
      */
     public Long getId() {
@@ -45,6 +48,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Establece el id de un proyecto.
+     * 
+     * @param id
      * @generated
      */
     public void setId(Long id) {
@@ -52,6 +58,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Obtiene el nombre de un proyecto.
+     * 
+     * @return 
      * @generated
      */
     public String getName() {
@@ -59,6 +68,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Establece el nombre de un proyecto.
+     * 
+     * @param name
      * @generated
      */
     public void setName(String name) {
@@ -66,6 +78,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Obtiene la descripción de un proyecto.
+     * 
+     * @return 
      * @generated
      */
     public String getDescription() {
@@ -73,6 +88,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Establece la descripción de un proyecto.
+     * 
+     * @param description
      * @generated
      */
     public void setDescription(String description) {
@@ -80,6 +98,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Obtiene el precio de un proyecto.
+     * 
+     * @return 
      * @generated
      */
     public Integer getPrice() {
@@ -87,6 +108,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Establece el precio de un proyecto.
+     * 
+     * @param price
      * @generated
      */
     public void setPrice(Integer price) {
@@ -94,6 +118,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Obtiene la fecha límite para un proyecto.
+     * 
+     * @return 
      * @generated
      */
     public Date getDeadLine() {
@@ -101,6 +128,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Establece la fecha límite para un proyecto.
+     * 
+     * @param deadline
      * @generated
      */
     public void setDeadLine(Date deadline) {
@@ -108,6 +138,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Obtiene la fecha de publicación para un proyecto.
+     * 
+     * @return 
      * @generated
      */
     public Date getPublicationDate() {
@@ -115,6 +148,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Establece la fecha de publicación para un proyecto.
+     * 
+     * @param publicationdate
      * @generated
      */
     public void setPublicationDate(Date publicationdate) {
@@ -122,6 +158,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Obtiene la fecha de inicio para un proyecto.
+     * 
+     * @return 
      * @generated
      */
     public Date getStartDate() {
@@ -129,6 +168,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Establece la fecha de inicio para un proyecto.
+     * 
+     * @param startdate
      * @generated
      */
     public void setStartDate(Date startdate) {
@@ -136,6 +178,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Obtiene la categoría de un proyecto.
+     * 
+     * @return 
      * @generated
      */
     public CategoryDTO getCategory() {
@@ -143,6 +188,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Establece la categoría de un proyecto.
+     * 
+     * @param category
      * @generated
      */
     public void setCategory(CategoryDTO category) {
@@ -150,6 +198,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Obtiene el sponsor de un proyecto.
+     * 
+     * @return 
      * @generated
      */
     public ProjectSponsorDTO getSponsor() {
@@ -157,6 +208,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Establece el sponsor de un proyecto.
+     * 
+     * @param sponsor
      * @generated
      */
     public void setSponsor(ProjectSponsorDTO sponsor) {
@@ -164,6 +218,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Obtiene el estado de un proyecto.
+     * 
+     * @return 
      * @generated
      */
     public StatusDTO getStatus() {
@@ -171,6 +228,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Establece el estado de un proyecto.
+     * 
+     * @param status
      * @generated
      */
     public void setStatus(StatusDTO status) {
@@ -178,6 +238,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Obtiene las habilidades necesarias para el desarrollo de un proyecto.
+     * 
+     * @return 
      * @generated
      */
     public List<SkillDTO> getExpectedskills() {
@@ -185,6 +248,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Establece las habilidades necesarias para el desarrollo de un proyecto.
+     * 
+     * @param expectedskills
      * @generated
      */
     public void setExpectedskills(List<SkillDTO> expectedskills) {
@@ -200,6 +266,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Obtiene los sprints de un proyecto.
+     * 
+     * @return 
      * @generated
      */
     public List<ProjectSprintDTO> getProjectSprints() {
@@ -207,6 +276,9 @@ public class ProjectDTO {
     }
 
     /**
+     * Establece los sprints de un proyecto.
+     * 
+     * @param projectSprints
      * @generated
      */
     public void setProjectSprints(List<ProjectSprintDTO> projectSprints) {

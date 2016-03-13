@@ -19,6 +19,9 @@ public class ProjectSponsorDTO {
     private List<ProjectDTO> projects = new ArrayList<>();
 
     /**
+     * Obtiene el id de un Project Sponsor
+     * 
+     * @return 
      * @generated
      */
     public Long getId() {
@@ -26,6 +29,9 @@ public class ProjectSponsorDTO {
     }
 
     /**
+     * Establece el id de un Project Sponsor
+     * 
+     * @param id
      * @generated
      */
     public void setId(Long id) {
@@ -33,6 +39,9 @@ public class ProjectSponsorDTO {
     }
 
     /**
+     * Obtiene el nombre de un Project Sponsor
+     * 
+     * @return 
      * @generated
      */
     public String getName() {
@@ -40,6 +49,9 @@ public class ProjectSponsorDTO {
     }
 
     /**
+     * Establece el nombre de un Project Sponsor
+     * 
+     * @param name
      * @generated
      */
     public void setName(String name) {
@@ -47,6 +59,9 @@ public class ProjectSponsorDTO {
     }
 
     /**
+     * Obtiene la compañia de un Project Sponsor
+     * 
+     * @return 
      * @generated
      */
     public String getCompany() {
@@ -54,6 +69,9 @@ public class ProjectSponsorDTO {
     }
 
     /**
+     * Establece la compañia de un Project Sponsor
+     * 
+     * @param company
      * @generated
      */
     public void setCompany(String company) {
@@ -61,6 +79,9 @@ public class ProjectSponsorDTO {
     }
 
     /**
+     * Obtiene la fotografía de un Project Sponsor
+     * 
+     * @return 
      * @generated
      */
     public String getPicture() {
@@ -68,6 +89,9 @@ public class ProjectSponsorDTO {
     }
 
     /**
+     * Establece la fotografía de un Project Sponsor
+     * 
+     * @param picture
      * @generated
      */
     public void setPicture(String picture) {
@@ -75,6 +99,9 @@ public class ProjectSponsorDTO {
     }
 
     /**
+     * Obtiene los proyectos de un Project Sponsor
+     * 
+     * @return 
      * @generated
      */
     public List<ProjectDTO> getProjects() {
@@ -82,6 +109,9 @@ public class ProjectSponsorDTO {
     }
 
     /**
+     * Establece los proyectos de un Project Sponsor
+     * 
+     * @param projects
      * @generated
      */
     public void setProjects(List<ProjectDTO> projects) {

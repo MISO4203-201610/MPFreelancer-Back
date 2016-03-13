@@ -1,9 +1,5 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.mpfreelancer.converters;
+
 import co.edu.uniandes.csw.mpfreelancer.dtos.CurriculumDTO;
 import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.CurriculumEntity;
@@ -12,10 +8,10 @@ import java.util.List;
 
 /**
  *
- * @author Fernando
+ * @author asistente
  */
 public abstract class CurriculumConverter {
-    
+
     private CurriculumConverter() {
     }
 
@@ -27,13 +23,13 @@ public abstract class CurriculumConverter {
             dto.setIdentification(entity.getIdentification());
             dto.setEmail(entity.getEmail());
             dto.setMobile(entity.getMobile());
-
+                
             return dto;
         } else {
             return null;
         }
     }
-    
+
     public static CurriculumEntity refDTO2Entity(CurriculumDTO dto) {
         if (dto != null) {
             CurriculumEntity entity = new CurriculumEntity();
@@ -44,8 +40,8 @@ public abstract class CurriculumConverter {
             return null;
         }
     }
-    
-private static CurriculumDTO basicEntity2DTO(CurriculumEntity entity) {
+
+    private static CurriculumDTO basicEntity2DTO(CurriculumEntity entity) {
         if (entity != null) {
             CurriculumDTO dto = new CurriculumDTO();
             dto.setId(entity.getId());
@@ -61,7 +57,7 @@ private static CurriculumDTO basicEntity2DTO(CurriculumEntity entity) {
         }
     }
 
-private static CurriculumEntity basicDTO2Entity(CurriculumDTO dto) {
+    private static CurriculumEntity basicDTO2Entity(CurriculumDTO dto) {
         if (dto != null) {
             CurriculumEntity entity = new CurriculumEntity();
             entity.setId(dto.getId());
@@ -93,7 +89,7 @@ private static CurriculumEntity basicDTO2Entity(CurriculumDTO dto) {
         } else {
             return null;
         }
-    }    
+    }
 
     public static List<CurriculumDTO> listEntity2DTO(List<CurriculumEntity> entities) {
         List<CurriculumDTO> dtos = new ArrayList<>();
@@ -130,9 +126,4 @@ private static CurriculumEntity basicDTO2Entity(CurriculumDTO dto) {
         }
         return entities;
     }
-
-    
-    
-
-
 }

@@ -28,9 +28,11 @@ public class FreelancerDTO {
     
     private List<EducationDTO> titles = new ArrayList<>();
     @PodamExclude
-    private CurriculumDTO curriculum;
+    private List<CurriculumDTO> curriculums;
     
-    
+    @PodamExclude
+    private List<BlogEntryDTO> blogEntries = new ArrayList<>();
+
     @PodamExclude
     private List<AgreementDTO> agreements = new ArrayList<>();
 
@@ -146,15 +148,15 @@ public class FreelancerDTO {
         /**
      * @generated
      */
-    public CurriculumDTO getCurriculum() {
-        return curriculum;
+    public List<CurriculumDTO> getCurriculums() {
+        return curriculums;
     }
 
     /**
      * @generated
      */
-    public void setCurriculum(CurriculumDTO curriculum) {
-        this.curriculum = curriculum;
+    public void setCurriculums(List<CurriculumDTO> curriculums) {
+        this.curriculums = curriculums;
     }
     
     
@@ -170,5 +172,13 @@ public class FreelancerDTO {
      */
     public void setAgreements(List<AgreementDTO> agreements) {
         this.agreements = agreements;
+    }
+    
+    public List<BlogEntryDTO> getBlogEntries() {
+        return blogEntries;
+    }
+
+    public void setBlogEntries(List<BlogEntryDTO> blogEntries) {
+        this.blogEntries = blogEntries;
     }
 }

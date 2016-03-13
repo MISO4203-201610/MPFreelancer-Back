@@ -16,7 +16,7 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
  */
 @Entity
 public class BlogEntryEntity extends BaseEntity implements Serializable {
-
+    
     private String title;
     private String subject;
     private String description;
@@ -28,20 +28,20 @@ public class BlogEntryEntity extends BaseEntity implements Serializable {
 
     @PodamExclude
     @ManyToOne
-    private FreelancerEntity author;
-
+    private FreelancerEntity freelancer;
+    
     /**
      * @generated
      */
-    public FreelancerEntity getAuthor(){
-        return author;
+    public FreelancerEntity getFreelancer(){
+        return freelancer;
     }
     
      /**
      * @generated
      */
-    public void setAuthor(FreelancerEntity author){
-        this.author = author;
+    public void setFreelancer(FreelancerEntity freelancer){
+        this.freelancer = freelancer;
     }
     
     /**
