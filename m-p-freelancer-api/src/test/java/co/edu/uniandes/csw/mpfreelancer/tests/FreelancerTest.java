@@ -374,4 +374,38 @@ public class FreelancerTest {
         Assert.assertEquals(1, freelancerTest.getCurriculums().size());
         Assert.assertEquals(Ok, response.getStatus());
     }
+    /*
+    Este test realiza prueba borrando un Curriculum de un Freelancer.
+    */
+    @Test
+    @InSequence(12)
+    public void deleteCurriculum() {
+        //Se realiza el login de un usuario
+        Cookie cookieSessionId = login(username, password);
+        // Se obtiene el Freelancer
+        FreelancerDTO freelancer = oraculo.get(0);
+        // Se le agregan dos elementos EntryBlog
+        List<CurriculumDTO> tmpOraculoCurriculum = new ArrayList<>();
+        tmpOraculoCurriculum.add(oraculoCurriculums.get(0));
+        tmpOraculoCurriculum.add(oraculoCurriculums.get(1));
+        freelancer.setCurriculums(tmpOraculoCurriculum);
+        // Crea el freelancer con dos objetos EntryBlog
+        Response response = target.path("freelancers").path(freelancer.getId().toString())
+                .request().cookie(cookieSessionId)
+                .put(Entity.entity(freelancer, MediaType.APPLICATION_JSON));
+        // Se verifica que el freelancer que se creó tenga dos entidades
+        FreelancerDTO freelancerTest = (FreelancerDTO) response.readEntity(FreelancerDTO.class);
+        Assert.assertEquals(2, freelancerTest.getCurriculums().size());
+        // Se elimina una de las entidades
+        tmpOraculoCurriculum.remove(0);
+        freelancer.setCurriculums(tmpOraculoCurriculum);
+        // Se envia nuevamente la petición 
+        response = target.path("freelancers").path(freelancer.getId().toString())
+                .request().cookie(cookieSessionId)
+                .put(Entity.entity(freelancer, MediaType.APPLICATION_JSON));
+        // Se compara que la modificación se encuentre correcta
+        freelancerTest = (FreelancerDTO) response.readEntity(FreelancerDTO.class);
+        Assert.assertEquals(1, freelancerTest.getCurriculums().size());
+        Assert.assertEquals(Ok, response.getStatus());
+    }
 }
