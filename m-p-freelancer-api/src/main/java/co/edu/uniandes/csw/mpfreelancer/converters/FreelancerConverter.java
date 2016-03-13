@@ -34,6 +34,7 @@ public abstract class FreelancerConverter {
             dto.setRate(entity.getRate());
             dto.setBithday(entity.getBithday());
             dto.setPicture(entity.getPicture());
+        
 
             return dto;
         } else {
@@ -76,9 +77,7 @@ public abstract class FreelancerConverter {
             dto.setName(entity.getName());
             dto.setRate(entity.getRate());
             dto.setBithday(entity.getBithday());
-            dto.setPicture(entity.getPicture());
-            dto.setCurriculum(CurriculumConverter.refEntity2DTO(entity.getCurriculum()));
-
+            dto.setPicture(entity.getPicture());            
             return dto;
         } else {
             return null;
@@ -101,8 +100,7 @@ public abstract class FreelancerConverter {
             entity.setName(dto.getName());
             entity.setRate(dto.getRate());
             entity.setBithday(dto.getBithday());
-            entity.setPicture(dto.getPicture());
-            entity.setCurriculum(CurriculumConverter.refDTO2Entity(dto.getCurriculum()));
+            entity.setPicture(dto.getPicture());            
             
             return entity;
         } else {
@@ -124,7 +122,7 @@ public abstract class FreelancerConverter {
             dto.setSkills(SkillConverter.listEntity2DTO(entity.getSkills()));
             dto.setTitles(EducationConverter.listEntity2DTO(entity.getTitles()));
             dto.setAgreements(AgreementConverter.listEntity2DTO(entity.getAgreements()));
-            dto.setCurriculum(CurriculumConverter.refEntity2DTO(entity.getCurriculum()));
+            dto.setCurriculums(CurriculumConverter.listEntity2DTO(entity.getCurriculums()));
             dto.setExperience(WorkExperienceConverter.listEntity2DTO(entity.getWorkExperiences()));
             dto.setBlogEntries(BlogEntryConverter.listEntity2DTO(entity.getBlogEntries()));
             return dto;
@@ -147,7 +145,7 @@ public abstract class FreelancerConverter {
             entity.setSkills(SkillConverter.listDTO2Entity(dto.getSkills()));
             entity.setTitles(EducationConverter.childListDTO2Entity(dto.getTitles(), entity));
             entity.setAgreements(AgreementConverter.listDTO2Entity(dto.getAgreements()));
-            entity.setCurriculum(CurriculumConverter.refDTO2Entity(dto.getCurriculum()));
+            entity.setCurriculums(CurriculumConverter.childListDTO2Entity(dto.getCurriculums(), entity));
             entity.setWorkExperiences(WorkExperienceConverter.childListDTO2Entity(dto.getExperiences(), entity));
             entity.setBlogEntries(BlogEntryConverter.childListDTO2Entity(dto.getBlogEntries(),entity));
             return entity;
