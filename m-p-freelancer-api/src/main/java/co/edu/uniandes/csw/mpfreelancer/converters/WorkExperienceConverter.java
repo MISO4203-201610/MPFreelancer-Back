@@ -15,12 +15,20 @@ import java.util.List;
  *
  * @author mf.calderon
  */
-public class WorkExperienceConverter {
+public abstract class WorkExperienceConverter {
 
 
     private WorkExperienceConverter() {
     }
-
+    /**
+     * Realiza la conversión de WorkExperienceEntity a WorkExperienceDTO.
+     * Se invoca cuando otra entidad tiene una referencia a WorkExperienceEntity.
+     * Entrega únicamente los atributos proprios de la entidad.
+     *
+     * @param entity instancia de WorkExperienceEntity a convertir
+     * @return instancia deWorkExperienceDTO con los datos recibidos por parámetro
+     * @generated
+     */
     public static WorkExperienceDTO refEntity2DTO(WorkExperienceEntity entity) {
         if (entity != null) {
             WorkExperienceDTO dto = new WorkExperienceDTO();
