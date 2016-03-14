@@ -126,19 +126,4 @@ public class ProjectSprintEntity extends BaseEntity implements Serializable {
         this.startDate = startDate;
     }
     
-    @Override
-    public boolean equals(Object obj){
-        return obj == this;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 3;
-        hash = 61 * hash + Objects.hashCode(this.description);
-        hash = 61 * hash + Objects.hashCode(this.price);
-        hash = 61 * hash + Objects.hashCode(this.deadLine);
-        hash = 61 * hash + Objects.hashCode(this.startDate);
-        return hash;
-    }
-    
 }

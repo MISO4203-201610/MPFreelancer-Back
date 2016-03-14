@@ -213,9 +213,4 @@ public class ProjectEntity extends BaseEntity implements Serializable {
     public void setAgreements(List<AgreementEntity> agreements) {
         this.agreements = agreements;
     }
-    
-    @Override
-    public boolean equals(Object obj){
-        return obj == this;
-    }
 }
