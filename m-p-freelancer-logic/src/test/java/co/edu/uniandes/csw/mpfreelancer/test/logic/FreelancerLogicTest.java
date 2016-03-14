@@ -2,6 +2,7 @@ package co.edu.uniandes.csw.mpfreelancer.test.logic;
 
 import co.edu.uniandes.csw.mpfreelancer.ejbs.FreelancerLogic;
 import co.edu.uniandes.csw.mpfreelancer.api.IFreelancerLogic;
+import co.edu.uniandes.csw.mpfreelancer.entities.CurriculumEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
 import co.edu.uniandes.csw.mpfreelancer.persistence.FreelancerPersistence;
 import co.edu.uniandes.csw.mpfreelancer.entities.EducationEntity;
@@ -66,6 +67,11 @@ public class FreelancerLogicTest {
     /**
      * @generated
      */
+    private List<CurriculumEntity> curriculumsData = new ArrayList<>();
+
+    /**
+     * @generated
+     */
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
@@ -105,6 +111,7 @@ public class FreelancerLogicTest {
     private void clearData() {
         em.createQuery("delete from EducationEntity").executeUpdate();
         em.createQuery("delete from SkillEntity").executeUpdate();
+        em.createQuery("delete from CurriculumEntity").executeUpdate();
         em.createQuery("delete from FreelancerEntity").executeUpdate();
     }
 
@@ -116,6 +123,12 @@ public class FreelancerLogicTest {
             SkillEntity skills = factory.manufacturePojo(SkillEntity.class);
             em.persist(skills);
             skillsData.add(skills);
+        }
+        
+        for (int i = 0; i < 3; i++) {
+            CurriculumEntity curriculums = factory.manufacturePojo(CurriculumEntity.class);
+            em.persist(curriculums);
+            curriculumsData.add(curriculums);
         }
 
         for (int i = 0; i < 3; i++) {
@@ -129,6 +142,9 @@ public class FreelancerLogicTest {
             data.add(entity);
 
             skillsData.get(0).getFreelancers().add(entity);
+            
+            if (i==0)
+            curriculumsData.get(0).setFreelancer(entity);
         }
     }
 
@@ -272,4 +288,41 @@ public class FreelancerLogicTest {
         SkillEntity response = freelancerLogic.getSkills(data.get(0).getId(), skillsData.get(0).getId());
         Assert.assertNull(response);
     }
+    
+        /**
+     * @generated
+     */
+    @Test
+    public void getCurriculumTest() {
+        FreelancerEntity entity = data.get(0);
+        CurriculumEntity curriculumEntity = curriculumsData.get(0);
+        CurriculumEntity response = freelancerLogic.getFreelancer(entity.getId()).getCurriculums().get(0);
+
+        Assert.assertEquals(curriculumEntity.getId(), response.getId());
+        Assert.assertEquals(curriculumEntity.getName(), response.getName());
+        Assert.assertEquals(curriculumEntity.getProfile(), response.getProfile());
+    }
+    /**
+     * @generated
+     */
+    @Test
+    public void listCurriculumsTest() {
+        List<CurriculumEntity> list = freelancerLogic.getFreelancer(data.get(0).getId()).getCurriculums();
+        Assert.assertEquals(1, list.size());
+    }
+
+    /**
+     * @generated
+     */
+    @Test
+    public void addCurriculumsTest() {
+        FreelancerEntity entity = data.get(0);
+        CurriculumEntity curriculumEntity = curriculumsData.get(1);
+        boolean response = freelancerLogic.getFreelancer(entity.getId()).getCurriculums().add(curriculumEntity);
+
+        Assert.assertEquals(true, response);
+    }
+    /**
+     * @generated
+     */
 }
