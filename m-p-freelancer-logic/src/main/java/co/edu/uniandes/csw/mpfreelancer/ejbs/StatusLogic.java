@@ -92,12 +92,18 @@ public class StatusLogic implements IStatusLogic {
     @Override
     public ProjectEntity getProject(Long statusId, Long projectId) {
         List<ProjectEntity> list = persistence.find(statusId).getProject();
-        ProjectEntity projectEntity = new ProjectEntity();
-        projectEntity.setId(projectId);
-        int index = list.indexOf(projectEntity);
-        if (index >= 0) {
-            return list.get(index);
+        //ProjectEntity projectEntity = new ProjectEntity();
+        //projectEntity.setId(projectId);
+        //int index = list.indexOf(projectEntity);
+        for (int i = 0 ; i < list.size(); i++)
+        {
+            ProjectEntity projectEntity = list.get(i);
+            if (projectEntity.getId().equals(projectId))
+                return projectEntity;
         }
+        /*if (index >= 0) {
+            return list.get(index);
+        }*/
         return null;
     }
 

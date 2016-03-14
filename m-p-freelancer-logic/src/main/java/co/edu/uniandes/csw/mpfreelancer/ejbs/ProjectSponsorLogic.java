@@ -92,12 +92,20 @@ public class ProjectSponsorLogic implements IProjectSponsorLogic {
     @Override
     public ProjectEntity getProjects(Long projectSponsorId, Long projectsId) {
         List<ProjectEntity> list = persistence.find(projectSponsorId).getProjects();
-        ProjectEntity projectsEntity = new ProjectEntity();
-        projectsEntity.setId(projectsId);
-        int index = list.indexOf(projectsEntity);
-        if (index >= 0) {
-            return list.get(index);
+        //ProjectEntity projectsEntity = new ProjectEntity();
+        //projectsEntity.setId(projectsId);
+        //int index = list.indexOf(projectsEntity);
+        
+        for (int i = 0 ; i < list.size(); i++)
+        {
+            ProjectEntity projectEntity = list.get(i);
+            if (projectEntity.getId().equals(projectsId))
+                return projectEntity;
         }
+        
+        /*if (index >= 0) {
+            return list.get(index);
+        }*/
         return null;
     }
 

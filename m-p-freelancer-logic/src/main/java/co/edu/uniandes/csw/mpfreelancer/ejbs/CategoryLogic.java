@@ -96,12 +96,22 @@ public class CategoryLogic implements ICategoryLogic {
     @Override
     public ProjectEntity getProjects(Long categoryId, Long projectsId) {
         List<ProjectEntity> list = persistence.find(categoryId).getProjects();
-        ProjectEntity projectsEntity = new ProjectEntity();
-        projectsEntity.setId(projectsId);
-        int index = list.indexOf(projectsEntity);
+        
+        //ProjectEntity projectsEntity = new ProjectEntity();
+        //projectsEntity.setId(projectsId);
+        //int index = list.indexOf(projectsEntity);
+        
+        for (int i = 0 ; i < list.size(); i++)
+        {
+            ProjectEntity projectEntity = list.get(i);
+            if (projectEntity.getId().equals(projectsId))
+                return projectEntity;
+        }
+        /*
         if (index >= 0) {
             return list.get(index);
         }
+        */
         return null;
     }
 
