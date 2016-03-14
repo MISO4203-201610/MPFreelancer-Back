@@ -68,6 +68,8 @@ public class ProjectSponsorService {
                         List<ProjectSponsorDTO> list = new ArrayList();
                         list.add(ProjectSponsorConverter.fullEntity2DTO(projectSponsorLogic.getProjectSponsor(id.longValue())));
                         return list;                    
+                    default:
+                        break;
                 }
             }
 
