@@ -4,28 +4,36 @@
  * and open the template in the editor.
  */
 package co.edu.uniandes.csw.mpfreelancer.persistence;
-
-import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
-import co.edu.uniandes.csw.mpfreelancer.entities.WorkExperienceEntity;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
+import co.edu.uniandes.csw.mpfreelancer.entities.WorkExperienceEntity;
+import javax.ejb.Stateless;
 
 /**
  *
  * @author mf.calderon
  */
-public class WorkExperiencePersistence extends CrudPersistence<WorkExperienceEntity>{
-    
+ @Stateless
+public class WorkExperiencePersistence extends CrudPersistence<WorkExperienceEntity> {
+     
     @PersistenceContext(unitName="MPFreelancerPU")
     protected EntityManager em;
 
+    /**
+     * @generated
+     */
     @Override
     protected EntityManager getEntityManager() {
         return em;
     }
 
+    /**
+     * @generated
+     */
     @Override
     protected Class<WorkExperienceEntity> getEntityClass() {
         return WorkExperienceEntity.class;
     }
+    
 }

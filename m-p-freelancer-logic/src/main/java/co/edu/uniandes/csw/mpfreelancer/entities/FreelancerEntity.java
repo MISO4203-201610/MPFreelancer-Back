@@ -56,8 +56,8 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
 //    @PodamExclude
     @OneToOne(mappedBy = "freelancer", cascade = CascadeType.ALL, orphanRemoval = true)
     private CurriculumEntity curriculum;
-
-    /**
+    
+       /**
      * @generated
      */
     public List<WorkExperienceEntity> getWorkExperiences() {
