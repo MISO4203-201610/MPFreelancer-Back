@@ -319,7 +319,7 @@ public class FreelancerLogicTest {
         FreelancerEntity entity = data.get(0);
         CurriculumEntity curriculumEntity = curriculumsData.get(1);
         boolean response = freelancerLogic.getFreelancer(entity.getId()).getCurriculums().add(curriculumEntity);
-
+ 
         Assert.assertEquals(true, response);
     }
     /**
