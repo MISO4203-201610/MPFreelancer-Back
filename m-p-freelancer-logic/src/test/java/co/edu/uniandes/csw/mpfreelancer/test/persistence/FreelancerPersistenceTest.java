@@ -1,7 +1,9 @@
 package co.edu.uniandes.csw.mpfreelancer.test.persistence;
 
+import co.edu.uniandes.csw.mpfreelancer.entities.BlogEntryEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.EducationEntity;
+import co.edu.uniandes.csw.mpfreelancer.persistence.BlogEntryPersistence;
 import co.edu.uniandes.csw.mpfreelancer.persistence.FreelancerPersistence;
 import java.util.ArrayList;
 import java.util.List;
@@ -44,6 +46,8 @@ public class FreelancerPersistenceTest {
      */
     @Inject
     private FreelancerPersistence freelancerPersistence;
+    @Inject
+    private BlogEntryPersistence blogEntryPersistence;
 
     /**
      * @generated
@@ -122,6 +126,17 @@ public class FreelancerPersistenceTest {
         Assert.assertEquals(newEntity.getName(), entity.getName());
         Assert.assertEquals(newEntity.getRate(), entity.getRate());
         Assert.assertEquals(newEntity.getPicture(), entity.getPicture());
+    }
+    
+    @Test
+    public void createBlogEntryTest() {
+	PodamFactory factory = new PodamFactoryImpl();
+        BlogEntryEntity newEntity = factory.manufacturePojo(BlogEntryEntity.class);
+        BlogEntryEntity result = blogEntryPersistence.create(newEntity);
+
+        BlogEntryEntity entity = em.find(BlogEntryEntity.class, result.getId());
+
+        Assert.assertEquals(newEntity.getTitle(), entity.getTitle());
     }
 
     /**
