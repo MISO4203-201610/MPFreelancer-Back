@@ -149,6 +149,7 @@ public class SkillLogicTest {
         Assert.assertNotNull(result);
         Assert.assertEquals(result.getId(), entity.getId());
         Assert.assertEquals(result.getName(), entity.getName());
+        Assert.assertEquals(result.getSkillLevel(), entity.getSkillLevel());
         Assert.assertEquals(result.getDescription(), entity.getDescription());
     }
 
@@ -180,6 +181,7 @@ public class SkillLogicTest {
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getName(), resultEntity.getName());
+        Assert.assertEquals(entity.getSkillLevel(), resultEntity.getSkillLevel());
         Assert.assertEquals(entity.getDescription(), resultEntity.getDescription());
     }
 
@@ -210,6 +212,7 @@ public class SkillLogicTest {
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
+        Assert.assertEquals(pojoEntity.getSkillLevel(), resp.getSkillLevel());
         Assert.assertEquals(pojoEntity.getDescription(), resp.getDescription());
     }
 

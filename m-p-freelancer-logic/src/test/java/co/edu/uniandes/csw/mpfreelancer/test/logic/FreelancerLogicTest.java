@@ -1,7 +1,9 @@
 package co.edu.uniandes.csw.mpfreelancer.test.logic;
 
+import co.edu.uniandes.csw.mpfreelancer.api.IBlogEntryLogic;
 import co.edu.uniandes.csw.mpfreelancer.ejbs.FreelancerLogic;
 import co.edu.uniandes.csw.mpfreelancer.api.IFreelancerLogic;
+import co.edu.uniandes.csw.mpfreelancer.entities.BlogEntryEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
 import co.edu.uniandes.csw.mpfreelancer.persistence.FreelancerPersistence;
 import co.edu.uniandes.csw.mpfreelancer.entities.EducationEntity;
@@ -40,6 +42,8 @@ public class FreelancerLogicTest {
      */
     @Inject
     private IFreelancerLogic freelancerLogic;
+    @Inject
+    private IBlogEntryLogic blogEntryLogic;
 
     /**
      * @generated
@@ -62,6 +66,7 @@ public class FreelancerLogicTest {
      * @generated
      */
     private List<SkillEntity> skillsData = new ArrayList<>();
+    private List<BlogEntryEntity> blogEntriesData = new ArrayList<>();
 
     /**
      * @generated
@@ -114,8 +119,10 @@ public class FreelancerLogicTest {
     private void insertData() {
         for (int i = 0; i < 3; i++) {
             SkillEntity skills = factory.manufacturePojo(SkillEntity.class);
+            BlogEntryEntity blogEntry = factory.manufacturePojo(BlogEntryEntity.class);
             em.persist(skills);
             skillsData.add(skills);
+            blogEntriesData.add(blogEntry);
         }
 
         for (int i = 0; i < 3; i++) {
@@ -129,6 +136,7 @@ public class FreelancerLogicTest {
             data.add(entity);
 
             skillsData.get(0).getFreelancers().add(entity);
+            entity.setBlogEntries(blogEntriesData);
         }
     }
 
@@ -211,7 +219,23 @@ public class FreelancerLogicTest {
         Assert.assertEquals(pojoEntity.getBithday(), resp.getBithday());
         Assert.assertEquals(pojoEntity.getPicture(), resp.getPicture());
     }
+    
+    @Test
+    public void getBlogEntriesTest() {
+        BlogEntryEntity blogEntryEntity = blogEntriesData.get(0);
+        BlogEntryEntity responseBlogEntry = blogEntryLogic.getBlogEntry(blogEntryEntity.getId());
 
+        Assert.assertEquals(blogEntryEntity.getTitle(), responseBlogEntry.getTitle());
+    }
+    
+    @Test
+    public void addBlogEntryTest() {
+        BlogEntryEntity blogEntryEntity = blogEntriesData.get(0);
+        BlogEntryEntity responseBlogEntry = blogEntryLogic.createBlogEntry(blogEntryEntity);
+
+        Assert.assertEquals(blogEntryEntity.getId(), responseBlogEntry.getId());
+    }
+    
     /**
      * @generated
      */
