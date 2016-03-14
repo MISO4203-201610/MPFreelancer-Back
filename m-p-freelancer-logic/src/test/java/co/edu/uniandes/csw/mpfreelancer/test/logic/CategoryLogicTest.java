@@ -125,7 +125,7 @@ public class CategoryLogicTest {
 
             em.persist(entity);
             data.add(entity);
-
+            
             if (i == 0) {
                 projectsData.get(i).setCategory(entity);
             }
@@ -214,7 +214,7 @@ public class CategoryLogicTest {
         CategoryEntity entity = data.get(0);
         ProjectEntity projectEntity = projectsData.get(0);
         ProjectEntity response = categoryLogic.getProjects(entity.getId(), projectEntity.getId());
-
+        
         Assert.assertEquals(projectEntity.getId(), response.getId());
         Assert.assertEquals(projectEntity.getName(), response.getName());
         Assert.assertEquals(projectEntity.getDescription(), response.getDescription());
