@@ -113,9 +113,4 @@ public class BlogEntryEntity extends BaseEntity implements Serializable {
     public void setTitle(String title){
         this.title = title;
     }
-    
-    @Override
-    public boolean equals(Object obj){
-        return obj == this;
-    }
 }

@@ -62,18 +62,4 @@ public class ArtifactEntity extends BaseEntity implements Serializable {
     public void setProjectSprint(ProjectSprintEntity projectSprint){
         this.projectSprint = projectSprint;
     }
-    
-    @Override
-    public boolean equals(Object obj){
-        return obj == this;
-    }
-
-    @Override
-    public int hashCode() {
-        int hash = 5;
-        hash = 97 * hash + Objects.hashCode(this.description);
-        hash = 97 * hash + Objects.hashCode(this.path);
-        hash = 97 * hash + Objects.hashCode(this.projectSprint);
-        return hash;
-    }
 }

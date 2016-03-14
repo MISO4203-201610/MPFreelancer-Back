@@ -96,9 +96,4 @@ public class AgreementEntity extends BaseEntity implements Serializable {
     public void setPrice(Integer price){
         this.price = price;
     }
-    
-    @Override
-    public boolean equals(Object obj){
-        return obj == this;
-    }
 }
