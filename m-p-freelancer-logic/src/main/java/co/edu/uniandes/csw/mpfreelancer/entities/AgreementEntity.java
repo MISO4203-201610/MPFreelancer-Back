@@ -6,9 +6,7 @@ import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;
 
-/**
- * @generated
- */
+
 @Entity
 public class AgreementEntity extends BaseEntity implements Serializable {
 
