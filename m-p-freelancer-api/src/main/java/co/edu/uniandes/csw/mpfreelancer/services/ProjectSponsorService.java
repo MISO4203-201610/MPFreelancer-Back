@@ -74,7 +74,7 @@ public class ProjectSponsorService {
             }
 
         } 
-        return null;
+        return new ArrayList();
 
     }
 
