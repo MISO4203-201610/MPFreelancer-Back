@@ -7,7 +7,12 @@ package co.edu.uniandes.csw.mpfreelancer.persistence;
 
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
 import co.edu.uniandes.csw.mpfreelancer.entities.AgreementEntity;
+import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
+import javax.enterprise.inject.New;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
@@ -26,9 +31,8 @@ public class AgreementPersistence extends CrudPersistence<AgreementEntity>{
         return em;
     }
 
-
-    @Override
+   @Override
     protected Class<AgreementEntity> getEntityClass() {
         return AgreementEntity.class;
-    }
+    }   
 }
