@@ -151,7 +151,7 @@ public class WorkExperiencePersitenceTest {
      * @generated
      */
     @Test
-    public void createProjectSprintTest() 
+    public void createWorkExperienceTest() 
     {
         PodamFactory factory = new PodamFactoryImpl();
         WorkExperienceEntity newEntity = factory.manufacturePojo(WorkExperienceEntity.class);
@@ -169,7 +169,7 @@ public class WorkExperiencePersitenceTest {
      * @generated
      */
     @Test
-    public void getProjectSprintTest() 
+    public void getWorkExperienceTest() 
     {
         WorkExperienceEntity entity = data.get(0);
         WorkExperienceEntity newEntity = workExperiencePersistence.find(entity.getId());
@@ -182,7 +182,7 @@ public class WorkExperiencePersitenceTest {
      * @generated
      */
     @Test
-    public void deleteProjectSprintTest() 
+    public void deleteWorkExperienceTest() 
     {
         WorkExperienceEntity entity = data.get(0);
         workExperiencePersistence.delete(entity.getId());
@@ -194,7 +194,7 @@ public class WorkExperiencePersitenceTest {
      * @generated
      */
     @Test
-    public void updateProjectSprintTest() 
+    public void updateWorkExperienceTest() 
     {
         WorkExperienceEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
