@@ -147,7 +147,7 @@ public class ProjectSponsorTest {
         Assert.assertEquals(projectsponsorTest.getCompany(), oraculo.get(0).getCompany());
         Assert.assertEquals(projectsponsorTest.getPicture(), oraculo.get(0).getPicture());
     }
-    
+     
     @Test
     @InSequence(3)
     public void getCurrentProjectSponsor() {
