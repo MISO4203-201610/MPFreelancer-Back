@@ -36,6 +36,12 @@ public class WorkExperienceEntity extends BaseEntity implements Serializable{
     private Date endDate;
 
     private String sponsorCompany;
+    
+    private Integer price;
+    
+    private Double rate;
+    
+    private String url;
 
     @PodamExclude
     @ManyToOne
@@ -82,6 +88,31 @@ public class WorkExperienceEntity extends BaseEntity implements Serializable{
         this.sponsorCompany=sponsorCompany;
     }
     
+     public Integer getPrice(){
+        return price;
+    }
+    
+    public void setPrice(Integer price){
+        this.price=price;
+    }
+    
+    public Double getRate(){
+        return rate;
+    }
+    
+    public void setRate(Double rate){
+        this.rate=rate;
+    }
+    
+    public String getUrl(){
+        return url;
+    }
+    
+    public void setUrl(String url){
+        this.url=url;
+    }
+    
+    
     public FreelancerEntity getFreelancer(){
         return freelancer;
     }
@@ -89,5 +120,8 @@ public class WorkExperienceEntity extends BaseEntity implements Serializable{
     public void setFreelancer(FreelancerEntity freelancer){
         this.freelancer=freelancer;
     }
+    
+   
+    
     
 }

@@ -38,7 +38,9 @@ public abstract class WorkExperienceConverter {
             dto.setStartDate(entity.getStartDate());
             dto.setEndDate(entity.getEndDate());
             dto.setSponsorCompany(entity.getSponsorCompany());
-
+            dto.setPrice(entity.getPrice());
+            dto.setRate(entity.getRate());
+            dto.setUrl(entity.getUrl());
             return dto;
         } else {
             return null;
@@ -65,6 +67,9 @@ public abstract class WorkExperienceConverter {
             dto.setStartDate(entity.getStartDate());
             dto.setEndDate(entity.getEndDate());
             dto.setSponsorCompany(entity.getSponsorCompany());
+            dto.setPrice(entity.getPrice());
+            dto.setRate(entity.getRate());
+            dto.setUrl(entity.getUrl());
             dto.setFreelancerExperience(FreelancerConverter.refEntity2DTO(entity.getFreelancer()));
 
             return dto;
@@ -82,6 +87,9 @@ public abstract class WorkExperienceConverter {
             entity.setStartDate(dto.getStartDate());
             entity.setEndtDate(dto.getEndDate());
             entity.setSponsorCompany(dto.getSponsorCompany());
+            entity.setPrice(dto.getPrice());
+            entity.setRate(dto.getRate());
+            entity.setUrl(dto.getUrl());
             entity.setFreelancer(FreelancerConverter.refDTO2Entity(dto.getFreelancerExperience()));
 
             return entity;

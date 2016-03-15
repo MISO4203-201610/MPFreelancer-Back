@@ -27,6 +27,9 @@ public class WorkExperienceDTO {
     @PodamStrategyValue(DateStrategy.class)
     private Date endDate;
     private String sponsorCompany;
+    private Integer price;
+    private Double rate;
+    private String url;
     @PodamExclude
     private FreelancerDTO freelancerExperience;
    
@@ -78,6 +81,30 @@ public class WorkExperienceDTO {
 
     public void setSponsorCompany(String sponsorCompany) {
         this.sponsorCompany = sponsorCompany;
+    }
+    
+     public Integer getPrice(){
+        return price;
+    }
+    
+    public void setPrice(Integer price){
+        this.price=price;
+    }
+    
+    public Double getRate(){
+        return rate;
+    }
+    
+    public void setRate(Double rate){
+        this.rate=rate;
+    }
+    
+    public String getUrl(){
+        return url;
+    }
+    
+    public void setUrl(String url){
+        this.url=url;
     }
 
     public FreelancerDTO getFreelancerExperience(){
