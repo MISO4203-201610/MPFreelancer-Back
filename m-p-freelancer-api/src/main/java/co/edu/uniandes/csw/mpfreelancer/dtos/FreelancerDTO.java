@@ -29,7 +29,7 @@ public class FreelancerDTO {
     
     
     @PodamExclude
-    private List<AgreementDTO> agreements = new ArrayList<>();
+    private List<AgreementDTO> agreements = new ArrayList<>();   
 
     /**
      * @generated
@@ -156,5 +156,5 @@ public class FreelancerDTO {
      */
     public void setAgreements(List<AgreementDTO> agreements) {
         this.agreements = agreements;
-    }
+    } 
 }

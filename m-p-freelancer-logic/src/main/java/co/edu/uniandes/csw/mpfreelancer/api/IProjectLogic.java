@@ -22,5 +22,6 @@ public interface IProjectLogic {
     public List<ProjectSprintEntity> listProjectSprints(Long projectId);
     public ProjectSprintEntity getProjectSprints(Long projectId, Long projectSprintId);
     public ProjectSprintEntity addProjectSprints(Long projectId, Long projectSprintId);
-    public void removeProjectSprints(Long projectId, Long projectSprintId);
+    public void removeProjectSprints(Long projectId, Long projectSprintId);    
+    public List<ProjectEntity> listProjectsApplied(Long freelancerId);
 }

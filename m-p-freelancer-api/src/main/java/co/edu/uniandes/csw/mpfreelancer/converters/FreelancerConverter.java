@@ -78,7 +78,6 @@ public abstract class FreelancerConverter {
             dto.setBithday(entity.getBithday());
             dto.setPicture(entity.getPicture());
             dto.setCurriculum(CurriculumConverter.refEntity2DTO(entity.getCurriculum()));
-
             return dto;
         } else {
             return null;

@@ -3,10 +3,12 @@ package co.edu.uniandes.csw.mpfreelancer.ejbs;
 import co.edu.uniandes.csw.mp.ann.MPLoCAnn;
 import co.edu.uniandes.csw.mpfreelancer.api.IProjectLogic;
 import co.edu.uniandes.csw.mpfreelancer.api.IProjectSprintLogic;
+import co.edu.uniandes.csw.mpfreelancer.entities.AgreementEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.ProjectEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.ProjectSprintEntity;
 import co.edu.uniandes.csw.mpfreelancer.persistence.ProjectPersistence;
 import co.edu.uniandes.csw.mpfreelancer.entities.SkillEntity;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -168,5 +170,20 @@ public class ProjectLogic implements IProjectLogic {
         ProjectSprintEntity projectSprintEntity = new ProjectSprintEntity();
         projectSprintEntity.setId(projectSprintId);
         entity.getProjectSprints().remove(projectSprintEntity);
+    }
+    
+    @Override
+    public List<ProjectEntity> listProjectsApplied(Long freelancerId){
+        List<ProjectEntity> projectsApplied = new ArrayList<>();
+        for (ProjectEntity project : persistence.findAll()){
+            for (AgreementEntity agreement: project.getAgreements()){
+                if (freelancerId.equals(agreement.getFreelancer().getId())){
+                    projectsApplied.add(project);
+                    break;
+                }
+            }
+        }
+        
+        return projectsApplied;
     }
 }
