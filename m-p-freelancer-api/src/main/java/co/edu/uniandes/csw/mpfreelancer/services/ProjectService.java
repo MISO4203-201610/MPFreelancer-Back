@@ -60,7 +60,7 @@ public class ProjectService {
         if (accountHref != null) {
             Account account = getClient().getResource(accountHref, Account.class);
             for (Group gr : account.getGroups()) {
-                 switch (gr.getHref()) {                    
+                 switch (gr.getHref()) {
                     case PROYECT_SPONSOR_HREF:
                         Integer idPS =(int)account.getCustomData().get("projectSponsor_id");            
                         return ProjectConverter.listEntity2DTO(projectSponsorLogic.listProjects(idPS.longValue()));
@@ -77,7 +77,7 @@ public class ProjectService {
              }           
         } 
         
-        return null;        
+        return null;
     }
     
     @GET

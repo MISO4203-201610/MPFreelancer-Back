@@ -143,6 +143,6 @@ public class ProjectSprintService {
     @DELETE
     @Path("{projectSprintId: \\d+}/artifacts/{artifactId: \\d+}")
     public void removeArtifacts(@PathParam("projectSprintId") Long projectSprintId, @PathParam("artifactId") Long artifactId) {
-        projectSprintLogic.removeArtifacts(projectSprintId, projectSprintId);
+        projectSprintLogic.removeArtifacts(projectSprintId, artifactId);
     }
 }
