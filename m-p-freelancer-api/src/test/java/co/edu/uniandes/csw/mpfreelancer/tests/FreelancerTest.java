@@ -4,7 +4,6 @@ import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
 import co.edu.uniandes.csw.mpfreelancer.dtos.BlogEntryDTO;
 import co.edu.uniandes.csw.mpfreelancer.dtos.CurriculumDTO;
-import co.edu.uniandes.csw.mpfreelancer.dtos.WorkExperienceDTO;
 import co.edu.uniandes.csw.mpfreelancer.dtos.FreelancerDTO;
 import co.edu.uniandes.csw.mpfreelancer.dtos.SkillDTO;
 import co.edu.uniandes.csw.mpfreelancer.dtos.EducationDTO;
@@ -52,7 +51,6 @@ public class FreelancerTest {
     private final String skillsPath = "skills";
     private final static List<SkillDTO> oraculoSkills = new ArrayList<>();
     private final static List<BlogEntryDTO> oraculoBlogEntries = new ArrayList<>();
-    private final static List<WorkExperienceDTO> oraculoWorkExperience = new ArrayList<>();
     private final String curriculumPath = "curriculums";
     private final static List<CurriculumDTO> oraculoCurriculums = new ArrayList<>();
     private WebTarget target;
@@ -398,7 +396,8 @@ public class FreelancerTest {
         Assert.assertEquals(1, freelancerTest.getBlogEntries().size());
         Assert.assertEquals(Ok, response.getStatus());
     }
- 
+
+
    /*
     Este test prueba la creación de un curriculum en un freelancer.
      */
@@ -505,76 +504,9 @@ public class FreelancerTest {
     }
 
 
+    
     @Test
     @InSequence(16)
-    public void addWorkExperienceTest() {
-        Cookie cookieSessionId = login(username, password);
-
-        // Se preparan los datos de entrada creando un freelancer con un WorkExperience
-        
-        List<WorkExperienceDTO> tmpOraculoWorkExperience = new ArrayList<>();
-        tmpOraculoWorkExperience.add(oraculoWorkExperience.get(0));
-        FreelancerDTO freelancer = oraculo.get(0);
-        freelancer.setExperience(tmpOraculoWorkExperience);
-
-        // Se realiza llamado a freelancer enviando entidad de WorkExperience
-        
-        Response response = target.path("freelancers").path(freelancer.getId().toString())
-                .request().cookie(cookieSessionId)
-                .put(Entity.entity(freelancer, MediaType.APPLICATION_JSON));
-        
-        // Se realiza comparación entre lo enviado y lo recibido del request
-
-        FreelancerDTO freelancerTest = (FreelancerDTO) response.readEntity(FreelancerDTO.class);
-        Assert.assertEquals(freelancer.getExperiences().get(0).getProjectName(), freelancerTest.getExperiences().get(0).getProjectName());
-        Assert.assertEquals(freelancer.getExperiences().get(0).getProjectDescription(), freelancerTest.getExperiences().get(0).getProjectDescription());
-        Assert.assertEquals(freelancer.getExperiences().get(0).getStartDate(), freelancerTest.getExperiences().get(0).getStartDate());
-        Assert.assertEquals(freelancer.getExperiences().get(0).getEndDate(), freelancerTest.getExperiences().get(0).getEndDate());
-        Assert.assertEquals(freelancer.getExperiences().get(0).getSponsorCompany(), freelancerTest.getExperiences().get(0).getSponsorCompany());
-        Assert.assertEquals(freelancer.getExperiences().get(0).getPrice(), freelancerTest.getExperiences().get(0).getPrice());
-        Assert.assertEquals(freelancer.getExperiences().get(0).getRate(), freelancerTest.getExperiences().get(0).getRate());
-        Assert.assertEquals(freelancer.getExperiences().get(0).getUrl(), freelancerTest.getExperiences().get(0).getUrl());
-        Assert.assertEquals(Ok, response.getStatus());
-
-    }
-    
-    /*
-    Este test realiza prueba modificando un WorkExperience de un Freelancer.
-     */
-    @Test
-    @InSequence(17)
-    public void deleteWorkExperience() {
-        //Se realiza el login de un usuario
-        Cookie cookieSessionId = login(username, password);
-        // Se obtiene el Freelancer
-        FreelancerDTO freelancer = oraculo.get(0);
-        // Se le agregan dos elementos WorkExperience
-        List<WorkExperienceDTO> tmpOraculoworkExperience = new ArrayList<>();
-        tmpOraculoworkExperience.add(oraculoWorkExperience.get(0));
-        tmpOraculoworkExperience.add(oraculoWorkExperience.get(1));
-        freelancer.setExperience(tmpOraculoworkExperience);
-        // Crea el freelancer con dos objetos WorkExperience
-        Response response = target.path("freelancers").path(freelancer.getId().toString())
-                .request().cookie(cookieSessionId)
-                .put(Entity.entity(freelancer, MediaType.APPLICATION_JSON));
-        // Se verifica que el freelancer que se creó tenga dos entidades
-        FreelancerDTO freelancerTest = (FreelancerDTO) response.readEntity(FreelancerDTO.class);
-        Assert.assertEquals(2, freelancerTest.getExperiences().size());
-        // Se elimina una de las entidades
-        tmpOraculoworkExperience.remove(0);
-        freelancer.setExperience(tmpOraculoworkExperience);
-        // Se envia nuevamente la petición 
-        response = target.path("freelancers").path(freelancer.getId().toString())
-                .request().cookie(cookieSessionId)
-                .put(Entity.entity(freelancer, MediaType.APPLICATION_JSON));
-        // Se compara que la modificación se encuentre correcta
-        freelancerTest = (FreelancerDTO) response.readEntity(FreelancerDTO.class);
-        Assert.assertEquals(1, freelancerTest.getExperiences().size());
-        Assert.assertEquals(Ok, response.getStatus());
-    }
-    
-    @Test
-    @InSequence(18)
     public void deleteFreelancerTest() {
         Cookie cookieSessionId = login(username, password);
         FreelancerDTO freelancer = oraculo.get(0);
