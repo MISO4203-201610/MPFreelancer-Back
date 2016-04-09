@@ -21,6 +21,8 @@ public class AgreementEntity extends BaseEntity implements Serializable {
     private Double rate;
     
     private Boolean selected;
+
+    private Integer status;
     
     @PodamExclude
     @ManyToOne
@@ -99,5 +101,19 @@ public class AgreementEntity extends BaseEntity implements Serializable {
      */
     public void setPrice(Integer price){
         this.price = price;
+    }
+    
+    /**
+     * @generated
+     */
+    public Integer getStatus(){
+        return status;
+    }
+
+    /**
+     * @generated
+     */
+    public void setStatus(Integer status){
+        this.status = status;
     }
 }

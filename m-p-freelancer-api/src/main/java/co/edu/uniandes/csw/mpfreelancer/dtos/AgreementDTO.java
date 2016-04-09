@@ -18,7 +18,8 @@ public class AgreementDTO {
     private String name;
     private Integer price;
     private Double rate;    
-    private Boolean selected;    
+    private Boolean selected;   
+    private Integer status;
     @PodamExclude
     private FreelancerDTO freelancer;    
     @PodamExclude
@@ -81,5 +82,11 @@ public class AgreementDTO {
         this.project = project;
     }
     
-    
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
 }
