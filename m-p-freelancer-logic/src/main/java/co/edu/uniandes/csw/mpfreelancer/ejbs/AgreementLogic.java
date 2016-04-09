@@ -56,4 +56,9 @@ public class AgreementLogic implements IAgreementLogic{
     public void deleteAgreement(Long id) {
         persistence.delete(id);
     }
+    
+    @Override
+    public List<AgreementEntity> getByFreelancer(Long id) {
+        return persistence.getByFreelancer(id);
+    }
 }

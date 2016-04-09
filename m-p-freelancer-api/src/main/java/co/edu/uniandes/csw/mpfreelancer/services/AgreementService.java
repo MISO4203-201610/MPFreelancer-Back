@@ -37,7 +37,7 @@ public class AgreementService {
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("maxRecords") private Integer maxRecords;
-
+    
     @GET
     public List<AgreementDTO> getAgreements() {
         if (page != null && maxRecords != null) {
@@ -67,10 +67,26 @@ public class AgreementService {
         entity.setId(id);
         return AgreementConverter.fullEntity2DTO(agreementLogic.updateAgreement(entity));
     }
-
+    
     @DELETE
     @Path("{id: \\d+}")
     public void deleteAgreement(@PathParam("id") Long id) {
         agreementLogic.deleteAgreement(id);
     }
+    
+    @GET
+    @Path("{freelancerId: \\d+}/agreements")
+    public List<AgreementDTO> AgreementsFreelancer(@PathParam("freelancerId") Long freelancerId) {
+
+        if (freelancerId != null) {
+            return AgreementConverter.listEntity2DTO(agreementLogic.getByFreelancer(freelancerId));
+        } else {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", agreementLogic.countAgreements());
+                return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements(page, maxRecords));
+            }
+            return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements());
+        }
+    }
+    
 }

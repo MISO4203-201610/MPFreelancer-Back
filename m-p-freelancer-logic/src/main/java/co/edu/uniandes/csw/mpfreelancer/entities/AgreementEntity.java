@@ -5,9 +5,14 @@ import javax.persistence.Entity;
 import co.edu.uniandes.csw.crud.spi.entity.BaseEntity;
 import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Agreement.getByFreelancer", query = "select u from AgreementEntity u Where u.freelancer.id=:id")
+}) 
 public class AgreementEntity extends BaseEntity implements Serializable {
 
     private Integer price;

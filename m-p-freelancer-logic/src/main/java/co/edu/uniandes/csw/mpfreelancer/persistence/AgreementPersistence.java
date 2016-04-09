@@ -35,4 +35,10 @@ public class AgreementPersistence extends CrudPersistence<AgreementEntity>{
     protected Class<AgreementEntity> getEntityClass() {
         return AgreementEntity.class;
     }   
+
+    public List<AgreementEntity> getByFreelancer(Long id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id",  id );
+        return executeListNamedQuery("Agreement.getByFreelancer", params);
+    }
 }
