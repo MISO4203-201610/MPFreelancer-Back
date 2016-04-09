@@ -75,11 +75,26 @@ public class AgreementService {
     }
     
     @GET
-    @Path("{freelancerId: \\d+}/agreements")
+    @Path("{freelancerId: \\d+}/agreementsFreelancer")
     public List<AgreementDTO> AgreementsFreelancer(@PathParam("freelancerId") Long freelancerId) {
 
         if (freelancerId != null) {
             return AgreementConverter.listEntity2DTO(agreementLogic.getByFreelancer(freelancerId));
+        } else {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", agreementLogic.countAgreements());
+                return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements(page, maxRecords));
+            }
+            return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements());
+        }
+    }
+    
+    @GET
+    @Path("{projectId: \\d+}/agreementsProject")
+    public List<AgreementDTO> AgreementsProject(@PathParam("projectId") Long projectId) {
+
+        if (projectId != null) {
+            return AgreementConverter.listEntity2DTO(agreementLogic.getByProject(projectId));
         } else {
             if (page != null && maxRecords != null) {
                 this.response.setIntHeader("X-Total-Count", agreementLogic.countAgreements());

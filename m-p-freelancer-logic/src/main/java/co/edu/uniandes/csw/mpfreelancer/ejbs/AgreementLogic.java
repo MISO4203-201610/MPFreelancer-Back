@@ -61,4 +61,9 @@ public class AgreementLogic implements IAgreementLogic{
     public List<AgreementEntity> getByFreelancer(Long id) {
         return persistence.getByFreelancer(id);
     }
+    
+    @Override
+    public List<AgreementEntity> getByProject(Long id) {
+        return persistence.getByProject(id);
+    }
 }
