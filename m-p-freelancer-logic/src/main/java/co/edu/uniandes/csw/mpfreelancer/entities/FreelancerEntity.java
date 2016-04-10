@@ -23,7 +23,11 @@ import javax.persistence.NamedQuery;
 @Entity 
 @NamedQueries({
  @NamedQuery(name = "Freelancer.unSkill", 
- query = "select f from FreelancerEntity f, ProjectEntity p inner join f.skills fs, p.expectedskills es Where fs.id=es.id and p.id=:id")
+ query = "select DISTINCT f from FreelancerEntity f, ProjectEntity p inner join f.skills fs, p.expectedskills es "
+         + "Where fs.id=es.id and p.id=:id"),
+ @NamedQuery(name = "Freelancer.totalSkills", 
+ query = "select DISTINCT f from FreelancerEntity f, ProjectEntity p inner join f.skills fs, p.expectedskills es "
+         + "Where fs.id=es.id and p.id=:id ") 
 })
 public class FreelancerEntity extends BaseEntity implements Serializable {
 

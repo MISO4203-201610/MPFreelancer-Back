@@ -223,7 +223,7 @@ public class FreelancerService {
     
     @GET
     @Path("{projectId: \\d+}/unSkill")
-    public List<FreelancerDTO> idProject(@PathParam("projectId") Long projectId) {
+    public List<FreelancerDTO> unSkill(@PathParam("projectId") Long projectId) {
 
         if (projectId != null) {
             return FreelancerConverter.listEntity2DTO(freelancerLogic.unSkill(projectId));
@@ -236,4 +236,18 @@ public class FreelancerService {
         }
     }
 
+    @GET
+    @Path("{projectId: \\d+}/totalSkills")
+    public List<FreelancerDTO> totalSkills(@PathParam("projectId") Long projectId) {
+
+        if (projectId != null) {
+            return FreelancerConverter.listEntity2DTO(freelancerLogic.totalSkills(projectId));
+        } else {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", freelancerLogic.countFreelancers());
+                return FreelancerConverter.listEntity2DTO(freelancerLogic.getFreelancers(page, maxRecords));
+            }
+            return FreelancerConverter.listEntity2DTO(freelancerLogic.getFreelancers());
+        }
+    }
 }

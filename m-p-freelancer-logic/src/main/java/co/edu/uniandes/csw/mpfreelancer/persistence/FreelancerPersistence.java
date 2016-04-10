@@ -39,4 +39,9 @@ public class FreelancerPersistence extends CrudPersistence<FreelancerEntity> {
         params.put("id", id);
         return executeListNamedQuery("Freelancer.unSkill", params);
     }
+    public List<FreelancerEntity> totalSkills(Long id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id", id);
+        return executeListNamedQuery("Freelancer.totalSkills", params);
+    }
 }
