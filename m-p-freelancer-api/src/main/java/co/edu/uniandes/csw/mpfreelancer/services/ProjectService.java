@@ -222,5 +222,5 @@ public class ProjectService {
     @Path("{projectId: \\d+}/expectedskills/{skillId: \\d+}")
     public void removeExpectedskills(@PathParam("projectId") Long projectId, @PathParam("skillId") Long skillId) {
         projectLogic.removeExpectedskills(projectId, skillId);
-    }
+    }    
 }

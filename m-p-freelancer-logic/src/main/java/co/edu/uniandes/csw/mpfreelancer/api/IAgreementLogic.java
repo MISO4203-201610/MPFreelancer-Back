@@ -20,4 +20,6 @@ public interface IAgreementLogic {
     public AgreementEntity createAgreement(AgreementEntity entity);
     public AgreementEntity updateAgreement(AgreementEntity entity);
     public void deleteAgreement(Long id); 
+    public List<AgreementEntity> getByFreelancer(Long id);
+    public List<AgreementEntity> getByProject(Long id);
 }

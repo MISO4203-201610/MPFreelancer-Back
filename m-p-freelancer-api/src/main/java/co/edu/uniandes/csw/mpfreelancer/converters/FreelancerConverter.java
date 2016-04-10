@@ -78,6 +78,7 @@ public abstract class FreelancerConverter {
             dto.setRate(entity.getRate());
             dto.setBithday(entity.getBithday());
             dto.setPicture(entity.getPicture());            
+            dto.setSkills(SkillConverter.listEntity2DTO(entity.getSkills()));
             return dto;
         } else {
             return null;

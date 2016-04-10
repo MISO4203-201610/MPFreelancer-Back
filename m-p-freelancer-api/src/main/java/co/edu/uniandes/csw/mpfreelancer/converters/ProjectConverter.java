@@ -84,6 +84,7 @@ public abstract class ProjectConverter {
             dtoBas.setCategory(CategoryConverter.refEntity2DTO(entity.getCategory()));
             dtoBas.setSponsor(ProjectSponsorConverter.refEntity2DTO(entity.getSponsor()));
             dtoBas.setStatus(StatusConverter.refEntity2DTO(entity.getStatus()));
+            dtoBas.setExpectedskills(SkillConverter.listEntity2DTO(entity.getExpectedskills()));
 
             return dtoBas;
         } else {

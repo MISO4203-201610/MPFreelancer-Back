@@ -14,11 +14,21 @@ import javax.persistence.OneToMany;
 import java.util.List;
 import java.util.ArrayList;
 import javax.persistence.CascadeType;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * @generated
  */
-@Entity
+@Entity 
+@NamedQueries({
+ @NamedQuery(name = "Freelancer.unSkill", 
+ query = "select DISTINCT f from FreelancerEntity f, ProjectEntity p inner join f.skills fs, p.expectedskills es "
+         + "Where fs.id=es.id and p.id=:id"),
+ @NamedQuery(name = "Freelancer.totalSkills", 
+ query = "select DISTINCT f from FreelancerEntity f, ProjectEntity p inner join f.skills fs, p.expectedskills es "
+         + "Where fs.id=es.id and p.id=:id ") 
+})
 public class FreelancerEntity extends BaseEntity implements Serializable {
 
     private Integer rate;
