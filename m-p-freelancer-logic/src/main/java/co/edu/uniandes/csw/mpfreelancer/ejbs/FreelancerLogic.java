@@ -139,5 +139,9 @@ public class FreelancerLogic implements IFreelancerLogic {
         skillLogic.removeFreelancers(skillsId, freelancerId);
     }
     
- 
+    
+    @Override
+    public List<FreelancerEntity> unSkill(Long id) {
+        return persistence.unSkill(id);
+    } 
 }

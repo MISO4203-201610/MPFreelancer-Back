@@ -18,5 +18,5 @@ public interface IFreelancerLogic {
     public SkillEntity addSkills(Long freelancerId, Long skillsId);
     public List<SkillEntity> replaceSkills(Long freelancerId, List<SkillEntity> list);
     public void removeSkills(Long freelancerId, Long skillsId);
-   
+    public List<FreelancerEntity> unSkill(Long id);
 }
