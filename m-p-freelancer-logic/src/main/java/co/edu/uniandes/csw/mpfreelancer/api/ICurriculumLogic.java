@@ -20,4 +20,5 @@ public interface ICurriculumLogic {
     public CurriculumEntity createCurriculum(CurriculumEntity entity);
     public CurriculumEntity updateCurriculum(CurriculumEntity entity);
     public void deleteCurriculum(Long id);
+    public List<CurriculumEntity> getByFreelancer(Long id);
 }
