@@ -68,14 +68,13 @@ public class FreelancerService {
                         return FreelancerConverter.listEntity2DTO(freelancerLogic.getFreelancers(page, maxRecords));
                         }
                         return FreelancerConverter.listEntity2DTO(freelancerLogic.getFreelancers());                    
-                    case FREELANCER_HREF:                     
+                    case FREELANCER_HREF:
                         Integer id = (int) account.getCustomData().get("freelancer_id");
                         List<FreelancerDTO> list = new ArrayList();
                         list.add(FreelancerConverter.fullEntity2DTO(freelancerLogic.getFreelancer(id.longValue())));
                         return list;
                 }
             }
-
         } 
         return null;
 

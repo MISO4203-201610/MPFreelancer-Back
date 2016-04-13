@@ -43,12 +43,14 @@ public class UserService extends AuthService {
                 client = freelancerLogic.createFreelancer(client);
                 acct.getCustomData().put(FREELANCER_CD, client.getId());
                 break;
-                case PROYECT_SPONSOR_HREF:        
+                case PROYECT_SPONSOR_HREF:
                 ProjectSponsorEntity provider = new ProjectSponsorEntity();
                 provider.setName(user.getUserName());                
                 provider = sponsorLogic.createProjectSponsor(provider);
                 acct.getCustomData().put(PROYECT_SPONSOR_CD, provider.getId());  
                 break;
+                default:
+                 throw new WebApplicationException("Group link doen's match ");
             }
                 
             }

@@ -77,8 +77,10 @@ public abstract class FreelancerConverter {
             dto.setName(entity.getName());
             dto.setRate(entity.getRate());
             dto.setBithday(entity.getBithday());
-            dto.setPicture(entity.getPicture());            
-            dto.setSkills(SkillConverter.listEntity2DTO(entity.getSkills()));
+            dto.setPicture(entity.getPicture());
+            dto.setCurriculums(CurriculumConverter.listEntity2DTO(entity.getCurriculums()));
+	    dto.setSkills(SkillConverter.listEntity2DTO(entity.getSkills()));
+            
             return dto;
         } else {
             return null;
@@ -101,7 +103,8 @@ public abstract class FreelancerConverter {
             entity.setName(dto.getName());
             entity.setRate(dto.getRate());
             entity.setBithday(dto.getBithday());
-            entity.setPicture(dto.getPicture());            
+            entity.setPicture(dto.getPicture());
+            entity.setCurriculums(CurriculumConverter.listDTO2Entity(dto.getCurriculums()));
             
             return entity;
         } else {
