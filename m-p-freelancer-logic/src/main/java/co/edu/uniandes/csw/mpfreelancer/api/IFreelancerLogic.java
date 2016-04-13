@@ -1,8 +1,8 @@
 package co.edu.uniandes.csw.mpfreelancer.api;
 
+import co.edu.uniandes.csw.mpfreelancer.entities.EducationEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.SkillEntity;
-import co.edu.uniandes.csw.mpfreelancer.entities.WorkExperienceEntity;
 import java.util.List;
 
 public interface IFreelancerLogic {
@@ -20,4 +20,6 @@ public interface IFreelancerLogic {
     public void removeSkills(Long freelancerId, Long skillsId);
     public List<FreelancerEntity> unSkill(Long id);
     public List<FreelancerEntity> totalSkills(Long id);
+    
+   
 }

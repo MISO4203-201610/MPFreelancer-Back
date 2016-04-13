@@ -44,4 +44,6 @@ public class FreelancerPersistence extends CrudPersistence<FreelancerEntity> {
         params.put("id", id);
         return executeListNamedQuery("Freelancer.totalSkills", params);
     }
+    
+    
 }

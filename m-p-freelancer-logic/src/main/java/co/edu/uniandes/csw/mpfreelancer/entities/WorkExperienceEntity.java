@@ -15,12 +15,19 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author mf.calderon
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "WorkExperience.getByFreelancer", 
+            query = "select u from WorkExperienceEntity u Where u.freelancer.id=:id"),
+    
+}) 
 public class WorkExperienceEntity extends BaseEntity implements Serializable{
     
     private String projectName;
