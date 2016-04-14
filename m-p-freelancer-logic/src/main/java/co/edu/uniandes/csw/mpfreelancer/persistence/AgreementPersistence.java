@@ -47,6 +47,12 @@ public class AgreementPersistence extends CrudPersistence<AgreementEntity>{
         params.put("id",  id );
         return executeListNamedQuery("Agreement.getByProject", params);
     }
+            
+    public List<AgreementEntity> getProjectAcepted(Long id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id",  id );
+        return executeListNamedQuery("Agreement.getProjectAcepted", params);
+    }
     
     // Status 1 : Invitado
     public List<AgreementEntity> getByStatus1(Long id) {

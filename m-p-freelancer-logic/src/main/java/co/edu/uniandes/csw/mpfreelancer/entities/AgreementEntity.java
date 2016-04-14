@@ -14,10 +14,12 @@ import javax.persistence.NamedQuery;
     Querys
     Agreement.getByFreelancer  Selecciona los agreements para un Freelancer
     Agreement.getByProject  Selecciona los agreements para un proyecto
+getProjectAcepted
 */
 @NamedQueries({
     @NamedQuery(name = "Agreement.getByFreelancer", query = "select u from AgreementEntity u Where u.freelancer.id=:id"),
     @NamedQuery(name = "Agreement.getByProject", query = "select u from AgreementEntity u Where u.project.id=:id"),
+    @NamedQuery(name = "Agreement.getProjectAcepted", query = "select u from AgreementEntity u Where u.project.id=:id and u.status=2"),
     @NamedQuery(name = "Agreement.getByStatus1", query = "select u from AgreementEntity u where u.freelancer.id=:id and u.status=1"),
     @NamedQuery(name = "Agreement.getByStatus2", query = "select u from AgreementEntity u where u.freelancer.id=:id and u.status=2"),
     @NamedQuery(name = "Agreement.getByStatus3", query = "select u from AgreementEntity u where u.freelancer.id=:id and u.status=3"),
