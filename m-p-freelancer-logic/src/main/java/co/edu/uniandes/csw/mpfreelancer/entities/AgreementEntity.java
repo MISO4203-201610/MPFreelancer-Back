@@ -18,7 +18,10 @@ import javax.persistence.NamedQuery;
 @NamedQueries({
     @NamedQuery(name = "Agreement.getByFreelancer", query = "select u from AgreementEntity u Where u.freelancer.id=:id"),
     @NamedQuery(name = "Agreement.getByProject", query = "select u from AgreementEntity u Where u.project.id=:id"),
-    @NamedQuery(name = "Agreement.getByStatus1", query = "select u from AgreementEntity u where u.freelancer.id=:id and u.status=1")
+    @NamedQuery(name = "Agreement.getByStatus1", query = "select u from AgreementEntity u where u.freelancer.id=:id and u.status=1"),
+    @NamedQuery(name = "Agreement.getByStatus2", query = "select u from AgreementEntity u where u.freelancer.id=:id and u.status=2"),
+    @NamedQuery(name = "Agreement.getByStatus3", query = "select u from AgreementEntity u where u.freelancer.id=:id and u.status=3"),
+    @NamedQuery(name = "Agreement.getByStatus4", query = "select u from AgreementEntity u where u.freelancer.id=:id and u.status=4")
     
 }) 
 public class AgreementEntity extends BaseEntity implements Serializable {
