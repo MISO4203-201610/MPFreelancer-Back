@@ -70,6 +70,11 @@ public class AgreementLogic implements IAgreementLogic{
     }
     
     @Override
+    public List<AgreementEntity> getProjectAcepted (Long id){
+        return persistence.getProjectAcepted(id);
+    }
+    
+    @Override
     public List<AgreementEntity> getByStatus1(Long id) {
         return persistence.getByStatus1(id);
     }

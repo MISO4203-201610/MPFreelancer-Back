@@ -22,6 +22,7 @@ public interface IAgreementLogic {
     public void deleteAgreement(Long id); 
     public List<AgreementEntity> getByFreelancer(Long id);
     public List<AgreementEntity> getByProject(Long id);
+    public List<AgreementEntity> getProjectAcepted (Long id);
     public List<AgreementEntity> getByStatus1(Long id);
     public List<AgreementEntity> getByStatus2(Long id);
     public List<AgreementEntity> getByStatus3(Long id);

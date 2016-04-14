@@ -107,6 +107,21 @@ public class AgreementService {
     }
     
     @GET
+    @Path("{projectId: \\d+}/agreementsProjectAcepted")
+    public List<AgreementDTO> AgreementsProjectAcepted(@PathParam("projectId") Long projectId) {
+
+        if (projectId != null) {
+            return AgreementConverter.listEntity2DTO(agreementLogic.getProjectAcepted(projectId));
+        } else {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", agreementLogic.countAgreements());
+                return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements(page, maxRecords));
+            }
+            return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements());
+        }
+    }
+    
+    @GET
     @Path("{freelancerId: \\d+}/agreementsStatus1")
     public List<AgreementDTO> AgreementsStatus1(@PathParam("freelancerId") Long freelancerId) {
 
@@ -183,10 +198,11 @@ public class AgreementService {
     }
     
     @PUT
-    @Path("{agreementsId: \\d+}/agreementsAcept")
-    public AgreementDTO agreementAcept(@PathParam("agreementsId") Long id ) {      
+    @Path("{agreementsId: \\d+}/{price: \\d+}/agreementsAcept")
+    public AgreementDTO agreementAcept(@PathParam("agreementsId") Long id , @PathParam("price") Integer price ) {      
         AgreementEntity entity = agreementLogic.getAgreement(id);
         entity.setId(id);
+        entity.setPrice(price);
         entity.setStatus(2);
         return AgreementConverter.fullEntity2DTO(agreementLogic.updateAgreement(entity));
     }
