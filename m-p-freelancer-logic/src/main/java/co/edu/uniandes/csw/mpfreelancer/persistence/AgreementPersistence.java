@@ -47,4 +47,38 @@ public class AgreementPersistence extends CrudPersistence<AgreementEntity>{
         params.put("id",  id );
         return executeListNamedQuery("Agreement.getByProject", params);
     }
+            
+    public List<AgreementEntity> getProjectAcepted(Long id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id",  id );
+        return executeListNamedQuery("Agreement.getProjectAcepted", params);
+    }
+    
+    // Status 1 : Invitado
+    public List<AgreementEntity> getByStatus1(Long id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id",  id );
+        return executeListNamedQuery("Agreement.getByStatus1", params);
+    }
+    
+    // Status 2 : Acept
+    public List<AgreementEntity> getByStatus2(Long id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id",  id );
+        return executeListNamedQuery("Agreement.getByStatus2", params);
+    }
+    
+    // Status 3 : Reject
+    public List<AgreementEntity> getByStatus3(Long id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id",  id );
+        return executeListNamedQuery("Agreement.getByStatus3", params);
+    }
+    
+    // Status 4 : Selected
+    public List<AgreementEntity> getByStatus4(Long id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id",  id );
+        return executeListNamedQuery("Agreement.getByStatus4", params);
+    }
 }

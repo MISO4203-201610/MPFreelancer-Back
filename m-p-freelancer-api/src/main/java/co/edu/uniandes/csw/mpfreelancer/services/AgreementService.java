@@ -9,6 +9,8 @@ import co.edu.uniandes.csw.auth.provider.StatusCreated;
 import co.edu.uniandes.csw.mpfreelancer.api.IAgreementLogic;
 import co.edu.uniandes.csw.mpfreelancer.converters.AgreementConverter;
 import co.edu.uniandes.csw.mpfreelancer.dtos.AgreementDTO;
+import co.edu.uniandes.csw.mpfreelancer.dtos.FreelancerDTO;
+import co.edu.uniandes.csw.mpfreelancer.dtos.ProjectDTO;
 import co.edu.uniandes.csw.mpfreelancer.entities.AgreementEntity;
 import java.util.List;
 import javax.inject.Inject;
@@ -103,5 +105,127 @@ public class AgreementService {
             return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements());
         }
     }
+    
+    @GET
+    @Path("{projectId: \\d+}/agreementsProjectAcepted")
+    public List<AgreementDTO> AgreementsProjectAcepted(@PathParam("projectId") Long projectId) {
+
+        if (projectId != null) {
+            return AgreementConverter.listEntity2DTO(agreementLogic.getProjectAcepted(projectId));
+        } else {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", agreementLogic.countAgreements());
+                return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements(page, maxRecords));
+            }
+            return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements());
+        }
+    }
+    
+    @GET
+    @Path("{freelancerId: \\d+}/agreementsStatus1")
+    public List<AgreementDTO> AgreementsStatus1(@PathParam("freelancerId") Long freelancerId) {
+
+        if (freelancerId != null) {
+            return AgreementConverter.listEntity2DTO(agreementLogic.getByStatus1(freelancerId));
+        } else {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", agreementLogic.countAgreements());
+                return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements(page, maxRecords));
+            }
+            return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements());
+        }
+    }
+    
+    @GET
+    @Path("{freelancerId: \\d+}/agreementsStatus2")
+    public List<AgreementDTO> AgreementsStatus2(@PathParam("freelancerId") Long freelancerId) {
+
+        if (freelancerId != null) {
+            return AgreementConverter.listEntity2DTO(agreementLogic.getByStatus2(freelancerId));
+        } else {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", agreementLogic.countAgreements());
+                return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements(page, maxRecords));
+            }
+            return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements());
+        }
+    }
+    
+    @GET
+    @Path("{freelancerId: \\d+}/agreementsStatus3")
+    public List<AgreementDTO> AgreementsStatus3(@PathParam("freelancerId") Long freelancerId) {
+
+        if (freelancerId != null) {
+            return AgreementConverter.listEntity2DTO(agreementLogic.getByStatus3(freelancerId));
+        } else {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", agreementLogic.countAgreements());
+                return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements(page, maxRecords));
+            }
+            return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements());
+        }
+    }
+    
+    @GET
+    @Path("{freelancerId: \\d+}/agreementsStatus4")
+    public List<AgreementDTO> AgreementsStatus4(@PathParam("freelancerId") Long freelancerId) {
+
+        if (freelancerId != null) {
+            return AgreementConverter.listEntity2DTO(agreementLogic.getByStatus4(freelancerId));
+        } else {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", agreementLogic.countAgreements());
+                return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements(page, maxRecords));
+            }
+            return AgreementConverter.listEntity2DTO(agreementLogic.getAgreements());
+        }
+    }
+    
+   
+    @POST
+    @Path("{freelancerId: \\d+}/agreementsInvited/{projectId: \\d+}")
+    public AgreementDTO agreementInvited(@PathParam("freelancerId") Long freelancerId,@PathParam("projectId") Long projectId ) {
+        FreelancerDTO freelancer = new FreelancerDTO();
+        freelancer.setId(freelancerId);
+        ProjectDTO project = new ProjectDTO();
+        project.setId(projectId);
+        AgreementDTO dto = new AgreementDTO();
+        dto.setFreelancer(freelancer);
+        dto.setProject(project);
+        dto.setStatus(1);
+        AgreementEntity entity = AgreementConverter.fullDTO2Entity(dto);
+        return AgreementConverter.fullEntity2DTO(agreementLogic.createAgreement(entity));
+    }
+    
+    @PUT
+    @Path("{agreementsId: \\d+}/{price: \\d+}/agreementsAcept")
+    public AgreementDTO agreementAcept(@PathParam("agreementsId") Long id , @PathParam("price") Integer price ) {      
+        AgreementEntity entity = agreementLogic.getAgreement(id);
+        entity.setId(id);
+        entity.setPrice(price);
+        entity.setStatus(2);
+        return AgreementConverter.fullEntity2DTO(agreementLogic.updateAgreement(entity));
+    }
+    
+    @PUT
+    @Path("{agreementsId: \\d+}/agreementsReject")
+    public AgreementDTO agreementReject(@PathParam("agreementsId") Long id ) {      
+        AgreementEntity entity = agreementLogic.getAgreement(id);
+        entity.setId(id);
+        entity.setStatus(3);
+        return AgreementConverter.fullEntity2DTO(agreementLogic.updateAgreement(entity));
+    }
+    
+    @PUT
+    @Path("{agreementsId: \\d+}/agreementsSelected")
+    public AgreementDTO agreementSelected(@PathParam("agreementsId") Long id ) {      
+        AgreementEntity entity = agreementLogic.getAgreement(id);
+        entity.setId(id);
+        entity.setStatus(4);
+        return AgreementConverter.fullEntity2DTO(agreementLogic.updateAgreement(entity));
+    }
+
+    
+   
     
 }

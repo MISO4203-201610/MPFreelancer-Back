@@ -8,6 +8,9 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
 import co.edu.uniandes.csw.mpfreelancer.entities.WorkExperienceEntity;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
 
 /**
@@ -34,6 +37,12 @@ public class WorkExperiencePersistence extends CrudPersistence<WorkExperienceEnt
     @Override
     protected Class<WorkExperienceEntity> getEntityClass() {
         return WorkExperienceEntity.class;
+    }
+    
+    public List<WorkExperienceEntity> getByFreelancer(Long id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id",  id );
+        return executeListNamedQuery("WorkExperience.getByFreelancer", params);
     }
     
 }

@@ -1,11 +1,11 @@
 package co.edu.uniandes.csw.mpfreelancer.ejbs;
 
-import co.edu.uniandes.csw.mp.ann.MPLoCAnn;
 import co.edu.uniandes.csw.mpfreelancer.api.IFreelancerLogic;
 import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
 import co.edu.uniandes.csw.mpfreelancer.persistence.FreelancerPersistence;
 import co.edu.uniandes.csw.mpfreelancer.entities.SkillEntity;
 import co.edu.uniandes.csw.mpfreelancer.api.ISkillLogic;
+import co.edu.uniandes.csw.mpfreelancer.entities.EducationEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -17,6 +17,7 @@ import javax.inject.Inject;
 public class FreelancerLogic implements IFreelancerLogic {
 
     @Inject private FreelancerPersistence persistence;
+    
 
     @Inject private ISkillLogic skillLogic;
     
@@ -27,14 +28,15 @@ public class FreelancerLogic implements IFreelancerLogic {
     public int countFreelancers() {
         return persistence.count();
     }
-
-    /**
+    
+      /**
      * @generated
      */
     @Override
     public List<FreelancerEntity> getFreelancers() {
         return persistence.findAll();
     }
+   
 
     /**
      * @generated
@@ -148,4 +150,7 @@ public class FreelancerLogic implements IFreelancerLogic {
     public List<FreelancerEntity> totalSkills(Long id) {
         return persistence.totalSkills(id);
     }
+    
+   
+   
 }
