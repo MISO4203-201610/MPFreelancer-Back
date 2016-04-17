@@ -1,15 +1,13 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package co.edu.uniandes.csw.mpfreelancer.tests;
 
 import co.edu.uniandes.csw.auth.model.UserDTO;
 import co.edu.uniandes.csw.auth.security.JWT;
 import co.edu.uniandes.csw.mpfreelancer.dtos.WorkExperienceDTO;
+import co.edu.uniandes.csw.mpfreelancer.dtos.CurriculumDTO;
 import co.edu.uniandes.csw.mpfreelancer.dtos.FreelancerDTO;
-//import co.edu.uniandes.csw.mpfreelancer.services.ProjectSprintService;
+import co.edu.uniandes.csw.mpfreelancer.dtos.SkillDTO;
+import co.edu.uniandes.csw.mpfreelancer.dtos.EducationDTO;
+import co.edu.uniandes.csw.mpfreelancer.services.FreelancerService;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -40,19 +38,18 @@ import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
-/**
- *
- * @author mf.calderon
- */
 @RunWith(Arquillian.class)
 public class WorkExperienceTest {
-    
+
     private final int Ok = Status.OK.getStatusCode();
     private final int Created = Status.CREATED.getStatusCode();
+    private final int Update = 200;
+    private final int Delete = 204;
     private final int OkWithoutContent = Status.NO_CONTENT.getStatusCode();
-    private final String workExperiencePath = "experiences";
-    private final static List<WorkExperienceDTO> oraculo = new ArrayList<>();
-    private final static List<FreelancerDTO> oraculoFreelancer = new ArrayList<>();
+    private final String freelancerPath = "freelancers";
+    private final static List<FreelancerDTO> oraculo = new ArrayList<>();
+    private final String workExperiencePath = "workexperiences";
+    private final static List<WorkExperienceDTO> oraculoWorkExperience = new ArrayList<>();
     private WebTarget target;
     private final String apiPath = "api";
     private final String username = System.getenv("USERNAME_USER");
@@ -62,8 +59,7 @@ public class WorkExperienceTest {
     private URL deploymentURL;
 
     @Deployment(testable = false)
-    public static WebArchive createDeployment() 
-    {
+    public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class)
                 // Se agrega la dependencia a la logica con el nombre groupid:artefactid:version (GAV)
                 .addAsLibraries(Maven.resolver()
@@ -72,6 +68,8 @@ public class WorkExperienceTest {
                 .addAsLibraries(Maven.resolver()
                         .resolve("co.edu.uniandes.csw:auth-utils:0.1.0")
                         .withTransitivity().asFile())
+                // Se agregan los compilados de los paquetes de servicios
+                .addPackage(FreelancerService.class.getPackage())
                 // El archivo que contiene la configuracion a la base de datos.
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
                 // El archivo beans.xml es necesario para injeccion de dependencias.
@@ -82,36 +80,42 @@ public class WorkExperienceTest {
                 .setWebXML(new File("src/main/webapp/WEB-INF/web.xml"));
     }
 
-    private WebTarget createWebTarget() 
-    {
+    private WebTarget createWebTarget() {
         ClientConfig config = new ClientConfig();
         config.register(LoggingFilter.class);
         return ClientBuilder.newClient(config).target(deploymentURL.toString()).path(apiPath);
     }
 
     @BeforeClass
-    public static void setUp() 
-    {
+    public static void setUp() {
         insertData();
     }
 
-    public static void insertData() 
-    {
+    public static void insertData() {
         for (int i = 0; i < 5; i++) {
             PodamFactory factory = new PodamFactoryImpl();
-            WorkExperienceDTO workExperience = factory.manufacturePojo(WorkExperienceDTO.class);
-            workExperience.setId(i + 1L);
+            FreelancerDTO freelancer = factory.manufacturePojo(FreelancerDTO.class);
+            freelancer.setId(i + 1L);
+            List<EducationDTO> titlesList = new ArrayList<>();
+            for (int j = 0; j < 5; j++)
+            {
+                EducationDTO titles = factory.manufacturePojo(EducationDTO.class);
+                titles.setId(i + 1L);
+                titlesList.add(titles);
+            }
 
-            oraculo.add(workExperience);
+            freelancer.setTitles(titlesList);
 
-            FreelancerDTO freelancers = factory.manufacturePojo(FreelancerDTO.class);
-            freelancers.setId(i + 1L);
-            oraculoFreelancer.add(freelancers);
+            oraculo.add(freelancer);
+
+            WorkExperienceDTO workexperience = factory.manufacturePojo(WorkExperienceDTO.class);
+            workexperience.setId(i + 1L);
+            oraculoWorkExperience.add(workexperience);
+            
         }
     }
 
-    public Cookie login(String username, String password) 
-    {
+    public Cookie login(String username, String password) {
         UserDTO user = new UserDTO();
         user.setUserName(username);
         user.setPassword(password);
@@ -126,79 +130,166 @@ public class WorkExperienceTest {
     }
 
     @Before
-    public void setUpTest() 
-    {
+    public void setUpTest() {
         target = createWebTarget();
     }
 
     @Test
     @InSequence(1)
-    public void createWorkExperienceTest() throws IOException 
-    {
-//        WorkExperienceDTO workExperience = oraculo.get(0);
-//        Cookie cookieSessionId = login(username, password);
-//        
-//        Response response = target.path(workExperiencePath)
-//                .request().cookie(cookieSessionId)
-//                .post(Entity.entity(workExperience, MediaType.APPLICATION_JSON));
-//        WorkExperienceDTO  workExperienceTest = (WorkExperienceDTO) response.readEntity(WorkExperienceDTO.class);
-//        Assert.assertEquals(workExperience.getId(), workExperienceTest.getId());
-//        Assert.assertEquals(workExperience.getProjectName(), workExperienceTest.getProjectName());
-//        Assert.assertEquals(workExperience.getProjectDescription(),workExperienceTest.getProjectDescription());
-//        Assert.assertEquals(Created, response.getStatus());
+    public void createFreelancerTest() throws IOException {
+        FreelancerDTO freelancer = oraculo.get(0);
+        Cookie cookieSessionId = login(username, password);
+        Response response = target.path(freelancerPath)
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(freelancer, MediaType.APPLICATION_JSON));
+        FreelancerDTO  freelancerTest = (FreelancerDTO) response.readEntity(FreelancerDTO.class);
+        Assert.assertEquals(freelancer.getId(), freelancerTest.getId());
+        Assert.assertEquals(freelancer.getName(), freelancerTest.getName());
+        Assert.assertEquals(freelancer.getRate(), freelancerTest.getRate());
+        Assert.assertEquals(freelancer.getBithday(), freelancerTest.getBithday());
+        Assert.assertEquals(freelancer.getPicture(), freelancerTest.getPicture());
+        Assert.assertEquals(Created, response.getStatus());
     }
-//
-//    @Test
-//    @InSequence(2)
-//    public void getWorkExperienceById() 
-//    {
-//        Cookie cookieSessionId = login(username, password);
-//        WorkExperienceDTO workExperienceTest = target.path(workExperiencePath)
-//                .path(oraculo.get(0).getId().toString())
-//                .request().cookie(cookieSessionId).get(WorkExperienceDTO.class);
-//        Assert.assertEquals(workExperienceTest.getId(), oraculo.get(0).getId());
-//        Assert.assertEquals(workExperienceTest.getProjectName(), oraculo.get(0).getProjectName());
-//        Assert.assertEquals(workExperienceTest.getProjectDescription(), oraculo.get(0).getProjectDescription());
-//    }
-//
-//    @Test
-//    @InSequence(3)
-//    public void listWorkExperienceTest() throws IOException 
-//    {
-//        Cookie cookieSessionId = login(username, password);
-//        Response response = target.path(workExperiencePath)
-//                .request().cookie(cookieSessionId).get();
-//        String listWorkExperiences = response.readEntity(String.class);
-//        List<WorkExperienceDTO> listWorkExperiencesTest = new ObjectMapper().readValue(listWorkExperiences, List.class);
-//        Assert.assertEquals(Ok, response.getStatus());
-//        Assert.assertEquals(1, listWorkExperiencesTest.size());
-//    }
-//
-//    @Test
-//    @InSequence(4)
-//    public void updateWorkExperienceTest() throws IOException {
-//        Cookie cookieSessionId = login(username, password);
-//        WorkExperienceDTO workExperience = oraculo.get(0);
-//        PodamFactory factory = new PodamFactoryImpl();
-//        WorkExperienceDTO workExperienceChanged = factory.manufacturePojo(WorkExperienceDTO.class);
-//        workExperience.setProjectName(workExperienceChanged.getProjectName());
-//       workExperience.setProjectDescription(workExperience.getProjectDescription());
-//        Response response = target.path(workExperiencePath).path(workExperience.getId().toString())
-//                .request().cookie(cookieSessionId).put(Entity.entity(workExperience, MediaType.APPLICATION_JSON));
-//        WorkExperienceDTO workExperienceTest = (WorkExperienceDTO) response.readEntity(WorkExperienceDTO.class);
-//        Assert.assertEquals(Ok, response.getStatus());
-//        Assert.assertEquals(workExperience.getProjectName(), workExperienceTest.getProjectName());
-//        Assert.assertEquals(workExperience.getProjectDescription(), workExperienceTest.getProjectDescription());
-//    }
-//
-//    @Test
-//    @InSequence(9)
-//    public void deleteWorkExperienceTest() {
-//        Cookie cookieSessionId = login(username, password);
-//        WorkExperienceDTO workExperience = oraculo.get(0);
-//        Response response = target.path(workExperiencePath).path(workExperience.getId().toString())
-//                .request().cookie(cookieSessionId).delete();
-//        Assert.assertEquals(OkWithoutContent, response.getStatus());
-//    }
+
+    @Test
+    @InSequence(2)
+    public void getFreelancerById() {
+        Cookie cookieSessionId = login(username, password);
+        FreelancerDTO freelancerTest = target.path(freelancerPath)
+                .path(oraculo.get(0).getId().toString())
+                .request().cookie(cookieSessionId).get(FreelancerDTO.class);
+        Assert.assertEquals(freelancerTest.getId(), oraculo.get(0).getId());
+        Assert.assertEquals(freelancerTest.getName(), oraculo.get(0).getName());
+        Assert.assertEquals(freelancerTest.getRate(), oraculo.get(0).getRate());
+        Assert.assertEquals(freelancerTest.getBithday(), oraculo.get(0).getBithday());
+        Assert.assertEquals(freelancerTest.getPicture(), oraculo.get(0).getPicture());
+    }
     
+    @Test
+    @InSequence(3)
+    public void getCurrentFreelancer() {
+        Cookie cookieSessionId = login(username, password);
+        FreelancerDTO freelancerTest = target.path(freelancerPath)
+                .path("current")
+                .request().cookie(cookieSessionId).get(FreelancerDTO.class);
+        Assert.assertEquals(freelancerTest.getId(), oraculo.get(0).getId());
+        Assert.assertEquals(freelancerTest.getName(), oraculo.get(0).getName());
+        Assert.assertEquals(freelancerTest.getRate(), oraculo.get(0).getRate());
+        Assert.assertEquals(freelancerTest.getBithday(), oraculo.get(0).getBithday());
+        Assert.assertEquals(freelancerTest.getPicture(), oraculo.get(0).getPicture());
+    }
+
+    @Test
+    @InSequence(4)
+    public void listFreelancerTest() throws IOException {
+        Cookie cookieSessionId = login(username, password);
+        Response response = target.path(freelancerPath)
+                .request().cookie(cookieSessionId).get();
+        String listFreelancer = response.readEntity(String.class);
+        List<FreelancerDTO> listFreelancerTest = new ObjectMapper().readValue(listFreelancer, List.class);
+        Assert.assertEquals(Ok, response.getStatus());
+        Assert.assertEquals(1, listFreelancerTest.size());
+    }
+
+    @Test
+    @InSequence(5)
+    public void updateFreelancerTest() throws IOException {
+        Cookie cookieSessionId = login(username, password);
+        FreelancerDTO freelancer = oraculo.get(0);
+        PodamFactory factory = new PodamFactoryImpl();
+        FreelancerDTO freelancerChanged = factory.manufacturePojo(FreelancerDTO.class);
+        freelancer.setName(freelancerChanged.getName());
+        freelancer.setRate(freelancerChanged.getRate());
+        freelancer.setBithday(freelancerChanged.getBithday());
+        freelancer.setPicture(freelancerChanged.getPicture());
+        Response response = target.path(freelancerPath).path(freelancer.getId().toString())
+                .request().cookie(cookieSessionId).put(Entity.entity(freelancer, MediaType.APPLICATION_JSON));
+        FreelancerDTO freelancerTest = (FreelancerDTO) response.readEntity(FreelancerDTO.class);
+        Assert.assertEquals(Ok, response.getStatus());
+        Assert.assertEquals(freelancer.getName(), freelancerTest.getName());
+        Assert.assertEquals(freelancer.getRate(), freelancerTest.getRate());
+        Assert.assertEquals(freelancer.getBithday(), freelancerTest.getBithday());
+        Assert.assertEquals(freelancer.getPicture(), freelancerTest.getPicture());
+    }
+
+    @Test
+    @InSequence(9)
+    public void deleteFreelancerTest() {
+        Cookie cookieSessionId = login(username, password);
+        FreelancerDTO freelancer = oraculo.get(0);
+        Response response = target.path(freelancerPath).path(freelancer.getId().toString())
+                .request().cookie(cookieSessionId).delete();
+        Assert.assertEquals(OkWithoutContent, response.getStatus());
+    }
+
+    @Test
+    @InSequence(6)
+    public void addExperienceTest() {
+        Cookie cookieSessionId = login(username, password);
+
+        WorkExperienceDTO workExperienceDTO  = oraculoWorkExperience.get(0);
+
+        Response response = target.path("workexperiences")
+                .request().cookie(cookieSessionId)
+                .post(Entity.entity(workExperienceDTO, MediaType.APPLICATION_JSON));
+
+        WorkExperienceDTO experienceTest = (WorkExperienceDTO) response.readEntity(WorkExperienceDTO.class);
+        Assert.assertEquals(workExperienceDTO.getId(), experienceTest.getId());
+        Assert.assertEquals(workExperienceDTO.getProjectName(), experienceTest.getProjectName());
+        Assert.assertEquals(workExperienceDTO.getProjectDescription(), experienceTest.getProjectDescription());
+        Assert.assertEquals(workExperienceDTO.getStartDate(), experienceTest.getStartDate());
+        Assert.assertEquals(workExperienceDTO.getEndDate(), experienceTest.getEndDate());
+        Assert.assertEquals(workExperienceDTO.getSponsorCompany(), experienceTest.getSponsorCompany());
+        Assert.assertEquals(workExperienceDTO.getPrice(), experienceTest.getPrice());
+        Assert.assertEquals(workExperienceDTO.getRate(), experienceTest.getRate());
+        Assert.assertEquals(workExperienceDTO.getUrl(), experienceTest.getUrl()); 
+        Assert.assertEquals(Created, response.getStatus());      
+
+    }
+    @Test
+    @InSequence(7)
+    public void updateExperienceTest() {
+        Cookie cookieSessionId = login(username, password);
+
+        WorkExperienceDTO workExperienceDTO= oraculoWorkExperience.get(0);
+
+//  Ciclo 1 Validación del servicio de actualización de Curriculums sin asociación con Freelancer.
+//          De acuerdo con el alcance definido para el Ciclo 1, se crea Curriculum sin asociación a Freelancer.
+        
+//  Actualización de Curriculum
+
+        workExperienceDTO.setPrice(100);
+        workExperienceDTO.setUrl("www.newurl.com");
+        workExperienceDTO.setRate(5.0);    
+           
+        
+        Response response = target.path("workexperiences").path(workExperienceDTO.getId().toString())
+                .request().cookie(cookieSessionId)
+                .put(Entity.entity(workExperienceDTO, MediaType.APPLICATION_JSON));
+
+        WorkExperienceDTO experienceTest = (WorkExperienceDTO) response.readEntity(WorkExperienceDTO.class);
+        Assert.assertEquals(workExperienceDTO.getId(), experienceTest.getId());
+        Assert.assertEquals(workExperienceDTO.getPrice(), experienceTest.getPrice());
+        Assert.assertEquals(workExperienceDTO.getUrl(), experienceTest.getUrl());
+        Assert.assertEquals(workExperienceDTO.getRate(), experienceTest.getRate());      
+        Assert.assertEquals(Update, response.getStatus());    
+    }
+    @Test
+    @InSequence(8)
+    public void deleteCurriculumTest() {
+        Cookie cookieSessionId = login(username, password);
+
+        WorkExperienceDTO workExperienceDTO = oraculoWorkExperience.get(0);
+
+//  Ciclo 1 Validación del servicio de borrado de Curriculum sin asociación con Freelancer.
+//          De acuerdo con el alcance definido para el Ciclo 1, se crea Curriculum sin asociación a Freelancer.
+    
+//  Borrado de Curriculum
+        
+        Response response = target.path("workexperiences").path(workExperienceDTO.getId().toString())
+                .request().cookie(cookieSessionId)
+                .delete();
+        Assert.assertEquals(Delete, response.getStatus());
+        
+    }
 }
