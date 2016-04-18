@@ -6,6 +6,9 @@ import co.edu.uniandes.csw.mpfreelancer.persistence.FreelancerPersistence;
 import co.edu.uniandes.csw.mpfreelancer.entities.SkillEntity;
 import co.edu.uniandes.csw.mpfreelancer.api.ISkillLogic;
 import co.edu.uniandes.csw.mpfreelancer.entities.EducationEntity;
+import co.edu.uniandes.csw.mpfreelancer.entities.ProjectEntity;
+import co.edu.uniandes.csw.mpfreelancer.persistence.ProjectPersistence;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -16,7 +19,9 @@ import javax.inject.Inject;
 @Stateless
 public class FreelancerLogic implements IFreelancerLogic {
 
-    @Inject private FreelancerPersistence persistence;
+    @Inject private FreelancerPersistence persistence;    
+    
+    @Inject private ProjectPersistence projectPersistence;
     
 
     @Inject private ISkillLogic skillLogic;
@@ -148,7 +153,17 @@ public class FreelancerLogic implements IFreelancerLogic {
     
     @Override
     public List<FreelancerEntity> totalSkills(Long id) {
-        return persistence.totalSkills(id);
+        List<FreelancerEntity> freelancerSkill = new ArrayList<>();
+        List<FreelancerEntity> allFreelancers = persistence.findAll();
+       ProjectEntity project = projectPersistence.find(id);
+        
+        for (FreelancerEntity freelancer: allFreelancers){
+            if (project.getExpectedskills().containsAll(freelancer.getSkills())){
+                freelancerSkill.add(freelancer);
+            }
+        }
+        
+        return freelancerSkill;
     }
     
    
