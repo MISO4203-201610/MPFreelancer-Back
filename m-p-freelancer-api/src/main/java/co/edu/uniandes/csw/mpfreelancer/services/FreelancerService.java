@@ -68,14 +68,13 @@ public class FreelancerService {
                         return FreelancerConverter.listEntity2DTO(freelancerLogic.getFreelancers(page, maxRecords));
                         }
                         return FreelancerConverter.listEntity2DTO(freelancerLogic.getFreelancers());                    
-                    case FREELANCER_HREF:                     
+                    case FREELANCER_HREF:
                         Integer id = (int) account.getCustomData().get("freelancer_id");
                         List<FreelancerDTO> list = new ArrayList();
                         list.add(FreelancerConverter.fullEntity2DTO(freelancerLogic.getFreelancer(id.longValue())));
                         return list;
                 }
             }
-
         } 
         return null;
 
@@ -219,5 +218,35 @@ public class FreelancerService {
     @Path("{freelancerId: \\d+}/skills/{skillId: \\d+}")
     public void removeSkills(@PathParam("freelancerId") Long freelancerId, @PathParam("skillId") Long skillId) {
         freelancerLogic.removeSkills(freelancerId, skillId);
+    }
+    
+    @GET
+    @Path("{projectId: \\d+}/unSkill")
+    public List<FreelancerDTO> unSkill(@PathParam("projectId") Long projectId) {
+
+        if (projectId != null) {
+            return FreelancerConverter.listEntity2DTO(freelancerLogic.unSkill(projectId));
+        } else {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", freelancerLogic.countFreelancers());
+                return FreelancerConverter.listEntity2DTO(freelancerLogic.getFreelancers(page, maxRecords));
+            }
+            return FreelancerConverter.listEntity2DTO(freelancerLogic.getFreelancers());
+        }
+    }
+
+    @GET
+    @Path("{projectId: \\d+}/totalSkills")
+    public List<FreelancerDTO> totalSkills(@PathParam("projectId") Long projectId) {
+
+        if (projectId != null) {
+            return FreelancerConverter.listEntity2DTO(freelancerLogic.totalSkills(projectId));
+        } else {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", freelancerLogic.countFreelancers());
+                return FreelancerConverter.listEntity2DTO(freelancerLogic.getFreelancers(page, maxRecords));
+            }
+            return FreelancerConverter.listEntity2DTO(freelancerLogic.getFreelancers());
+        }
     }
 }

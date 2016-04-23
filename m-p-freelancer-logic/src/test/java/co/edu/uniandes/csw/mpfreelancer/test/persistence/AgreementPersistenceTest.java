@@ -1,13 +1,10 @@
 package co.edu.uniandes.csw.mpfreelancer.test.persistence;
 
-import co.edu.uniandes.csw.mpfreelancer.entities.BlogEntryEntity;
-import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
-import co.edu.uniandes.csw.mpfreelancer.entities.EducationEntity;
-import co.edu.uniandes.csw.mpfreelancer.persistence.BlogEntryPersistence;
-import co.edu.uniandes.csw.mpfreelancer.persistence.FreelancerPersistence;
+import co.edu.uniandes.csw.mpfreelancer.entities.AgreementEntity;
+import co.edu.uniandes.csw.mpfreelancer.persistence.AgreementPersistence;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,7 +24,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @generated
  */
 @RunWith(Arquillian.class)
-public class FreelancerPersistenceTest {
+public class AgreementPersistenceTest {
 
     /**
      * @generated
@@ -35,8 +32,8 @@ public class FreelancerPersistenceTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(FreelancerEntity.class.getPackage())
-                .addPackage(FreelancerPersistence.class.getPackage())
+                .addPackage(AgreementEntity.class.getPackage())
+                .addPackage(AgreementPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -45,9 +42,7 @@ public class FreelancerPersistenceTest {
      * @generated
      */
     @Inject
-    private FreelancerPersistence freelancerPersistence;
-    @Inject
-    private BlogEntryPersistence blogEntryPersistence;
+    private AgreementPersistence agreementPersistence;
 
     /**
      * @generated
@@ -86,14 +81,13 @@ public class FreelancerPersistenceTest {
      * @generated
      */
     private void clearData() {
-        em.createQuery("delete from EducationEntity").executeUpdate();
-        em.createQuery("delete from FreelancerEntity").executeUpdate();
+        em.createQuery("delete from AgreementEntity").executeUpdate();
     }
 
     /**
      * @generated
      */
-    private List<FreelancerEntity> data = new ArrayList<FreelancerEntity>();
+    private List<AgreementEntity> data = new ArrayList<AgreementEntity>();
 
     /**
      * @generated
@@ -101,10 +95,7 @@ public class FreelancerPersistenceTest {
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
-            FreelancerEntity entity = factory.manufacturePojo(FreelancerEntity.class);
-            for (EducationEntity item : entity.getTitles()) {
-                item.setFreelancer(entity);
-            }
+            AgreementEntity entity = factory.manufacturePojo(AgreementEntity.class);
             em.persist(entity);
             data.add(entity);
         }
@@ -114,41 +105,32 @@ public class FreelancerPersistenceTest {
      * @generated
      */
     @Test
-    public void createFreelancerTest() {
-		PodamFactory factory = new PodamFactoryImpl();
-        FreelancerEntity newEntity = factory.manufacturePojo(FreelancerEntity.class);
-        FreelancerEntity result = freelancerPersistence.create(newEntity);
+    public void createAgreementTest() {
+        PodamFactory factory = new PodamFactoryImpl();
+        AgreementEntity newEntity = factory.manufacturePojo(AgreementEntity.class);
+        AgreementEntity result = agreementPersistence.create(newEntity);
 
         Assert.assertNotNull(result);
 
-        FreelancerEntity entity = em.find(FreelancerEntity.class, result.getId());
+        AgreementEntity entity = em.find(AgreementEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getName(), entity.getName());
+        Assert.assertEquals(newEntity.getPrice(), entity.getPrice());
         Assert.assertEquals(newEntity.getRate(), entity.getRate());
-        Assert.assertEquals(newEntity.getPicture(), entity.getPicture());
-    }
-    
-    @Test
-    public void createBlogEntryTest() {
-	PodamFactory factory = new PodamFactoryImpl();
-        BlogEntryEntity newEntity = factory.manufacturePojo(BlogEntryEntity.class);
-        BlogEntryEntity result = blogEntryPersistence.create(newEntity);
-
-        BlogEntryEntity entity = em.find(BlogEntryEntity.class, result.getId());
-
-        Assert.assertEquals(newEntity.getTitle(), entity.getTitle());
+        Assert.assertEquals(newEntity.getSelected(), entity.getSelected());
+        Assert.assertEquals(newEntity.getStatus(), entity.getStatus());
     }
 
     /**
      * @generated
      */
     @Test
-    public void getFreelancersTest() {
-        List<FreelancerEntity> list = freelancerPersistence.findAll();
+    public void getAgreementsTest() {
+        List<AgreementEntity> list = agreementPersistence.findAll();
         Assert.assertEquals(data.size(), list.size());
-        for (FreelancerEntity ent : list) {
+        for (AgreementEntity ent : list) {
             boolean found = false;
-            for (FreelancerEntity entity : data) {
+            for (AgreementEntity entity : data) {
                 if (ent.getId().equals(entity.getId())) {
                     found = true;
                 }
@@ -161,24 +143,25 @@ public class FreelancerPersistenceTest {
      * @generated
      */
     @Test
-    public void getFreelancerTest() {
-        FreelancerEntity entity = data.get(0);
-        FreelancerEntity newEntity = freelancerPersistence.find(entity.getId());
+    public void getAgreementTest() {
+        AgreementEntity entity = data.get(0);
+        AgreementEntity newEntity = agreementPersistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getName(), newEntity.getName());
+        Assert.assertEquals(entity.getPrice(), newEntity.getPrice());
         Assert.assertEquals(entity.getRate(), newEntity.getRate());
-        Assert.assertEquals(entity.getBithday(), newEntity.getBithday());
-        Assert.assertEquals(entity.getPicture(), newEntity.getPicture());
+        Assert.assertEquals(entity.getSelected(), newEntity.getSelected());
+        Assert.assertEquals(entity.getStatus(), newEntity.getStatus());
     }
 
     /**
      * @generated
      */
     @Test
-    public void deleteFreelancerTest() {
-        FreelancerEntity entity = data.get(0);
-        freelancerPersistence.delete(entity.getId());
-        FreelancerEntity deleted = em.find(FreelancerEntity.class, entity.getId());
+    public void deleteAgreementTest() {
+        AgreementEntity entity = data.get(0);
+        agreementPersistence.delete(entity.getId());
+        AgreementEntity deleted = em.find(AgreementEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
@@ -186,19 +169,21 @@ public class FreelancerPersistenceTest {
      * @generated
      */
     @Test
-    public void updateFreelancerTest() {
-        FreelancerEntity entity = data.get(0);
+    public void updateAgreementTest() {
+        AgreementEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
-        FreelancerEntity newEntity = factory.manufacturePojo(FreelancerEntity.class);
+        AgreementEntity newEntity = factory.manufacturePojo(AgreementEntity.class);
 
         newEntity.setId(entity.getId());
 
-        freelancerPersistence.update(newEntity);
+        agreementPersistence.update(newEntity);
 
-        FreelancerEntity resp = em.find(FreelancerEntity.class, entity.getId());
+        AgreementEntity resp = em.find(AgreementEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getName(), resp.getName());
+        Assert.assertEquals(newEntity.getPrice(), resp.getPrice());
         Assert.assertEquals(newEntity.getRate(), resp.getRate());
-        Assert.assertEquals(newEntity.getPicture(), resp.getPicture());
+        Assert.assertEquals(newEntity.getSelected(), resp.getSelected());
+        Assert.assertEquals(newEntity.getStatus(), resp.getStatus());
     }
 }

@@ -27,6 +27,7 @@ public abstract class AgreementConverter {
             dto.setPrice(entity.getPrice());
             dto.setRate(entity.getRate());
             dto.setSelected(entity.getSelected());
+            dto.setStatus(entity.getStatus());
 
             return dto;
         } else {
@@ -55,6 +56,7 @@ public abstract class AgreementConverter {
             dto.setSelected(entity.getSelected());
             dto.setFreelancer(FreelancerConverter.refEntity2DTO(entity.getFreelancer()));
             dto.setProject(ProjectConverter.refEntity2DTO(entity.getProject()));
+            dto.setStatus(entity.getStatus());
 
             return dto;
         } else {
@@ -72,7 +74,8 @@ public abstract class AgreementConverter {
             entity.setSelected(dto.getSelected());
             entity.setFreelancer(FreelancerConverter.refDTO2Entity(dto.getFreelancer()));
             entity.setProject(ProjectConverter.refDTO2Entity(dto.getProject()));
-
+            entity.setStatus(dto.getStatus());
+            
             return entity;
         } else {
             return null;

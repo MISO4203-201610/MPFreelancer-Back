@@ -7,6 +7,8 @@ import co.edu.uniandes.csw.mpfreelancer.persistence.StatusPersistence;
 import co.edu.uniandes.csw.mpfreelancer.entities.ProjectEntity;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -29,6 +31,8 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 @RunWith(Arquillian.class)
 public class StatusLogicTest {
 
+    private static final Logger log = Logger.getLogger("jdk.nashorn.internal.runtime.logging.Logger");
+    
     /**
      * @generated
      */
@@ -87,12 +91,15 @@ public class StatusLogicTest {
             insertData();
             utx.commit();
         } catch (Exception e) {
-            e.printStackTrace();
+            log.log(Level.WARNING, e.getMessage());
             try {
                 utx.rollback();
             } catch (Exception e1) {
-                e1.printStackTrace();
+                log.log(Level.WARNING, e.getMessage());
+                throw new RuntimeException(e1);
             }
+            
+            throw new RuntimeException(e);
         }
     }
 

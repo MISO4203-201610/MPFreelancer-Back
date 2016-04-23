@@ -41,7 +41,7 @@ public class CurriculumService {
     @QueryParam("maxRecords") private Integer maxRecords;
 
     @GET
-    public List<CurriculumDTO> getNationalitys() {
+    public List<CurriculumDTO> getCurriculums() {
         if (page != null && maxRecords != null) {
             this.response.setIntHeader("X-Total-Count", CurriculumLogic.countCurriculums());
             return CurriculumConverter.listEntity2DTO(CurriculumLogic.getCurriculums(page, maxRecords));
@@ -51,20 +51,20 @@ public class CurriculumService {
 
     @GET
     @Path("{id: \\d+}")
-    public CurriculumDTO getNationality(@PathParam("id") Long id) {
+    public CurriculumDTO getCurriculum(@PathParam("id") Long id) {
         return CurriculumConverter.fullEntity2DTO(CurriculumLogic.getCurriculum(id));
     }
 
     @POST
     @StatusCreated
-    public CurriculumDTO createNationality(CurriculumDTO dto) {
+    public CurriculumDTO createCurriculum(CurriculumDTO dto) {
         CurriculumEntity entity = CurriculumConverter.fullDTO2Entity(dto);
         return CurriculumConverter.fullEntity2DTO(CurriculumLogic.createCurriculum(entity));
     }
 
     @PUT
     @Path("{id: \\d+}")
-    public CurriculumDTO updateNationality(@PathParam("id") Long id, CurriculumDTO dto) {
+    public CurriculumDTO updateCurriculum(@PathParam("id") Long id, CurriculumDTO dto) {
         CurriculumEntity entity = CurriculumConverter.fullDTO2Entity(dto);
         entity.setId(id);
         return CurriculumConverter.fullEntity2DTO(CurriculumLogic.updateCurriculum(entity));
@@ -76,4 +76,18 @@ public class CurriculumService {
         CurriculumLogic.deleteCurriculum(id);
     }
 
+    @GET
+    @Path("{freelancerId: \\d+}/freelancer")
+    public List<CurriculumDTO> getByFreelancer(@PathParam("freelancerId") Long freelancerId) {
+
+        if (freelancerId != null) {
+            return CurriculumConverter.listEntity2DTO(CurriculumLogic.getByFreelancer(freelancerId));
+        } else {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", CurriculumLogic.countCurriculums());
+                return CurriculumConverter.listEntity2DTO(CurriculumLogic.getCurriculums(page, maxRecords));
+            }
+            return CurriculumConverter.listEntity2DTO(CurriculumLogic.getCurriculums());
+        }
+    }
 }

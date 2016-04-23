@@ -15,12 +15,19 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import javax.persistence.ManyToOne;
 import uk.co.jemos.podam.common.PodamExclude;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author mf.calderon
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "WorkExperience.getByFreelancer", 
+            query = "select u from WorkExperienceEntity u Where u.freelancer.id=:id"),
+    
+}) 
 public class WorkExperienceEntity extends BaseEntity implements Serializable{
     
     private String projectName;
@@ -36,6 +43,12 @@ public class WorkExperienceEntity extends BaseEntity implements Serializable{
     private Date endDate;
 
     private String sponsorCompany;
+    
+    private Integer price;
+    
+    private Double rate;
+    
+    private String url;
 
     @PodamExclude
     @ManyToOne
@@ -82,6 +95,31 @@ public class WorkExperienceEntity extends BaseEntity implements Serializable{
         this.sponsorCompany=sponsorCompany;
     }
     
+     public Integer getPrice(){
+        return price;
+    }
+    
+    public void setPrice(Integer price){
+        this.price=price;
+    }
+    
+    public Double getRate(){
+        return rate;
+    }
+    
+    public void setRate(Double rate){
+        this.rate=rate;
+    }
+    
+    public String getUrl(){
+        return url;
+    }
+    
+    public void setUrl(String url){
+        this.url=url;
+    }
+    
+    
     public FreelancerEntity getFreelancer(){
         return freelancer;
     }
@@ -89,5 +127,8 @@ public class WorkExperienceEntity extends BaseEntity implements Serializable{
     public void setFreelancer(FreelancerEntity freelancer){
         this.freelancer=freelancer;
     }
+    
+   
+    
     
 }

@@ -1,11 +1,14 @@
 package co.edu.uniandes.csw.mpfreelancer.ejbs;
 
-import co.edu.uniandes.csw.mp.ann.MPLoCAnn;
 import co.edu.uniandes.csw.mpfreelancer.api.IFreelancerLogic;
 import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
 import co.edu.uniandes.csw.mpfreelancer.persistence.FreelancerPersistence;
 import co.edu.uniandes.csw.mpfreelancer.entities.SkillEntity;
 import co.edu.uniandes.csw.mpfreelancer.api.ISkillLogic;
+import co.edu.uniandes.csw.mpfreelancer.entities.EducationEntity;
+import co.edu.uniandes.csw.mpfreelancer.entities.ProjectEntity;
+import co.edu.uniandes.csw.mpfreelancer.persistence.ProjectPersistence;
+import java.util.ArrayList;
 import java.util.List;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
@@ -16,7 +19,10 @@ import javax.inject.Inject;
 @Stateless
 public class FreelancerLogic implements IFreelancerLogic {
 
-    @Inject private FreelancerPersistence persistence;
+    @Inject private FreelancerPersistence persistence;    
+    
+    @Inject private ProjectPersistence projectPersistence;
+    
 
     @Inject private ISkillLogic skillLogic;
     
@@ -27,14 +33,15 @@ public class FreelancerLogic implements IFreelancerLogic {
     public int countFreelancers() {
         return persistence.count();
     }
-
-    /**
+    
+      /**
      * @generated
      */
     @Override
     public List<FreelancerEntity> getFreelancers() {
         return persistence.findAll();
     }
+   
 
     /**
      * @generated
@@ -139,5 +146,26 @@ public class FreelancerLogic implements IFreelancerLogic {
         skillLogic.removeFreelancers(skillsId, freelancerId);
     }
     
- 
+    @Override
+    public List<FreelancerEntity> unSkill(Long id) {
+        return persistence.unSkill(id);
+    }
+    
+    @Override
+    public List<FreelancerEntity> totalSkills(Long id) {
+        List<FreelancerEntity> freelancerSkill = new ArrayList<>();
+        List<FreelancerEntity> allFreelancers = persistence.findAll();
+       ProjectEntity project = projectPersistence.find(id);
+        
+        for (FreelancerEntity freelancer: allFreelancers){
+            if (project.getExpectedskills().containsAll(freelancer.getSkills())){
+                freelancerSkill.add(freelancer);
+            }
+        }
+        
+        return freelancerSkill;
+    }
+    
+   
+   
 }

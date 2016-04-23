@@ -7,6 +7,8 @@ package co.edu.uniandes.csw.mpfreelancer.ejbs;
 
 import co.edu.uniandes.csw.mpfreelancer.api.IAgreementLogic;
 import co.edu.uniandes.csw.mpfreelancer.entities.AgreementEntity;
+import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
+import co.edu.uniandes.csw.mpfreelancer.entities.ProjectEntity;
 import co.edu.uniandes.csw.mpfreelancer.persistence.AgreementPersistence;
 import java.util.List;
 import javax.inject.Inject;
@@ -56,4 +58,41 @@ public class AgreementLogic implements IAgreementLogic{
     public void deleteAgreement(Long id) {
         persistence.delete(id);
     }
+    
+    @Override
+    public List<AgreementEntity> getByFreelancer(Long id) {
+        return persistence.getByFreelancer(id);
+    }
+    
+    @Override
+    public List<AgreementEntity> getByProject(Long id) {
+        return persistence.getByProject(id);
+    }
+    
+    @Override
+    public List<AgreementEntity> getProjectAcepted (Long id){
+        return persistence.getProjectAcepted(id);
+    }
+    
+    @Override
+    public List<AgreementEntity> getByStatus1(Long id) {
+        return persistence.getByStatus1(id);
+    }
+    
+    @Override
+    public List<AgreementEntity> getByStatus2(Long id) {
+        return persistence.getByStatus2(id);
+    }
+    
+    @Override
+    public List<AgreementEntity> getByStatus3(Long id) {
+        return persistence.getByStatus3(id);
+    }
+    
+    @Override
+    public List<AgreementEntity> getByStatus4(Long id) {
+        return persistence.getByStatus4(id);
+    }
+    
+   
 }

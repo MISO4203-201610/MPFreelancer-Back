@@ -34,7 +34,7 @@ public class FreelancerDTO {
     private List<BlogEntryDTO> blogEntries = new ArrayList<>();
 
     @PodamExclude
-    private List<AgreementDTO> agreements = new ArrayList<>();
+    private List<AgreementDTO> agreements = new ArrayList<>();   
 
     /**
      * @generated

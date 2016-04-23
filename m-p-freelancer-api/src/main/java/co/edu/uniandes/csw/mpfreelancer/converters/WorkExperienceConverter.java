@@ -15,12 +15,20 @@ import java.util.List;
  *
  * @author mf.calderon
  */
-public class WorkExperienceConverter {
+public abstract class WorkExperienceConverter {
 
 
     private WorkExperienceConverter() {
     }
-
+    /**
+     * Realiza la conversión de WorkExperienceEntity a WorkExperienceDTO.
+     * Se invoca cuando otra entidad tiene una referencia a WorkExperienceEntity.
+     * Entrega únicamente los atributos proprios de la entidad.
+     *
+     * @param entity instancia de WorkExperienceEntity a convertir
+     * @return instancia deWorkExperienceDTO con los datos recibidos por parámetro
+     * @generated
+     */
     public static WorkExperienceDTO refEntity2DTO(WorkExperienceEntity entity) {
         if (entity != null) {
             WorkExperienceDTO dto = new WorkExperienceDTO();
@@ -30,7 +38,9 @@ public class WorkExperienceConverter {
             dto.setStartDate(entity.getStartDate());
             dto.setEndDate(entity.getEndDate());
             dto.setSponsorCompany(entity.getSponsorCompany());
-
+            dto.setPrice(entity.getPrice());
+            dto.setRate(entity.getRate());
+            dto.setUrl(entity.getUrl());
             return dto;
         } else {
             return null;
@@ -57,6 +67,9 @@ public class WorkExperienceConverter {
             dto.setStartDate(entity.getStartDate());
             dto.setEndDate(entity.getEndDate());
             dto.setSponsorCompany(entity.getSponsorCompany());
+            dto.setPrice(entity.getPrice());
+            dto.setRate(entity.getRate());
+            dto.setUrl(entity.getUrl());
             dto.setFreelancerExperience(FreelancerConverter.refEntity2DTO(entity.getFreelancer()));
 
             return dto;
@@ -74,6 +87,9 @@ public class WorkExperienceConverter {
             entity.setStartDate(dto.getStartDate());
             entity.setEndtDate(dto.getEndDate());
             entity.setSponsorCompany(dto.getSponsorCompany());
+            entity.setPrice(dto.getPrice());
+            entity.setRate(dto.getRate());
+            entity.setUrl(dto.getUrl());
             entity.setFreelancer(FreelancerConverter.refDTO2Entity(dto.getFreelancerExperience()));
 
             return entity;

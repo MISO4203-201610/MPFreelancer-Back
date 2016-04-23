@@ -28,6 +28,7 @@ import co.edu.uniandes.csw.mpfreelancer.converters.SkillConverter;
 import co.edu.uniandes.csw.mpfreelancer.dtos.ProjectSprintDTO;
 import co.edu.uniandes.csw.mpfreelancer.entities.ProjectSponsorEntity;
 import com.stormpath.sdk.account.Account;
+import com.stormpath.sdk.group.Group;
 import javax.servlet.http.HttpServletRequest;
 
 /**
@@ -37,6 +38,10 @@ import javax.servlet.http.HttpServletRequest;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ProjectService {
+    
+    private static final String PROYECT_SPONSOR_HREF = "https://api.stormpath.com/v1/groups/w94UQuPl5386Zk91Numiv";    
+    private static final String FREELANCER_HREF = "https://api.stormpath.com/v1/groups/mNePGgZXIo2wW01EvWRzl";
+    private static final String ADMIN_HREF = "https://api.stormpath.com/v1/groups/aDD8ajP65mhgxRNvASTfl";    
 
     @Inject private IProjectLogic projectLogic;
     @Inject private IProjectSponsorLogic projectSponsorLogic;
@@ -55,17 +60,31 @@ public class ProjectService {
     public List<ProjectDTO> getProjects() {
         String accountHref = req.getRemoteUser();
         if (accountHref != null) {
-            Account account = getClient().getResource(accountHref, Account.class);            
-            Integer id=(int)account.getCustomData().get("projectSponsor_id");            
-            return ProjectConverter.listEntity2DTO(projectSponsorLogic.listProjects(id.longValue()));
-        } else {
-            return null;
-        }
+            Account account = getClient().getResource(accountHref, Account.class);
+            for (Group gr : account.getGroups()) {
+                 switch (gr.getHref()) {
+                    case PROYECT_SPONSOR_HREF:
+                        Integer idPS =(int)account.getCustomData().get("projectSponsor_id");            
+                        return ProjectConverter.listEntity2DTO(projectSponsorLogic.listProjects(idPS.longValue()));
+                    case FREELANCER_HREF:
+                        Integer idF = (int) account.getCustomData().get("freelancer_id");
+                        return ProjectConverter.listEntity2DTO(projectLogic.listProjectsApplied(idF.longValue()));
+                    case ADMIN_HREF:                        
+                        if (page != null && maxRecords != null) {
+                        this.response.setIntHeader("X-Total-Count", projectLogic.countProjects());
+                        return ProjectConverter.listEntity2DTO(projectLogic.getProjects(page, maxRecords));
+                    }
+                    return ProjectConverter.listEntity2DTO(projectLogic.getProjects());
+                 }
+             }           
+        } 
+        
+        return null;
     }
     
     @GET
     @Path("/all")
-    public List<ProjectDTO> getAllProjects() {        
+    public List<ProjectDTO> getAllProjects() {
         if (page != null && maxRecords != null) {
             this.response.setIntHeader("X-Total-Count", projectLogic.countProjects());
             return ProjectConverter.listEntity2DTO(projectLogic.getProjects(page, maxRecords));
@@ -222,5 +241,5 @@ public class ProjectService {
     @Path("{projectId: \\d+}/expectedskills/{skillId: \\d+}")
     public void removeExpectedskills(@PathParam("projectId") Long projectId, @PathParam("skillId") Long skillId) {
         projectLogic.removeExpectedskills(projectId, skillId);
-    }
+    }    
 }

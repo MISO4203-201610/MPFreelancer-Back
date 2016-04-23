@@ -10,11 +10,18 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
 import uk.co.jemos.podam.common.PodamExclude;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  * @generated
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Education.getByFreelancer", 
+            query = "select u from EducationEntity u Where u.freelancer.id=:id"),
+    
+}) 
 public class EducationEntity extends BaseEntity implements Serializable {
 
     @Temporal(TemporalType.DATE)

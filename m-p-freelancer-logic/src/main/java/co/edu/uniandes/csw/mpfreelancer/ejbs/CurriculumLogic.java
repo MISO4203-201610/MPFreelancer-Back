@@ -56,4 +56,9 @@ public class CurriculumLogic implements ICurriculumLogic {
     public void deleteCurriculum(Long id) {
         persistence.delete(id);
     }
+
+    @Override
+    public List<CurriculumEntity> getByFreelancer(Long id) {
+        return persistence.getByFreelancer(id);
+    }
 }

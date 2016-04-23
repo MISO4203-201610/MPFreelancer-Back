@@ -1,13 +1,10 @@
 package co.edu.uniandes.csw.mpfreelancer.test.persistence;
 
-import co.edu.uniandes.csw.mpfreelancer.entities.BlogEntryEntity;
-import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.EducationEntity;
-import co.edu.uniandes.csw.mpfreelancer.persistence.BlogEntryPersistence;
-import co.edu.uniandes.csw.mpfreelancer.persistence.FreelancerPersistence;
+import co.edu.uniandes.csw.mpfreelancer.persistence.EducationPersistence;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Date;
+
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -27,7 +24,7 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
  * @generated
  */
 @RunWith(Arquillian.class)
-public class FreelancerPersistenceTest {
+public class EducationPersistenceTest {
 
     /**
      * @generated
@@ -35,8 +32,8 @@ public class FreelancerPersistenceTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(FreelancerEntity.class.getPackage())
-                .addPackage(FreelancerPersistence.class.getPackage())
+                .addPackage(EducationEntity.class.getPackage())
+                .addPackage(EducationPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -45,9 +42,7 @@ public class FreelancerPersistenceTest {
      * @generated
      */
     @Inject
-    private FreelancerPersistence freelancerPersistence;
-    @Inject
-    private BlogEntryPersistence blogEntryPersistence;
+    private EducationPersistence educationPersistence;
 
     /**
      * @generated
@@ -87,13 +82,12 @@ public class FreelancerPersistenceTest {
      */
     private void clearData() {
         em.createQuery("delete from EducationEntity").executeUpdate();
-        em.createQuery("delete from FreelancerEntity").executeUpdate();
     }
 
     /**
      * @generated
      */
-    private List<FreelancerEntity> data = new ArrayList<FreelancerEntity>();
+    private List<EducationEntity> data = new ArrayList<EducationEntity>();
 
     /**
      * @generated
@@ -101,10 +95,7 @@ public class FreelancerPersistenceTest {
     private void insertData() {
         PodamFactory factory = new PodamFactoryImpl();
         for (int i = 0; i < 3; i++) {
-            FreelancerEntity entity = factory.manufacturePojo(FreelancerEntity.class);
-            for (EducationEntity item : entity.getTitles()) {
-                item.setFreelancer(entity);
-            }
+            EducationEntity entity = factory.manufacturePojo(EducationEntity.class);
             em.persist(entity);
             data.add(entity);
         }
@@ -114,41 +105,33 @@ public class FreelancerPersistenceTest {
      * @generated
      */
     @Test
-    public void createFreelancerTest() {
-		PodamFactory factory = new PodamFactoryImpl();
-        FreelancerEntity newEntity = factory.manufacturePojo(FreelancerEntity.class);
-        FreelancerEntity result = freelancerPersistence.create(newEntity);
+    public void createEducationTest() {
+        PodamFactory factory = new PodamFactoryImpl();
+        EducationEntity newEntity = factory.manufacturePojo(EducationEntity.class);
+        EducationEntity result = educationPersistence.create(newEntity);
 
         Assert.assertNotNull(result);
 
-        FreelancerEntity entity = em.find(FreelancerEntity.class, result.getId());
+        EducationEntity entity = em.find(EducationEntity.class, result.getId());
 
         Assert.assertEquals(newEntity.getName(), entity.getName());
-        Assert.assertEquals(newEntity.getRate(), entity.getRate());
-        Assert.assertEquals(newEntity.getPicture(), entity.getPicture());
-    }
-    
-    @Test
-    public void createBlogEntryTest() {
-	PodamFactory factory = new PodamFactoryImpl();
-        BlogEntryEntity newEntity = factory.manufacturePojo(BlogEntryEntity.class);
-        BlogEntryEntity result = blogEntryPersistence.create(newEntity);
-
-        BlogEntryEntity entity = em.find(BlogEntryEntity.class, result.getId());
-
+        Assert.assertEquals(newEntity.getStartDate(), entity.getStartDate());
+        Assert.assertEquals(newEntity.getEndDate(), entity.getEndDate());
+        Assert.assertEquals(newEntity.getInstitution(), entity.getInstitution());
         Assert.assertEquals(newEntity.getTitle(), entity.getTitle());
+        Assert.assertEquals(newEntity.getDescription(), entity.getDescription());
     }
 
     /**
      * @generated
      */
     @Test
-    public void getFreelancersTest() {
-        List<FreelancerEntity> list = freelancerPersistence.findAll();
+    public void getEducationsTest() {
+        List<EducationEntity> list = educationPersistence.findAll();
         Assert.assertEquals(data.size(), list.size());
-        for (FreelancerEntity ent : list) {
+        for (EducationEntity ent : list) {
             boolean found = false;
-            for (FreelancerEntity entity : data) {
+            for (EducationEntity entity : data) {
                 if (ent.getId().equals(entity.getId())) {
                     found = true;
                 }
@@ -161,24 +144,26 @@ public class FreelancerPersistenceTest {
      * @generated
      */
     @Test
-    public void getFreelancerTest() {
-        FreelancerEntity entity = data.get(0);
-        FreelancerEntity newEntity = freelancerPersistence.find(entity.getId());
+    public void getEducationTest() {
+        EducationEntity entity = data.get(0);
+        EducationEntity newEntity = educationPersistence.find(entity.getId());
         Assert.assertNotNull(newEntity);
         Assert.assertEquals(entity.getName(), newEntity.getName());
-        Assert.assertEquals(entity.getRate(), newEntity.getRate());
-        Assert.assertEquals(entity.getBithday(), newEntity.getBithday());
-        Assert.assertEquals(entity.getPicture(), newEntity.getPicture());
+        Assert.assertEquals(entity.getStartDate(), newEntity.getStartDate());
+        Assert.assertEquals(entity.getEndDate(), newEntity.getEndDate());
+        Assert.assertEquals(entity.getInstitution(), newEntity.getInstitution());
+        Assert.assertEquals(entity.getTitle(), newEntity.getTitle());
+        Assert.assertEquals(entity.getDescription(), newEntity.getDescription());
     }
 
     /**
      * @generated
      */
     @Test
-    public void deleteFreelancerTest() {
-        FreelancerEntity entity = data.get(0);
-        freelancerPersistence.delete(entity.getId());
-        FreelancerEntity deleted = em.find(FreelancerEntity.class, entity.getId());
+    public void deleteEducationTest() {
+        EducationEntity entity = data.get(0);
+        educationPersistence.delete(entity.getId());
+        EducationEntity deleted = em.find(EducationEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
@@ -186,19 +171,22 @@ public class FreelancerPersistenceTest {
      * @generated
      */
     @Test
-    public void updateFreelancerTest() {
-        FreelancerEntity entity = data.get(0);
+    public void updateEducationTest() {
+        EducationEntity entity = data.get(0);
         PodamFactory factory = new PodamFactoryImpl();
-        FreelancerEntity newEntity = factory.manufacturePojo(FreelancerEntity.class);
+        EducationEntity newEntity = factory.manufacturePojo(EducationEntity.class);
 
         newEntity.setId(entity.getId());
 
-        freelancerPersistence.update(newEntity);
+        educationPersistence.update(newEntity);
 
-        FreelancerEntity resp = em.find(FreelancerEntity.class, entity.getId());
+        EducationEntity resp = em.find(EducationEntity.class, entity.getId());
 
         Assert.assertEquals(newEntity.getName(), resp.getName());
-        Assert.assertEquals(newEntity.getRate(), resp.getRate());
-        Assert.assertEquals(newEntity.getPicture(), resp.getPicture());
+        Assert.assertEquals(newEntity.getStartDate(), resp.getStartDate());
+        Assert.assertEquals(newEntity.getEndDate(), resp.getEndDate());
+        Assert.assertEquals(newEntity.getInstitution(), resp.getInstitution());
+        Assert.assertEquals(newEntity.getTitle(), resp.getTitle());
+        Assert.assertEquals(newEntity.getDescription(), resp.getDescription());
     }
 }
