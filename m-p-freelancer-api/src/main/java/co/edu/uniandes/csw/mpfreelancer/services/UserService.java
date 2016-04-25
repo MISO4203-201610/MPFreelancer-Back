@@ -49,8 +49,8 @@ public class UserService extends AuthService {
                 provider = sponsorLogic.createProjectSponsor(provider);
                 acct.getCustomData().put(PROYECT_SPONSOR_CD, provider.getId());  
                 break;
-                default:
-                 throw new WebApplicationException("Group link doen's match ");
+                //default:
+                // throw new WebApplicationException("Group link doen's match ");
             }
                 
             }
