@@ -6,12 +6,15 @@
 package co.edu.uniandes.csw.mpfreelancer.services;
 
 import co.edu.uniandes.csw.auth.provider.StatusCreated;
+import co.edu.uniandes.csw.mpfreelancer.api.IProjectLogic;
 import co.edu.uniandes.csw.mpfreelancer.api.IAgreementLogic;
 import co.edu.uniandes.csw.mpfreelancer.converters.AgreementConverter;
 import co.edu.uniandes.csw.mpfreelancer.dtos.AgreementDTO;
 import co.edu.uniandes.csw.mpfreelancer.dtos.FreelancerDTO;
 import co.edu.uniandes.csw.mpfreelancer.dtos.ProjectDTO;
 import co.edu.uniandes.csw.mpfreelancer.entities.AgreementEntity;
+import co.edu.uniandes.csw.mpfreelancer.entities.ProjectEntity;
+import co.edu.uniandes.csw.mpfreelancer.mail.Mail;
 import java.util.List;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -35,6 +38,7 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class AgreementService {
+    @Inject private IProjectLogic projectLogic;
     @Inject private IAgreementLogic agreementLogic;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
@@ -220,8 +224,24 @@ public class AgreementService {
     @Path("{agreementsId: \\d+}/agreementsSelected")
     public AgreementDTO agreementSelected(@PathParam("agreementsId") Long id ) {      
         AgreementEntity entity = agreementLogic.getAgreement(id);
+        
+        // Update the agreement
         entity.setId(id);
         entity.setStatus(4);
+        
+        // Update the project aswell
+        ProjectEntity projectEntity = entity.getProject();
+        projectLogic.updateProject(projectEntity);
+        
+        // Notify all rejected guys
+        projectEntity.getAgreements().stream().filter((agreement) -> (agreement.getId() != id)).forEach((agreement) -> {
+            //new Mail(agreement.getFreelancer().getEmail(), "Agreement reject", "Your agreement " + agreement.getName() + " was rejected :(");
+        });
+        
+        // Notify choosed guy
+        //new Mail(entity.getFreelancer().getEmail(), "Agreement accepted", "Your agreement " + entity.getName() + " was accepted! You better start working :)");
+        
+        // Update it in database and return it
         return AgreementConverter.fullEntity2DTO(agreementLogic.updateAgreement(entity));
     }
 
