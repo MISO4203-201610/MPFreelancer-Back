@@ -6,9 +6,7 @@
 package co.edu.uniandes.csw.mpfreelancer.dtos;
 
 import co.edu.uniandes.csw.crud.api.podam.strategy.DateStrategy;
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 import uk.co.jemos.podam.common.PodamExclude;
 import uk.co.jemos.podam.common.PodamStrategyValue;

@@ -143,7 +143,8 @@ public class CurriculumLogicTest {
     /**
      * @generated
      */
-    @Test
+     @Test
+    public void createCurriculumTest() {
         
         CurriculumEntity entity = factory.manufacturePojo(CurriculumEntity.class);
         CurriculumEntity result = curriculumLogic.createCurriculum(entity);
