@@ -34,7 +34,9 @@ public class FreelancerDTO {
     private List<BlogEntryDTO> blogEntries = new ArrayList<>();
 
     @PodamExclude
-    private List<AgreementDTO> agreements = new ArrayList<>();   
+    private List<AgreementDTO> agreements = new ArrayList<>();  
+    
+    private String email;
 
     /**
      * @generated
@@ -180,5 +182,13 @@ public class FreelancerDTO {
 
     public void setBlogEntries(List<BlogEntryDTO> blogEntries) {
         this.blogEntries = blogEntries;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

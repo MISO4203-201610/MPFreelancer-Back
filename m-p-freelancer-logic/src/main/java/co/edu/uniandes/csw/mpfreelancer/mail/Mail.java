@@ -1,10 +1,5 @@
 package co.edu.uniandes.csw.mpfreelancer.mail;
 
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
 import javax.ws.rs.core.MediaType;
 
 /**
@@ -15,7 +10,7 @@ public class Mail {
     
     public Mail(String email, String subject, String body) {
         
-        Client client = Client.create();
+        /*Client client = Client.create();
         client.addFilter(new HTTPBasicAuthFilter("api", System.getenv("MAILAPI")));
         
         WebResource webResource =
@@ -26,6 +21,6 @@ public class Mail {
         formData.add("to", "Freelancers " + email + ">");
         formData.add("subject", subject);
         formData.add("text", body);
-        webResource.type(MediaType.APPLICATION_FORM_URLENCODED).post(ClientResponse.class, formData);
+        webResource.type(MediaType.APPLICATION_FORM_URLENCODED).post(ClientResponse.class, formData);*/
     }
 }

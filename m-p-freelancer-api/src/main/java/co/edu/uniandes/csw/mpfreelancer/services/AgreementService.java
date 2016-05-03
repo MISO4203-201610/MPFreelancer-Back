@@ -235,11 +235,11 @@ public class AgreementService {
         
         // Notify all rejected guys
         projectEntity.getAgreements().stream().filter((agreement) -> (agreement.getId() != id)).forEach((agreement) -> {
-            //new Mail(agreement.getFreelancer().getEmail(), "Agreement reject", "Your agreement " + agreement.getName() + " was rejected :(");
+            new Mail(agreement.getFreelancer().getEmail(), "Agreement reject", "Your agreement " + agreement.getName() + " was rejected :(");
         });
         
         // Notify choosed guy
-        //new Mail(entity.getFreelancer().getEmail(), "Agreement accepted", "Your agreement " + entity.getName() + " was accepted! You better start working :)");
+        new Mail(entity.getFreelancer().getEmail(), "Agreement accepted", "Your agreement " + entity.getName() + " was accepted! You better start working :)");
         
         // Update it in database and return it
         return AgreementConverter.fullEntity2DTO(agreementLogic.updateAgreement(entity));

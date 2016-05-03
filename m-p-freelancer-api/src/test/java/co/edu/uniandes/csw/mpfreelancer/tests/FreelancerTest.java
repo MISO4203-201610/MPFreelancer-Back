@@ -160,6 +160,7 @@ public class FreelancerTest {
         Assert.assertEquals(freelancer.getRate(), freelancerTest.getRate());
         Assert.assertEquals(freelancer.getBithday(), freelancerTest.getBithday());
         Assert.assertEquals(freelancer.getPicture(), freelancerTest.getPicture());
+        Assert.assertEquals(freelancer.getEmail(), freelancerTest.getEmail());
         Assert.assertEquals(Created, response.getStatus());
     }
 
@@ -175,6 +176,7 @@ public class FreelancerTest {
         Assert.assertEquals(freelancerTest.getRate(), oraculo.get(0).getRate());
         Assert.assertEquals(freelancerTest.getBithday(), oraculo.get(0).getBithday());
         Assert.assertEquals(freelancerTest.getPicture(), oraculo.get(0).getPicture());
+        Assert.assertEquals(freelancerTest.getEmail(), oraculo.get(0).getEmail());
     }
     
     @Test
@@ -189,6 +191,7 @@ public class FreelancerTest {
         Assert.assertEquals(freelancerTest.getRate(), oraculo.get(0).getRate());
         Assert.assertEquals(freelancerTest.getBithday(), oraculo.get(0).getBithday());
         Assert.assertEquals(freelancerTest.getPicture(), oraculo.get(0).getPicture());
+        Assert.assertEquals(freelancerTest.getEmail(), oraculo.get(0).getEmail());
     }
 
     @Test
@@ -214,6 +217,7 @@ public class FreelancerTest {
         freelancer.setRate(freelancerChanged.getRate());
         freelancer.setBithday(freelancerChanged.getBithday());
         freelancer.setPicture(freelancerChanged.getPicture());
+        freelancer.setEmail(freelancerChanged.getEmail());
         Response response = target.path(freelancerPath).path(freelancer.getId().toString())
                 .request().cookie(cookieSessionId).put(Entity.entity(freelancer, MediaType.APPLICATION_JSON));
         FreelancerDTO freelancerTest = (FreelancerDTO) response.readEntity(FreelancerDTO.class);
@@ -222,6 +226,7 @@ public class FreelancerTest {
         Assert.assertEquals(freelancer.getRate(), freelancerTest.getRate());
         Assert.assertEquals(freelancer.getBithday(), freelancerTest.getBithday());
         Assert.assertEquals(freelancer.getPicture(), freelancerTest.getPicture());
+        Assert.assertEquals(freelancer.getEmail(), freelancerTest.getEmail());
     }
 
 

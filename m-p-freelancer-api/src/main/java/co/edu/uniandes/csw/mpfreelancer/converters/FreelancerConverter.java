@@ -34,6 +34,7 @@ public abstract class FreelancerConverter {
             dto.setRate(entity.getRate());
             dto.setBithday(entity.getBithday());
             dto.setPicture(entity.getPicture());
+            dto.setEmail(entity.getEmail());
         
 
             return dto;
@@ -78,6 +79,7 @@ public abstract class FreelancerConverter {
             dto.setRate(entity.getRate());
             dto.setBithday(entity.getBithday());
             dto.setPicture(entity.getPicture());
+            dto.setEmail(entity.getEmail());
             dto.setCurriculums(CurriculumConverter.listEntity2DTO(entity.getCurriculums()));
 	    dto.setSkills(SkillConverter.listEntity2DTO(entity.getSkills()));
             
@@ -104,6 +106,7 @@ public abstract class FreelancerConverter {
             entity.setRate(dto.getRate());
             entity.setBithday(dto.getBithday());
             entity.setPicture(dto.getPicture());
+            entity.setEmail(dto.getEmail());
             entity.setCurriculums(CurriculumConverter.listDTO2Entity(dto.getCurriculums()));
             
             return entity;
