@@ -57,4 +57,14 @@ public class ConversationLogic implements IConversationLogic {
         persistence.delete(id);
     }
     
+    @Override
+    public List<ConversationEntity> getByFreelancer(Long id) {
+        return persistence.getByFreelancer(id);
+    }
+    
+    @Override
+    public List<ConversationEntity> getByProject(Long id) {
+        return persistence.getByProject(id);
+    }
+    
 }

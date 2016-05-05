@@ -75,4 +75,19 @@ public class MailService {
         mailLogic.deleteMails(id);
     }
     
+    @GET
+    @Path("{conversationId: \\d+}/mailsConversations")
+    public List<MailDTO> conversationsFreelancer(@PathParam("conversationId") Long conversationId) {
+
+        if (conversationId != null) {
+            return MailConverter.listEntity2DTO(mailLogic.getByConversation(conversationId));
+        } else {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", mailLogic.countMails());
+                return MailConverter.listEntity2DTO(mailLogic.getMails(page, maxRecords));
+            }
+            return MailConverter.listEntity2DTO(mailLogic.getMails());
+        }
+    }
+    
 }

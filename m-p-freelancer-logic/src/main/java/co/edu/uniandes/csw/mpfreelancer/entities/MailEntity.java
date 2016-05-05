@@ -11,6 +11,8 @@ import java.io.Serializable;
 import java.util.Date;
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
 import uk.co.jemos.podam.common.PodamExclude;
@@ -21,6 +23,10 @@ import uk.co.jemos.podam.common.PodamStrategyValue;
  * @author mf.calderon
  */
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Mail.getByConversation", query = "select u from MailEntity u Where u.coversation.id=:id")
+})
+
 public class MailEntity extends BaseEntity implements Serializable{
     
     @PodamExclude

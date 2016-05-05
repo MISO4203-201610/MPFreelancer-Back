@@ -21,5 +21,6 @@ public interface IMailLogic {
     public MailEntity createMails(MailEntity entity);
     public MailEntity updateMails(MailEntity entity);
     public void deleteMails(Long id);
+    public List<MailEntity> getByConversation(Long id);
     
 }

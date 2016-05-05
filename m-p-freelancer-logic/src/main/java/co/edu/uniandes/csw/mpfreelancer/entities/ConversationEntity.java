@@ -12,12 +12,19 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import uk.co.jemos.podam.common.PodamExclude;
 import java.util.List;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 
 /**
  *
  * @author mf.calderon
  */
 @Entity
+
+@NamedQueries({
+    @NamedQuery(name = "Conversation.getByFreelancer", query = "select u from ConversationEntity u Where u.freelancer.id=:id"),
+    @NamedQuery(name = "Conversation.getByProject", query = "select u from ConversationEntity u Where u.project.id=:id")
+}) 
 public class ConversationEntity extends BaseEntity implements Serializable {
       
     

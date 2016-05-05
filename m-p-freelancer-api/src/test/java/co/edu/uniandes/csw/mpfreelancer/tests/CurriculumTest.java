@@ -39,8 +39,6 @@ import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 @RunWith(Arquillian.class)
 public class CurriculumTest {
-    
-  /*
 
     private final int Ok = Status.OK.getStatusCode();
     private final int Created = Status.CREATED.getStatusCode();
@@ -305,5 +303,4 @@ public class CurriculumTest {
         Assert.assertEquals(Delete, response.getStatus());
         
     }
-*/
 }

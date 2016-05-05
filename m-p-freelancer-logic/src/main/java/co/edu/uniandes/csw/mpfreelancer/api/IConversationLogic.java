@@ -21,5 +21,7 @@ public interface IConversationLogic {
     public ConversationEntity createConversations(ConversationEntity entity);
     public ConversationEntity updateConversations(ConversationEntity entity);
     public void deleteConversations(Long id);
+    public List<ConversationEntity> getByFreelancer(Long id);
+    public List<ConversationEntity> getByProject(Long id);
     
 }

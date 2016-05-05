@@ -75,4 +75,34 @@ public class ConversationService {
         conversationLogic.deleteConversations(id);
     }
     
+     @GET
+    @Path("{freelancerId: \\d+}/conversationsFreelancer")
+    public List<ConversationDTO> conversationsFreelancer(@PathParam("freelancerId") Long freelancerId) {
+
+        if (freelancerId != null) {
+            return ConversationConverter.listEntity2DTO(conversationLogic.getByFreelancer(freelancerId));
+        } else {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", conversationLogic.countConversations());
+                return ConversationConverter.listEntity2DTO(conversationLogic.getConversations(page, maxRecords));
+            }
+            return ConversationConverter.listEntity2DTO(conversationLogic.getConversations());
+        }
+    }
+    
+    @GET
+    @Path("{projectId: \\d+}/conversationsProject")
+    public List<ConversationDTO> conversationsProject(@PathParam("projectId") Long projectId) {
+
+        if (projectId != null) {
+            return ConversationConverter.listEntity2DTO(conversationLogic.getByProject(projectId));
+        } else {
+            if (page != null && maxRecords != null) {
+                this.response.setIntHeader("X-Total-Count", conversationLogic.countConversations());
+                return ConversationConverter.listEntity2DTO(conversationLogic.getConversations(page, maxRecords));
+            }
+            return ConversationConverter.listEntity2DTO(conversationLogic.getConversations());
+        }
+    }
+    
 }

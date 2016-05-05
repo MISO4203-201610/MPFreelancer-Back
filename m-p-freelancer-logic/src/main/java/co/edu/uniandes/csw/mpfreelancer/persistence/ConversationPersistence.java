@@ -10,6 +10,10 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import co.edu.uniandes.csw.mpfreelancer.entities.ConversationEntity;
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
+import co.edu.uniandes.csw.mpfreelancer.entities.AgreementEntity;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 /**
@@ -36,6 +40,18 @@ public class ConversationPersistence extends CrudPersistence<ConversationEntity>
     @Override
     protected Class<ConversationEntity> getEntityClass() {
         return ConversationEntity.class;
+    }
+    
+    public List<ConversationEntity> getByFreelancer(Long id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id",  id );
+        return executeListNamedQuery("Conversation.getByFreelancer", params);
+    }
+    
+    public List<ConversationEntity> getByProject(Long id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id",  id );
+        return executeListNamedQuery("Conversation.getByProject", params);
     }
     
 }

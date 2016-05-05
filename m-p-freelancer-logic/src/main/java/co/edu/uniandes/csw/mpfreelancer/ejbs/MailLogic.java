@@ -57,4 +57,9 @@ public class MailLogic implements IMailLogic{
         persistence.delete(id);
     }
     
+    @Override
+    public List<MailEntity> getByConversation(Long id) {
+        return persistence.getByConversation(id);
+    }
+    
 }

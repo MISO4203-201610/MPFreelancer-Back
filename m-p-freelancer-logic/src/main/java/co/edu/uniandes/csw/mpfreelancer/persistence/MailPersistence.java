@@ -7,6 +7,9 @@ package co.edu.uniandes.csw.mpfreelancer.persistence;
 
 import co.edu.uniandes.csw.crud.spi.persistence.CrudPersistence;
 import co.edu.uniandes.csw.mpfreelancer.entities.MailEntity;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -34,6 +37,12 @@ public class MailPersistence extends CrudPersistence<MailEntity> {
     @Override
     protected Class<MailEntity> getEntityClass() {
         return MailEntity.class;
+    }
+    
+    public List<MailEntity> getByConversation(Long id) {
+        Map<String, Object> params = new HashMap<>();
+        params.put("id",  id );
+        return executeListNamedQuery("Mail.getByConversation", params);
     }
     
 }
