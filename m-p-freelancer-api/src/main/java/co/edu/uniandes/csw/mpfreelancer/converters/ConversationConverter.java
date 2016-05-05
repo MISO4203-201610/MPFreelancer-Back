@@ -94,8 +94,8 @@ public abstract class ConversationConverter {
             ConversationEntity entity = new ConversationEntity();
             entity.setId(dto.getId());
             entity.setSubject(dto.getSubject());
-            entity.setProject(ProjectConverter.refDTO2Entity(dto.getProject()));
             entity.setFreelancer(FreelancerConverter.refDTO2Entity(dto.getFreelancer()));
+            entity.setProject(ProjectConverter.refDTO2Entity(dto.getProject()));
                         
             return entity;
         } else {

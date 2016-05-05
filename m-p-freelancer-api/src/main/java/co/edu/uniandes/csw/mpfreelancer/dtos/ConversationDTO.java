@@ -20,17 +20,15 @@ import java.util.List;
 public class ConversationDTO {
     
     private Long id;
-    
+    private String subject;
     @PodamExclude
-    private FreelancerDTO freelancer;
-    
+    private FreelancerDTO freelancer;    
     @PodamExclude
     private ProjectDTO project;
-    
     @PodamExclude
     private List<MailDTO> mails;
     
-    private String subject;
+    
     
     public Long getId() {
         return id;
