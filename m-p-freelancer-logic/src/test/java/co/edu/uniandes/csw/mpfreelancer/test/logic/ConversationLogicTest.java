@@ -1,9 +1,14 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package co.edu.uniandes.csw.mpfreelancer.test.logic;
 
-import co.edu.uniandes.csw.mpfreelancer.ejbs.CurriculumLogic;
-import co.edu.uniandes.csw.mpfreelancer.api.ICurriculumLogic;
-import co.edu.uniandes.csw.mpfreelancer.entities.CurriculumEntity;
-import co.edu.uniandes.csw.mpfreelancer.persistence.CurriculumPersistence;
+import co.edu.uniandes.csw.mpfreelancer.ejbs.ConversationLogic;
+import co.edu.uniandes.csw.mpfreelancer.api.IConversationLogic;
+import co.edu.uniandes.csw.mpfreelancer.entities.ConversationEntity;
+import co.edu.uniandes.csw.mpfreelancer.persistence.ConversationPersistence;
 import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.ProjectEntity;
 import java.util.ArrayList;
@@ -25,11 +30,12 @@ import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
 /**
- * @generated
+ *
+ * @author mf.calderon
  */
 @RunWith(Arquillian.class)
-public class CurriculumLogicTest {
-
+public class ConversationLogicTest {
+    
     /**
      * @generated
      */
@@ -39,7 +45,7 @@ public class CurriculumLogicTest {
      * @generated
      */
     @Inject
-    private ICurriculumLogic curriculumLogic;
+    private IConversationLogic conversationLogic;
 
     /**
      * @generated
@@ -56,7 +62,7 @@ public class CurriculumLogicTest {
     /**
      * @generated
      */
-    private List<CurriculumEntity> data = new ArrayList<CurriculumEntity>();
+    private List<ConversationEntity> data = new ArrayList<ConversationEntity>();
 
     /**
      * @generated
@@ -74,10 +80,10 @@ public class CurriculumLogicTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(CurriculumEntity.class.getPackage())
-                .addPackage(CurriculumLogic.class.getPackage())
-                .addPackage(ICurriculumLogic.class.getPackage())
-                .addPackage(CurriculumPersistence.class.getPackage())
+                .addPackage(ConversationEntity.class.getPackage())
+                .addPackage(ConversationLogic.class.getPackage())
+                .addPackage(IConversationLogic.class.getPackage())
+                .addPackage(ConversationPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -107,7 +113,7 @@ public class CurriculumLogicTest {
      */
     private void clearData() {
         em.createQuery("delete from ProjectEntity").executeUpdate();
-        em.createQuery("delete from CurriculumEntity").executeUpdate();
+        em.createQuery("delete from ConversationEntity").executeUpdate();
         em.createQuery("delete from FreelancerEntity").executeUpdate();
     }
 
@@ -128,9 +134,9 @@ public class CurriculumLogicTest {
             projectsData.add(projects);
         }
         
-        em.createQuery("delete from CurriculumEntity").executeUpdate();
+        em.createQuery("delete from ConversationEntity").executeUpdate();
         for (int i = 0; i < 3; i++) {
-            CurriculumEntity entity = factory.manufacturePojo(CurriculumEntity.class);
+            ConversationEntity entity = factory.manufacturePojo(ConversationEntity.class);
 
             entity.setFreelancer(freelancersData.get(0));
 
@@ -143,11 +149,11 @@ public class CurriculumLogicTest {
     /**
      * @generated
      */
-     @Test
+    @Test
     public void createCurriculumTest() {
         
-        CurriculumEntity entity = factory.manufacturePojo(CurriculumEntity.class);
-        CurriculumEntity result = curriculumLogic.createCurriculum(entity);
+        ConversationEntity entity = factory.manufacturePojo(ConversationEntity.class);
+        ConversationEntity result = conversationLogic.createConversations(entity);
         Assert.assertNotNull(result);
         Assert.assertEquals(result.getId(), entity.getId());
         Assert.assertEquals(result.getName(), entity.getName());
@@ -158,11 +164,11 @@ public class CurriculumLogicTest {
      */
     @Test
     public void getCurriculumsTest() {
-        List<CurriculumEntity> list = curriculumLogic.getCurriculums();
+        List<ConversationEntity> list = conversationLogic.getConversations();
         Assert.assertEquals(data.size(), list.size());
-        for (CurriculumEntity entity : list) {
+        for (ConversationEntity entity : list) {
             boolean found = false;
-            for (CurriculumEntity storedEntity : data) {
+            for (ConversationEntity storedEntity : data) {
                 if (entity.getId().equals(storedEntity.getId())) {
                     found = true;
                 }
@@ -176,8 +182,8 @@ public class CurriculumLogicTest {
      */
     @Test
     public void getCurriculumTest() {
-        CurriculumEntity entity = data.get(0);
-        CurriculumEntity resultEntity = curriculumLogic.getCurriculum(entity.getId());
+        ConversationEntity entity = data.get(0);
+        ConversationEntity resultEntity = conversationLogic.getConversations(entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getName(), resultEntity.getName());
@@ -188,9 +194,9 @@ public class CurriculumLogicTest {
      */
     @Test
     public void deleteCurriculumTest() {
-        CurriculumEntity entity = data.get(1);
-        curriculumLogic.deleteCurriculum(entity.getId());
-        CurriculumEntity deleted = em.find(CurriculumEntity.class, entity.getId());
+        ConversationEntity entity = data.get(1);
+        conversationLogic.deleteConversations(entity.getId());
+        ConversationEntity deleted = em.find(ConversationEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
@@ -199,16 +205,17 @@ public class CurriculumLogicTest {
      */
     @Test
     public void updateCurriculumTest() {
-        CurriculumEntity entity = data.get(0);
-        CurriculumEntity pojoEntity = factory.manufacturePojo(CurriculumEntity.class);
+        ConversationEntity entity = data.get(0);
+        ConversationEntity pojoEntity = factory.manufacturePojo(ConversationEntity.class);
 
         pojoEntity.setId(entity.getId());
 
-        curriculumLogic.updateCurriculum(pojoEntity);
+        conversationLogic.updateConversations(pojoEntity);
 
-        CurriculumEntity resp = em.find(CurriculumEntity.class, entity.getId());
+        ConversationEntity resp = em.find(ConversationEntity.class, entity.getId());
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
     }
+    
 }

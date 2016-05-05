@@ -1,11 +1,15 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package co.edu.uniandes.csw.mpfreelancer.test.logic;
 
-import co.edu.uniandes.csw.mpfreelancer.ejbs.CurriculumLogic;
-import co.edu.uniandes.csw.mpfreelancer.api.ICurriculumLogic;
-import co.edu.uniandes.csw.mpfreelancer.entities.CurriculumEntity;
-import co.edu.uniandes.csw.mpfreelancer.persistence.CurriculumPersistence;
-import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
-import co.edu.uniandes.csw.mpfreelancer.entities.ProjectEntity;
+import co.edu.uniandes.csw.mpfreelancer.ejbs.MailLogic;
+import co.edu.uniandes.csw.mpfreelancer.api.IMailLogic;
+import co.edu.uniandes.csw.mpfreelancer.entities.MailEntity;
+import co.edu.uniandes.csw.mpfreelancer.persistence.MailPersistence;
+import co.edu.uniandes.csw.mpfreelancer.entities.ConversationEntity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -24,12 +28,14 @@ import org.junit.runner.RunWith;
 import uk.co.jemos.podam.api.PodamFactory;
 import uk.co.jemos.podam.api.PodamFactoryImpl;
 
+
 /**
- * @generated
+ *
+ * @author mf.calderon
  */
 @RunWith(Arquillian.class)
-public class CurriculumLogicTest {
-
+public class MailLogicTest {
+    
     /**
      * @generated
      */
@@ -39,7 +45,7 @@ public class CurriculumLogicTest {
      * @generated
      */
     @Inject
-    private ICurriculumLogic curriculumLogic;
+    private IMailLogic mailLogic;
 
     /**
      * @generated
@@ -56,17 +62,12 @@ public class CurriculumLogicTest {
     /**
      * @generated
      */
-    private List<CurriculumEntity> data = new ArrayList<CurriculumEntity>();
+    private List<MailEntity> data = new ArrayList<MailEntity>();
 
     /**
      * @generated
      */
-    private List<FreelancerEntity> freelancersData = new ArrayList<>();
-
-    /**
-     * @generated
-     */
-    private List<ProjectEntity> projectsData = new ArrayList<>();
+    private List<ConversationEntity> conversationData = new ArrayList<>();
 
     /**
      * @generated
@@ -74,10 +75,10 @@ public class CurriculumLogicTest {
     @Deployment
     public static JavaArchive createDeployment() {
         return ShrinkWrap.create(JavaArchive.class)
-                .addPackage(CurriculumEntity.class.getPackage())
-                .addPackage(CurriculumLogic.class.getPackage())
-                .addPackage(ICurriculumLogic.class.getPackage())
-                .addPackage(CurriculumPersistence.class.getPackage())
+                .addPackage(MailEntity.class.getPackage())
+                .addPackage(MailLogic.class.getPackage())
+                .addPackage(IMailLogic.class.getPackage())
+                .addPackage(MailPersistence.class.getPackage())
                 .addAsManifestResource("META-INF/persistence.xml", "persistence.xml")
                 .addAsManifestResource("META-INF/beans.xml", "beans.xml");
     }
@@ -106,9 +107,7 @@ public class CurriculumLogicTest {
      * @generated
      */
     private void clearData() {
-        em.createQuery("delete from ProjectEntity").executeUpdate();
-        em.createQuery("delete from CurriculumEntity").executeUpdate();
-        em.createQuery("delete from FreelancerEntity").executeUpdate();
+        em.createQuery("delete from MailEntity").executeUpdate();
     }
 
     /**
@@ -117,22 +116,17 @@ public class CurriculumLogicTest {
     private void insertData() {
 
         for (int i = 0; i < 3; i++) {
-            FreelancerEntity freelancers = factory.manufacturePojo(FreelancerEntity.class);
-            em.persist(freelancers);
-            freelancersData.add(freelancers);
+            ConversationEntity conversation = factory.manufacturePojo(ConversationEntity.class);
+            em.persist(conversation);
+            conversationData.add(conversation);
         }
         
+                
+        em.createQuery("delete from MailEntity").executeUpdate();
         for (int i = 0; i < 3; i++) {
-            ProjectEntity projects = factory.manufacturePojo(ProjectEntity.class);
-            em.persist(projects);
-            projectsData.add(projects);
-        }
-        
-        em.createQuery("delete from CurriculumEntity").executeUpdate();
-        for (int i = 0; i < 3; i++) {
-            CurriculumEntity entity = factory.manufacturePojo(CurriculumEntity.class);
+            MailEntity entity = factory.manufacturePojo(MailEntity.class);
 
-            entity.setFreelancer(freelancersData.get(0));
+            entity.setConversation(conversationData.get(0));
 
             em.persist(entity);
             data.add(entity);
@@ -143,11 +137,11 @@ public class CurriculumLogicTest {
     /**
      * @generated
      */
-     @Test
-    public void createCurriculumTest() {
+    @Test
+    public void createMailTest() {
         
-        CurriculumEntity entity = factory.manufacturePojo(CurriculumEntity.class);
-        CurriculumEntity result = curriculumLogic.createCurriculum(entity);
+        MailEntity entity = factory.manufacturePojo(MailEntity.class);
+        MailEntity result = mailLogic.createMails(entity);
         Assert.assertNotNull(result);
         Assert.assertEquals(result.getId(), entity.getId());
         Assert.assertEquals(result.getName(), entity.getName());
@@ -158,11 +152,11 @@ public class CurriculumLogicTest {
      */
     @Test
     public void getCurriculumsTest() {
-        List<CurriculumEntity> list = curriculumLogic.getCurriculums();
+        List<MailEntity> list = mailLogic.getMails();
         Assert.assertEquals(data.size(), list.size());
-        for (CurriculumEntity entity : list) {
+        for (MailEntity entity : list) {
             boolean found = false;
-            for (CurriculumEntity storedEntity : data) {
+            for (MailEntity storedEntity : data) {
                 if (entity.getId().equals(storedEntity.getId())) {
                     found = true;
                 }
@@ -176,8 +170,8 @@ public class CurriculumLogicTest {
      */
     @Test
     public void getCurriculumTest() {
-        CurriculumEntity entity = data.get(0);
-        CurriculumEntity resultEntity = curriculumLogic.getCurriculum(entity.getId());
+        MailEntity entity = data.get(0);
+        MailEntity resultEntity = mailLogic.getMails(entity.getId());
         Assert.assertNotNull(resultEntity);
         Assert.assertEquals(entity.getId(), resultEntity.getId());
         Assert.assertEquals(entity.getName(), resultEntity.getName());
@@ -188,9 +182,9 @@ public class CurriculumLogicTest {
      */
     @Test
     public void deleteCurriculumTest() {
-        CurriculumEntity entity = data.get(1);
-        curriculumLogic.deleteCurriculum(entity.getId());
-        CurriculumEntity deleted = em.find(CurriculumEntity.class, entity.getId());
+        MailEntity entity = data.get(1);
+        mailLogic.deleteMails(entity.getId());
+        MailEntity deleted = em.find(MailEntity.class, entity.getId());
         Assert.assertNull(deleted);
     }
 
@@ -199,16 +193,17 @@ public class CurriculumLogicTest {
      */
     @Test
     public void updateCurriculumTest() {
-        CurriculumEntity entity = data.get(0);
-        CurriculumEntity pojoEntity = factory.manufacturePojo(CurriculumEntity.class);
+        MailEntity entity = data.get(0);
+        MailEntity pojoEntity = factory.manufacturePojo(MailEntity.class);
 
         pojoEntity.setId(entity.getId());
 
-        curriculumLogic.updateCurriculum(pojoEntity);
+        mailLogic.updateMails(pojoEntity);
 
-        CurriculumEntity resp = em.find(CurriculumEntity.class, entity.getId());
+        MailEntity resp = em.find(MailEntity.class, entity.getId());
 
         Assert.assertEquals(pojoEntity.getId(), resp.getId());
         Assert.assertEquals(pojoEntity.getName(), resp.getName());
     }
+    
 }
