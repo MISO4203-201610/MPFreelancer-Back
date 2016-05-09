@@ -36,6 +36,8 @@ public class ProjectDTO {
     private List<AgreementDTO> agreements;
     @PodamExclude
     private List<ProjectSprintDTO> projectSprints = new ArrayList<>();
+    @PodamExclude
+    private FreelancerDTO freelancer;
     
     /**
      * Obtiene el id de un proyecto.
@@ -283,5 +285,25 @@ public class ProjectDTO {
      */
     public void setProjectSprints(List<ProjectSprintDTO> projectSprints) {
         this.projectSprints = projectSprints;
-    }    
+    }   
+    
+    /**
+     * Obtiene el freelancer de un proyecto.
+     * 
+     * @return 
+     * @generated
+     */
+    public FreelancerDTO getFreelancer() {
+        return freelancer;
+    }
+
+    /**
+     * Establece el freelancer de un proyecto.
+     * 
+     * @param freelancer
+     * @generated
+     */
+    public void setFreelancer(FreelancerDTO freelancer) {
+        this.freelancer = freelancer;
+    }   
 }

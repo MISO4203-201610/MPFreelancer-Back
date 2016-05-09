@@ -59,6 +59,10 @@ public class ProjectEntity extends BaseEntity implements Serializable {
     
     @OneToMany(mappedBy = "project", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<AgreementEntity> agreements = new ArrayList<>();
+    
+    @PodamExclude
+    @ManyToOne
+    private FreelancerEntity freelancer;
      
     /**
      * @generated
@@ -212,5 +216,19 @@ public class ProjectEntity extends BaseEntity implements Serializable {
      */
     public void setAgreements(List<AgreementEntity> agreements) {
         this.agreements = agreements;
+    }
+    
+    /**
+     * @generated
+     */
+    public FreelancerEntity getFreelancer() {
+        return freelancer;
+    }
+
+    /**
+     * @generated
+     */
+    public void setFreelancer(FreelancerEntity agreements) {
+        this.freelancer = freelancer;
     }
 }

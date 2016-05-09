@@ -8,12 +8,16 @@ package co.edu.uniandes.csw.mpfreelancer.services;
 import co.edu.uniandes.csw.auth.provider.StatusCreated;
 import co.edu.uniandes.csw.mpfreelancer.api.IProjectLogic;
 import co.edu.uniandes.csw.mpfreelancer.api.IAgreementLogic;
+import co.edu.uniandes.csw.mpfreelancer.api.IFreelancerLogic;
+import co.edu.uniandes.csw.mpfreelancer.api.IStatusLogic;
 import co.edu.uniandes.csw.mpfreelancer.converters.AgreementConverter;
 import co.edu.uniandes.csw.mpfreelancer.dtos.AgreementDTO;
 import co.edu.uniandes.csw.mpfreelancer.dtos.FreelancerDTO;
 import co.edu.uniandes.csw.mpfreelancer.dtos.ProjectDTO;
 import co.edu.uniandes.csw.mpfreelancer.entities.AgreementEntity;
+import co.edu.uniandes.csw.mpfreelancer.entities.FreelancerEntity;
 import co.edu.uniandes.csw.mpfreelancer.entities.ProjectEntity;
+import co.edu.uniandes.csw.mpfreelancer.entities.StatusEntity;
 import co.edu.uniandes.csw.mpfreelancer.mail.Mail;
 import java.util.List;
 import javax.inject.Inject;
@@ -38,8 +42,10 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class AgreementService {
+    @Inject private IFreelancerLogic freelancerLogic;
     @Inject private IProjectLogic projectLogic;
     @Inject private IAgreementLogic agreementLogic;
+    @Inject private IStatusLogic statusLogic;
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("maxRecords") private Integer maxRecords;
@@ -244,8 +250,48 @@ public class AgreementService {
         // Update it in database and return it
         return AgreementConverter.fullEntity2DTO(agreementLogic.updateAgreement(entity));
     }
-
     
-   
-    
+    @POST
+    @Path("{projectId: \\d+}/{freelancerId: \\d+}/agreementsFreelancer")
+    public ProjectEntity agreementAssignFreelancer(@PathParam("projectId") Long projectId, @PathParam("freelancerId") Long freelancerId ) {
+        
+        // Send email
+        List<AgreementEntity> agreements = agreementLogic.getByProject(projectId);
+        FreelancerEntity freelancer = null;
+        
+        for (int i = 0; i < agreements.size(); i++)
+        {
+            if (agreements.get(i).getFreelancer().getId() == freelancerId)
+            {
+                AgreementEntity agreement = agreements.get(i);
+                freelancer = agreement.getFreelancer();
+                agreement.setStatus(4);
+                new Mail(freelancer.getEmail(), "Agreement accepted", "Your agreement " + agreements.get(i).getName() + " was accepted! You better start working :)");
+                agreementLogic.updateAgreement(agreement);
+            }
+            else
+            {
+                new Mail(agreements.get(i).getFreelancer().getEmail(), "Agreement reject", "Your agreement " + agreements.get(i).getName() + " was rejected :(");
+            }
+        }
+        
+        // Update project status
+        ProjectEntity project = projectLogic.getProject(projectId);
+        boolean termino = false;
+        
+        if (freelancer != null)
+            project.setFreelancer(freelancer);
+        
+        for (int i = 0; i < statusLogic.getStatuss().size() && !termino; i++)
+        {
+            if (statusLogic.getStatuss().get(i).getName().equals("Closed"))
+            {
+                project.setStatus(statusLogic.getStatuss().get(i));
+            }
+        }
+        
+        projectLogic.updateProject(project);
+        
+        return project;
+    }
 }

@@ -1,6 +1,14 @@
 package co.edu.uniandes.csw.mpfreelancer.mail;
 
-import javax.ws.rs.core.MediaType;
+import java.util.Properties;
+
+import javax.mail.Message;
+import javax.mail.MessagingException;
+import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeMessage;
 
 /**
  *
@@ -10,17 +18,37 @@ public class Mail {
     
     public Mail(String email, String subject, String body) {
         
-        /*Client client = Client.create();
-        client.addFilter(new HTTPBasicAuthFilter("api", System.getenv("MAILAPI")));
-        
-        WebResource webResource =
-            client.resource("https://api.mailgun.net/v3/sandbox04d8a2fbbb8946f4bccdba3e4dbed84f.mailgun.org/messages");
-        
-        MultivaluedMapImpl formData = new MultivaluedMapImpl();
-        formData.add("from", "Mailgun Sandbox <postmaster@sandbox04d8a2fbbb8946f4bccdba3e4dbed84f.mailgun.org>");
-        formData.add("to", "Freelancers " + email + ">");
-        formData.add("subject", subject);
-        formData.add("text", body);
-        webResource.type(MediaType.APPLICATION_FORM_URLENCODED).post(ClientResponse.class, formData);*/
+        final String username = "translators.uniandes@gmail.com";
+        final String password = "Translators123*";
+
+        Properties props = new Properties();
+        props.put("mail.smtp.auth", "true");
+        props.put("mail.smtp.starttls.enable", "true");
+        props.put("mail.smtp.host", "smtp.gmail.com");
+        props.put("mail.smtp.port", "587");
+
+        Session session = Session.getInstance(props,
+          new javax.mail.Authenticator() {
+                protected PasswordAuthentication getPasswordAuthentication() {
+                        return new PasswordAuthentication(username, password);
+                }
+          });
+
+        try {
+
+                Message message = new MimeMessage(session);
+                message.setFrom(new InternetAddress("translators.uniandes@gmail.com"));
+                message.setRecipients(Message.RecipientType.TO,
+                        InternetAddress.parse(email));
+                message.setSubject(subject);
+                message.setText(body);
+
+                Transport.send(message);
+
+                System.out.println("Done");
+
+        } catch (MessagingException e) {
+                throw new RuntimeException(e);
+        }
     }
 }
