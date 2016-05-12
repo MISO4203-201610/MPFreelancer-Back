@@ -85,6 +85,7 @@ public abstract class ProjectConverter {
             dtoBas.setSponsor(ProjectSponsorConverter.refEntity2DTO(entity.getSponsor()));
             dtoBas.setStatus(StatusConverter.refEntity2DTO(entity.getStatus()));
             dtoBas.setExpectedskills(SkillConverter.listEntity2DTO(entity.getExpectedskills()));
+            dtoBas.setFreelancer(FreelancerConverter.refEntity2DTO(entity.getFreelancer()));
 
             return dtoBas;
         } else {
@@ -114,6 +115,7 @@ public abstract class ProjectConverter {
             entity.setCategory(CategoryConverter.refDTO2Entity(dto.getCategory()));
             entity.setSponsor(ProjectSponsorConverter.refDTO2Entity(dto.getSponsor()));
             entity.setStatus(StatusConverter.refDTO2Entity(dto.getStatus()));
+            entity.setFreelancer(FreelancerConverter.refDTO2Entity(dto.getFreelancer()));
 
             return entity;
         } else {

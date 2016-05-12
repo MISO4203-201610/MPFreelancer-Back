@@ -62,6 +62,8 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
 //    @PodamExclude
     @OneToMany(mappedBy = "freelancer", cascade = CascadeType.ALL, orphanRemoval = true)
     private List<CurriculumEntity> curriculums;
+    
+    private String email;
 
     /**
      * @generated
@@ -215,5 +217,13 @@ public class FreelancerEntity extends BaseEntity implements Serializable {
      */
     public void setFreelancers(List<FreelancerTeamEntity> freelancerTeams) {
         this.freelancerTeams = freelancerTeams;
+    }
+    
+    public String getEmail() {
+        return email;
+    }
+    
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
