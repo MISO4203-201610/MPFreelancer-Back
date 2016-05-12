@@ -87,11 +87,14 @@ public class ProjectSprintLogic implements IProjectSprintLogic {
 
     @Override
     public ArtifactEntity getArtifacts(Long projectSprintId, Long artifactsId) {
-        return persistence.find(projectSprintId).getArtifacts()
-                .stream()
-                .filter(a -> a.getId().equals(artifactsId))
-                .findFirst()
-                .get();
+        
+        for (int i = 0; i < persistence.find(projectSprintId).getArtifacts().size(); i++)
+        {
+            if (persistence.find(projectSprintId).getArtifacts().get(i).equals(artifactsId))
+                return persistence.find(projectSprintId).getArtifacts().get(i);
+        }
+        
+        return null;
     }
 
     @Override

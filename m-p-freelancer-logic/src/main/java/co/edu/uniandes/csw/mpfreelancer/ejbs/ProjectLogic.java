@@ -157,11 +157,14 @@ public class ProjectLogic implements IProjectLogic {
 
     @Override
     public ProjectSprintEntity getProjectSprints(Long projectId, Long projectSprintId) {
-        return persistence.find(projectId).getProjectSprints()
-                .stream()
-                .filter(a -> a.getId().equals(projectSprintId))
-                .findFirst()
-                .get();
+        
+        for (int i = 0; i < persistence.find(projectId).getProjectSprints().size(); i++)
+        {
+            if (persistence.find(projectId).getProjectSprints().get(i).equals(projectSprintId))
+                return persistence.find(projectId).getProjectSprints().get(i);
+        }
+        
+        return null;
     }
 
     @Override

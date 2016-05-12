@@ -240,9 +240,11 @@ public class AgreementService {
         projectLogic.updateProject(projectEntity);
         
         // Notify all rejected guys
-        projectEntity.getAgreements().stream().filter((agreement) -> (agreement.getId() != id)).forEach((agreement) -> {
-            new Mail(agreement.getFreelancer().getEmail(), "Agreement reject", "Your agreement " + agreement.getName() + " was rejected :(");
-        });
+        for (int i = 0; i < projectEntity.getAgreements().size(); i++)
+        {
+            if (projectEntity.getAgreements().get(i).getId() != id)
+                new Mail(projectEntity.getAgreements().get(i).getFreelancer().getEmail(), "Agreement reject", "Your agreement " + projectEntity.getAgreements().get(i).getName() + " was rejected :(");
+        }
         
         // Notify choosed guy
         new Mail(entity.getFreelancer().getEmail(), "Agreement accepted", "Your agreement " + entity.getName() + " was accepted! You better start working :)");
