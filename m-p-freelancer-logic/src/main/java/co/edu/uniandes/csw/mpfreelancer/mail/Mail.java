@@ -18,8 +18,8 @@ public class Mail {
     
     public Mail(String email, String subject, String body) {
         
-        final String username = "mpfreelancer22@gmail.com";
-        final String password = "Freelancers22";
+        final String username = "translators.uniandes@gmail.com";
+        final String password = "Translators123*";
 
         Properties props = new Properties();
         props.put("mail.smtp.auth", "true");

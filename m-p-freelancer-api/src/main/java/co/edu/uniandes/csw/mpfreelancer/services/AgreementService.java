@@ -253,7 +253,7 @@ public class AgreementService {
         return AgreementConverter.fullEntity2DTO(agreementLogic.updateAgreement(entity));
     }
     
-    @POST
+    @GET
     @Path("{projectId: \\d+}/{freelancerId: \\d+}/agreementsFreelancer")
     public ProjectEntity agreementAssignFreelancer(@PathParam("projectId") Long projectId, @PathParam("freelancerId") Long freelancerId ) {
         
@@ -278,7 +278,7 @@ public class AgreementService {
         }
         
         // Update project status
-        ProjectEntity project = projectLogic.getProject(projectId);
+        /*ProjectEntity project = projectLogic.getProject(projectId);
         boolean termino = false;
         
         if (freelancer != null)
@@ -292,8 +292,8 @@ public class AgreementService {
             }
         }
         
-        projectLogic.updateProject(project);
+        projectLogic.updateProject(project);*/
         
-        return project;
+        return null;
     }
 }
